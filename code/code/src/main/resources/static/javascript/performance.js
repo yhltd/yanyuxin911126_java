@@ -7,6 +7,7 @@ function getList() {
     }, false, '', function (res) {
         if (res.code == 200) {
             setTable(res.data);
+            $("#performanceTable").bootstrapTable('hideColumn','eiId');
         }
         console.log(res)
     })
@@ -50,6 +51,7 @@ $(function () {
             }, false, '', function (res) {
                 if (res.code == 200) {
                     setTable(res.data)
+                    $("#performanceTable").bootstrapTable('hideColumn','eiId');
                 }
             })
         }
@@ -255,7 +257,7 @@ function setTable(data) {
                 title: '基本信息id',
                 align: 'left',
                 sortable: true,
-                hidden:true,
+                hidden: true,
                 width: 100
             }, {
                 field: 'nian',
