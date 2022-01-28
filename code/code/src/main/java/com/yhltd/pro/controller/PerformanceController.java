@@ -105,11 +105,12 @@ public class PerformanceController {
     public ResultInfo update(@RequestBody String performanceJson) {
         try {
             Performance performance = DecodeUtil.decodeToJson(performanceJson, Performance.class);
-            if (performanceService.update(performance)) {
-                return ResultInfo.success("修改成功", performance);
-            } else {
-                return ResultInfo.success("未修改", performance);
-            }
+            int id=performance.getId();
+            String nian=performance.getNian();
+            int eiId=performance.getEiId();
+            double score=performance.getScore();
+            performanceService.update(id,nian,eiId,score);
+            return ResultInfo.success("修改成功", performance);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("修改失败：{}", e.getMessage());

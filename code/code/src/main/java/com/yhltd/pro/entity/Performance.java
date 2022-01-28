@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 @TableName("performance")
-public class Performance extends EssentialInfo{
+public class Performance {
     /**
      * 主键
      */
@@ -22,7 +22,7 @@ public class Performance extends EssentialInfo{
      */
     private String nian;
     /**
-     * 年
+     * 基本信息id
      */
     private int eiId;
 
@@ -30,4 +30,15 @@ public class Performance extends EssentialInfo{
      * 总分
      */
     private double score;
+
+    /**
+     * 姓名
+     */
+    private String fullName;
+
+    /**
+     * 二级单位
+     */
+    private String secondaryUnit;
+
 }

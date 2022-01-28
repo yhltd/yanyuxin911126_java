@@ -2,7 +2,6 @@ package com.yhltd.pro.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yhltd.pro.entity.Performance;
-import com.yhltd.pro.mapper.EssentialInfoMapper;
 import com.yhltd.pro.mapper.PerformanceMapper;
 import com.yhltd.pro.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +38,12 @@ public class PerformanceServiceImpl extends ServiceImpl<PerformanceMapper, Perfo
     public boolean update(Performance performance) {
         return this.updateById(performance);
     }
+
+    @Override
+    public void update(int id, String nian, int eiId, double score) {
+        performanceMapper.update(id,nian,eiId,score);
+    }
+
 
     @Override
     public boolean delete(int id) {

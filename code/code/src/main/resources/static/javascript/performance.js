@@ -1,3 +1,5 @@
+var operation=""
+
 function getList() {
     $ajax({
         type: 'post',
@@ -53,14 +55,60 @@ $(function () {
         }
     })
 
+    //添加窗体点击选择基本信息按钮
+    $("#add-essential-show").click(function () {
+        operation="添加";
+        getEssentialList();
+    })
+
+    //修改窗体点击选择基本信息按钮
+    $("#update-essential-show").click(function () {
+        operation="修改";
+        getEssentialList();
+    })
+
+    //基本信息关闭按钮
+    $("#essential-close-btn").click(function() {
+        $('#show-essential-modal').modal('hide');
+    })
+
+    //基本信息确定按钮
+    $("#essential-submit-btn").click(function() {
+        let rows = getTableSelection("#show-table-essential");
+        if (operation=="添加"){
+            if (rows.length != 1) {
+                alert('请选择一条数据');
+                return;
+            }else{
+                let rows = getTableSelection("#show-table-essential");
+                $.each(rows, function (index, row) {
+                    $("#eiId").val(row.data.id);
+                    $("#add-fullName").val(row.data.fullName);
+                    $("#add-secondaryUnit").val(row.data.secondaryUnit);
+                })
+                $('#show-essential-modal').modal('hide');
+            }
+            operation="";
+        }else if(operation=="修改"){
+            if (rows.length != 1) {
+                alert('请选择一条数据');
+                return;
+            }else{
+                let rows = getTableSelection("#show-table-essential");
+                $.each(rows, function (index, row) {
+                    $("#update-eiId").val(row.data.id);
+                    $("#update-fullName").val(row.data.fullName);
+                    $("#update-secondaryUnit").val(row.data.secondaryUnit);
+                })
+                $('#show-essential-modal').modal('hide');
+            }
+            operation="";
+        }
+    })
+
     //点击添加按钮
     $("#add-btn").click(function () {
         $('#add-modal').modal('show');
-    })
-
-    //点击选择基本信息按钮
-    $("#essential-show").click(function () {
-        getEssentialList();
     })
 
     //添加窗体中的关闭按钮
@@ -77,7 +125,7 @@ $(function () {
                 type: 'post',
                 url: '/performance/add',
                 data: JSON.stringify({
-                    essentialInfo: addInfo
+                    performance: addInfo
                 }),
                 dataType: 'json',
                 contentType: 'application/json;charset=utf-8'
@@ -94,7 +142,7 @@ $(function () {
 
     //点击修改按钮
     $('#update-btn').click(function () {
-        let rows = getTableSelection('#essentialInfoTable')
+        let rows = getTableSelection('#performanceTable')
         if (rows.length > 1 || rows.length == 0) {
             alert('请选择一条数据修改');
             return;
@@ -119,7 +167,7 @@ $(function () {
                     type: 'post',
                     url: '/performance/update',
                     data: {
-                        essentialInfoJson: JSON.stringify(params)
+                        performanceJson: JSON.stringify(params)
                     },
                     dataType: 'json',
                     contentType: 'application/json;charset=utf-8'
@@ -127,8 +175,8 @@ $(function () {
                     alert(res.msg);
                     if (res.code == 200) {
                         $('#update-close-btn').click();
-                        let rows = getTableSelection('#essentialInfoTable');
-                        $('#essentialInfoTable').bootstrapTable('updateRow', {
+                        let rows = getTableSelection('#performanceTable');
+                        $('#performanceTable').bootstrapTable('updateRow', {
                             index: rows[0].index,
                             row: res.data
                         })
@@ -202,6 +250,13 @@ function setTable(data) {
                 formatter: function (value, row, index) {
                     return index + 1;
                 }
+            }, {
+                field: 'eiId',
+                title: '基本信息id',
+                align: 'left',
+                sortable: true,
+                hidden:true,
+                width: 100
             }, {
                 field: 'nian',
                 title: '年份',
@@ -331,6 +386,14 @@ function setShowEssentialTable(data) {
                 sortable: true,
                 width: 100
             }
-        ]
+        ],
+        onClickRow: function (row, el) {
+            let isSelect = $(el).hasClass('selected')
+            if (isSelect) {
+                $(el).removeClass('selected')
+            } else {
+                $(el).addClass('selected')
+            }
+        }
     })
 }

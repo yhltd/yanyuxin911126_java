@@ -90,8 +90,6 @@
         </div>
     </div>
 
-
-
     <!--    添加窗体-->
     <div id="add-modal" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-lg">
@@ -103,13 +101,16 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <button id="essential-show" class="btn btn-primary" style="margin-left: 15px">
+                    <button id="add-essential-show" class="btn btn-primary">
                         <i class="bi bi-plus-square icon"></i>
                         选择基本信息按钮
                     </button>
                 </div>
                 <div class="modal-body">
                     <form id="add-form" class="needs-validation">
+                        <div class="form-group">
+                            <input id="eiId" name="eiId" type="hidden">
+                        </div>
                         <div class="form-group">
                             <label for="add-nian">年份</label>
                             <input id="add-nian" name="nian" type="number" class="form-control" autocomplete="off" required>
@@ -119,14 +120,14 @@
                         </div>
                         <div class="form-group">
                             <label for="add-fullName">姓名</label>
-                            <input id="add-fullName" name="fullName" type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                            <input id="add-fullName"  type="text" class="form-control" autocomplete="off" required readonly="readonly">
                             <div class="invalid-feedback">
                                 请选择基本信息！
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="add-secondaryUnit">姓名</label>
-                            <input id="add-secondaryUnit" name="secondaryUnit" type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                            <label for="add-secondaryUnit">机关</label>
+                            <input id="add-secondaryUnit"  type="text" class="form-control" autocomplete="off" required readonly="readonly">
                             <div class="invalid-feedback">
                                 请选择基本信息！
                             </div>
@@ -155,6 +156,74 @@
         </div>
     </div>
 
+    <!--    修改窗体-->
+    <div id="update-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">基本信息修改</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <button id="update-essential-show" class="btn btn-primary">
+                        <i class="bi bi-plus-square icon"></i>
+                        选择基本信息按钮
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="update-form" class="needs-validation">
+                        <div class="form-group">
+                            <input id="update-id" name="id" type="hidden">
+                        </div>
+                        <div class="form-group">
+                            <input id="update-eiId" name="eiId" type="hidden">
+                        </div>
+                        <div class="form-group">
+                            <label for="update-nian">年份</label>
+                            <input id="update-nian" name="nian" type="number" class="form-control" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                请输入年份！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-fullName">姓名</label>
+                            <input id="update-fullName" name="fullName" type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                            <div class="invalid-feedback">
+                                请选择基本信息！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-secondaryUnit">机关</label>
+                            <input id="update-secondaryUnit" name="secondaryUnit" type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                            <div class="invalid-feedback">
+                                请选择基本信息！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-score">总分</label>
+                            <input id="update-score" name="score" type="number" class="form-control" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                请输入总分！
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="border-top" style="padding: 15px;">
+                    <button id="update-essential-btn" type="button" class="btn btn-primary">
+                        <i class="bi bi-arrow-bar-up icon"></i>
+                        提交
+                    </button>
+                    <button id="close-essential-btn" type="button" class="btn btn-primary left-margin">
+                        <i class="bi bi-x-circle icon"></i>
+                        关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!--    查询基本信息窗体-->
     <div id="show-essential-modal" class="modal fade" tabindex="-1">
@@ -168,11 +237,11 @@
                     <table id="show-table-essential"></table>
                 </div>
                 <div class="border-top" style="padding: 15px;">
-                    <button id="upd-essential-submit-btn" type="button" class="btn btn-primary">
+                    <button id="essential-submit-btn" type="button" class="btn btn-primary">
                         <i class="bi bi-arrow-bar-up icon"></i>
                         确定
                     </button>
-                    <button id="upd-essential-close-btn" type="button" class="btn btn-primary left-margin">
+                    <button id="essential-close-btn" type="button" class="btn btn-primary left-margin">
                         <i class="bi bi-x-circle icon"></i>
                         关闭
                     </button>

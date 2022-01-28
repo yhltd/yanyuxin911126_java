@@ -43,6 +43,13 @@ public interface PerformanceService extends IService<Performance> {
     boolean update(Performance performance);
 
     /**
+     * 修改
+     *
+     * @return 是否修改成功
+     */
+    void update(int id, String nian,int eiId,double score);
+
+    /**
      * 删除
      *
      * @param id 根据id删除

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yhltd.pro.entity.Performance;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface PerformanceMapper extends BaseMapper<Performance> {
      *
      * @return 基本信息list
      */
-    @Select("select p.id,nian,ei.full_name as full_name,ei.secondary_unit as secondary_unit," +
+    @Select("select p.id,ei_id,nian,ei.full_name as full_name,ei.secondary_unit as secondary_unit," +
             "score from performance as p left join essential_info as ei on ei.id=p.ei_id")
     List<Performance> getList();
 
@@ -27,8 +28,12 @@ public interface PerformanceMapper extends BaseMapper<Performance> {
      * @param fullName 姓名
      * @return 基本信息list
      */
-    @Select("select p.id,nian,ei.full_name as full_name,ei.secondary_unit as secondary_unit," +
+    @Select("select p.id,ei_id,nian,ei.full_name as full_name,ei.secondary_unit as secondary_unit," +
             "score from performance as p left join essential_info as ei on ei.id=p.ei_id " +
             "where ei.full_name like \"%\" #{fullName} \"%\" ")
     List<Performance> getListByName(String fullName);
+
+    @Select("update performance set nian=#{nian},ei_id=#{eiId}" +
+            ",score=#{score} where id=#{id}")
+    void update(Integer id,String nian,Integer eiId,Double score);
 }
