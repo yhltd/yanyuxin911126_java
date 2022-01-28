@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本信息</title>
+    <script type="text/javascript" src="../javascript/Jquery.js"></script>
+    <!--bootstrap-->
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/icons/bootstrap-icons.css">
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
+    <!--bootstrap-table-->
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap-table.css">
+    <script src="../bootstrap-4.5.0-dist/js/bootstrap-table.js"></script>
+    <script src="../bootstrap-4.5.0-dist/js/bootstrap-table-zh-CN.min.js"></script>
+
+    <script type="text/javascript" src="../javascript/index.js"></script>
+    <script type="text/javascript" src="../javascript/essentialInfo.js"></script>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body class="pt-2">
+    <div class="top-toolbar row">
+        <div class="col-md-3 mb-2">
+            <input id="fullName" type="text" class="form-control" placeholder="请输入姓名" autocomplete="off">
+        </div>
+        <div class="col-md-2 mb-2">
+            <button id="query_button" class="btn btn-primary">
+                <i class="bi bi-search icon"></i>
+                查询
+            </button>
+        </div>
+    </div>
+
+    <div id="table-toolbar">
+        <div class="btn-group" role="group">
+            <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：基本信息</a>
+            <button id="refresh-btn" class="btn btn-primary">
+                <i class="bi bi-arrow-clockwise"></i>
+                刷新
+            </button>
+            <button id="add-btn" class="btn btn-primary">
+                <i class="bi bi-plus-square icon"></i>
+                新增
+            </button>
+            <button id="update-btn" class="btn btn-primary">
+                <i class="bi bi-pencil-square icon"></i>
+                修改
+            </button>
+            <button id="delete-btn" class="btn btn-primary">
+                <i class="bi bi-trash icon"></i>
+                删除
+            </button>
+            <a class="btn btn-primary" style="color: white;padding-top: 8px" href="../excel/essentialInfo.xlsx">
+                <i class="bi bi-arrow-down-square"></i>
+                下载excel模板
+            </a>
+            <button id="upload-btn" class="btn btn-primary">
+                <i class="bi bi-arrow-up-square"></i>
+                上传excel
+            </button>
+        </div>
+    </div>
+
+    <div class="table-div border-top">
+        <table id="essentialInfoTable"></table>
+    </div>
+
+    <!--    添加窗体-->
+    <div id="add-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">添加基本信息</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-form" class="needs-validation">
+                        <div class="form-group">
+                            <label for="add-fullName">姓名</label>
+                            <input id="add-fullName" name="fullName" type="text" class="form-control" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                请输入姓名！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-sex">性别</label>
+                            <select id="add-sex" name="sex" class="form-control">
+                                <option>男</option>
+                                <option>女</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                请选择性别！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-birthday">出生日期</label>
+                            <input id="add-birthday" name="birthday" class="form-control" type="date"/>
+                            <div class="invalid-feedback">
+                                请选择出生日期！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-riqi">任现职时间</label>
+                            <input id="add-riqi" name="riqi" class="form-control" type="date"/>
+                            <div class="invalid-feedback">
+                                请选择任现职时间！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-education">学历</label>
+                            <input id="add-education" name="education" class="form-control" type="text" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                请输入学历！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-post">职务</label>
+                            <input id="add-post" name="post" class="form-control" type="text" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                请输入职务！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-department1">部门/单位岗位（选择党委书记、中层正职、中层副职）</label>
+                            <select id="add-department1" name="department1" class="form-control">
+                                <option>党委书记</option>
+                                <option>中层正职</option>
+                                <option>中层副职</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                请选择部门/单位岗位！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-level">层级</label>
+                            <select id="add-level" name="level" class="form-control">
+                                <option>正处级</option>
+                                <option>副处级</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                请选择层级！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-secondaryUnit">二级单位</label>
+                            <input id="add-secondaryUnit" name="secondaryUnit" class="form-control" type="text" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                请输入二级单位！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-department2">部门/单位</label>
+                            <input id="add-department2" name="department2" class="form-control" type="text" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                请输入部门/单位！
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="border-top" style="padding: 15px;">
+                    <button id="add-submit-btn" type="button" class="btn btn-primary">
+                        <i class="bi bi-arrow-bar-up icon"></i>
+                        提交
+                    </button>
+                    <button id="add-close-btn" type="button" class="btn btn-primary left-margin">
+                        <i class="bi bi-x-circle icon"></i>
+                        关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    修改窗体-->
+    <div id="update-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">基本信息修改</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="update-form" class="needs-validation">
+                        <div class="form-group">
+                            <input id="id" name="id" type="hidden">
+                        </div>
+                        <div class="form-group">
+                            <label for="update-fullName">姓名</label>
+                            <input id="update-fullName" name="fullName" type="text" class="form-control" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                请输入姓名！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-sex">性别</label>
+                            <select id="update-sex" name="sex" class="form-control">
+                                <option>男</option>
+                                <option>女</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                请选择性别！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-birthday">出生日期</label>
+                            <input id="update-birthday" name="birthday" class="form-control" type="date"/>
+                            <div class="invalid-feedback">
+                                请选择出生日期！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-riqi">任现职时间</label>
+                            <input id="update-riqi" name="riqi" class="form-control" type="date"/>
+                            <div class="invalid-feedback">
+                                请选择任现职时间！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-education">学历</label>
+                            <input id="update-education" name="education" class="form-control" type="text" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                请输入学历！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-post">职务</label>
+                            <input id="update-post" name="post" class="form-control" type="text" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                请输入职务！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-department1">部门/单位岗位（选择党委书记、中层正职、中层副职）</label>
+                            <select id="update-department1" name="department1" class="form-control">
+                                <option>党委书记</option>
+                                <option>中层正职</option>
+                                <option>中层副职</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                请选择部门/单位岗位！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-level">层级</label>
+                            <select id="update-level" name="level" class="form-control">
+                                <option>正处级</option>
+                                <option>副处级</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                请选择层级！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-secondaryUnit">二级单位</label>
+                            <input id="update-secondaryUnit" name="secondaryUnit" class="form-control" type="text" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                请输入二级单位！
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-department2">部门/单位</label>
+                            <input id="update-department2" name="department2" class="form-control" type="text" autocomplete="off" required>
+                            <div class="invalid-feedback">
+                                请输入部门/单位！
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="border-top" style="padding: 15px;">
+                    <button id="update-essential-btn" type="button" class="btn btn-primary">
+                        <i class="bi bi-arrow-bar-up icon"></i>
+                        提交
+                    </button>
+                    <button id="close-essential-btn" type="button" class="btn btn-primary left-margin">
+                        <i class="bi bi-x-circle icon"></i>
+                        关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--    删除窗体-->
+    <div id="delete-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">提示</div>
+                </div>
+                <div id="delete-modal-body" class="modal-body">
+                    确定删除吗？
+                </div>
+                <div class="border-top" style="padding: 15px;">
+                    <button id="delete-submit-btn" type="button" class="btn btn-primary">
+                        <i class="bi bi-arrow-bar-up icon"></i>
+                        确定
+                    </button>
+                    <button id="delete-close-btn" type="button" class="btn btn-primary left-margin">
+                        <i class="bi bi-x-circle icon"></i>
+                        取消
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
