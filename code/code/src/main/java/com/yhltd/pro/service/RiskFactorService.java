@@ -1,54 +1,45 @@
 package com.yhltd.pro.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yhltd.pro.entity.Performance;
+import com.yhltd.pro.entity.RiskFactor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * @author wanghui
- * @date 2022/01/28 12:02
+ * @date 2022/02/08 12:24
  */
 @Service
-public interface PerformanceService extends IService<Performance> {
+public interface RiskFactorService extends IService<RiskFactor> {
     /**
-     * 查询所有基本信息
+     * 查询
      *
      * @return 基本信息的集合
      */
-    List<Performance> getList();
+    List<RiskFactor> getList();
 
     /**
-     * 查询所有基本信息
+     * 根据姓名查询
      * @param
      * @return 基本信息的集合
      */
-    List<Performance> getListByName(String fullName);
-
+    List<RiskFactor> getListByName(String fullName);
 
     /**
-     * 添加基本信息
+     * 添加
      *
-     * @param performance 添加的对象
+     * @param riskFactor 添加的对象
      * @return 是否添加成功
      */
-    boolean add(Performance performance);
-
-    /**
-     * 修改
-     *
-     * @param performance 修改的对象
-     * @return 是否修改成功
-     */
-    boolean update(Performance performance);
+    boolean add(RiskFactor riskFactor);
 
     /**
      * 修改
      *
      * @return 是否修改成功
      */
-    void update(int id, String nian,int eiId,double score);
+    void update(int id, int eiId,double A,double B,double C,double D,double E);
 
     /**
      * 删除

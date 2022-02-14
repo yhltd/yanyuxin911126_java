@@ -1,7 +1,7 @@
 function getList() {
     $ajax({
         type: 'post',
-        url: '/essential_info/getList',
+        url: '/key_experience_config/getList',
     }, false, '', function (res) {
         if (res.code == 200) {
             setTable(res.data);
@@ -16,21 +16,21 @@ $(function () {
 
     //点击刷新按钮
     $("#refresh-btn").click(function () {
-        $("#fullName").val("");
+        $("#unit").val("");
         getList();
     })
 
     //点击查询按钮
     $("#query_button").click(function () {
-        var fullName = $("#fullName").val();
-        if (fullName == "") {
-            alert("请输入要查询的姓名")
+        var unit = $("#unit").val();
+        if (unit == "") {
+            alert("请输入要查询的单位/部门")
         } else {
             $ajax({
                 type: 'post',
-                url: '/essential_info/getListByName',
+                url: '/key_experience_config/getListByUnit',
                 data: {
-                    fullName: fullName
+                    unit: unit
                 }
             }, false, '', function (res) {
                 if (res.code == 200) {
@@ -53,30 +53,28 @@ $(function () {
 
     //点击添加窗体提交按钮
     $("#add-submit-btn").click(function () {
-        if (checkForm("#add-form")) {
-            let addInfo = formToJson("#add-form")
-            $ajax({
-                type: 'post',
-                url: '/essential_info/add',
-                data: JSON.stringify({
-                    essentialInfo: addInfo
-                }),
-                dataType: 'json',
-                contentType: 'application/json;charset=utf-8'
-            }, false, '', function (res) {
-                alert(res.msg)
-                if (res.code == 200) {
-                    $('#add-modal').modal('hide');
-                    getList();
-                    $('#add-form')[0].reset();
-                }
-            })
-        }
+        let addInfo = formToJson("#add-form")
+        $ajax({
+            type: 'post',
+            url: '/key_experience_config/add',
+            data: JSON.stringify({
+                keyExperienceConfig: addInfo
+            }),
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8'
+        }, false, '', function (res) {
+            alert(res.msg)
+            if (res.code == 200) {
+                $('#add-modal').modal('hide');
+                getList();
+                $('#add-form')[0].reset();
+            }
+        })
     })
 
     //点击修改按钮
     $('#update-btn').click(function () {
-        let rows = getTableSelection('#essentialInfoTable')
+        let rows = getTableSelection('#keyExperienceConfigTable')
         if (rows.length > 1 || rows.length == 0) {
             alert('请选择一条数据修改');
             return;
@@ -86,44 +84,42 @@ $(function () {
     })
 
     //修改窗体中的关闭按钮
-    $('#close-essential-btn').click(function () {
+    $('#close-form-btn').click(function () {
         $('#update-form')[0].reset();
         $('#update-modal').modal('hide');
     })
 
     //点击修改按钮提交事件
-    $('#update-essential-btn').click(function () {
+    $('#update-form-btn').click(function () {
         var msg = confirm("确认要修改吗？")
         if (msg) {
-            if (checkForm('#update-form')) {
-                let params = formToJson('#update-form');
-                $ajax({
-                    type: 'post',
-                    url: '/essential_info/update',
-                    data: {
-                        essentialInfoJson: JSON.stringify(params)
-                    },
-                    dataType: 'json',
-                    contentType: 'application/json;charset=utf-8'
-                }, false, '', function (res) {
-                    alert(res.msg);
-                    if (res.code == 200) {
-                        $('#update-close-btn').click();
-                        let rows = getTableSelection('#essentialInfoTable');
-                        $('#essentialInfoTable').bootstrapTable('updateRow', {
-                            index: rows[0].index,
-                            row: res.data
-                        })
-                        $('#update-modal').modal('hide');
-                    }
-                })
-            }
+            let params = formToJson('#update-form');
+            $ajax({
+                type: 'post',
+                url: '/key_experience_config/update',
+                data: {
+                    keyExperienceConfigJson: JSON.stringify(params)
+                },
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8'
+            }, false, '', function (res) {
+                alert(res.msg);
+                if (res.code == 200) {
+                    $('#update-close-btn').click();
+                    let rows = getTableSelection('#keyExperienceConfigTable');
+                    $('#keyExperienceConfigTable').bootstrapTable('updateRow', {
+                        index: rows[0].index,
+                        row: res.data
+                    })
+                    $('#update-modal').modal('hide');
+                }
+            })
         }
     })
 
     //点击删除按钮事件
     $('#delete-btn').click(function () {
-        let rows = getTableSelection("#essentialInfoTable");
+        let rows = getTableSelection("#keyExperienceConfigTable");
         if (rows.length == 0) {
             alert('请至少选择一条数据删除')
             return;
@@ -132,15 +128,14 @@ $(function () {
     })
 
     $('#delete-submit-btn').click(function () {
-        let rows = getTableSelection("#essentialInfoTable");
-
+        let rows = getTableSelection("#keyExperienceConfigTable");
         let idList = [];
         $.each(rows, function (index, row) {
             idList.push(row.data.id)
         })
         $ajax({
             type: 'post',
-            url: '/essential_info/delete',
+            url: '/key_experience_config/delete',
             data: JSON.stringify({
                 idList: idList
             }),
@@ -177,7 +172,7 @@ $(function () {
                     url = oFRevent.target.result;
                     $ajax({
                         type: 'post',
-                        url: '/essential_info/upload',
+                        url: '/key_experience_config/upload',
                         data: {
                             excel: url
                         },
@@ -199,11 +194,11 @@ $(function () {
 })
 
 function setTable(data) {
-    if ($('#essentialInfoTable').html != '') {
-        $('#essentialInfoTable').bootstrapTable('load', data);
+    if ($('#keyExperienceConfigTable').html != '') {
+        $('#keyExperienceConfigTable').bootstrapTable('load', data);
     }
 
-    $('#essentialInfoTable').bootstrapTable({
+    $('#keyExperienceConfigTable').bootstrapTable({
         data: data,
         sortStable: true,
         classes: 'table table-hover',
@@ -223,50 +218,26 @@ function setTable(data) {
                     return index + 1;
                 }
             }, {
-                field: 'fullName',
-                title: '姓名',
+                field: 'unit',
+                title: '单位',
                 align: 'left',
                 sortable: true,
                 width: 100
             }, {
-                field: 'sex',
-                title: '性别',
+                field: 'experience',
+                title: '经历项',
                 align: 'left',
                 sortable: true,
                 width: 100,
             }, {
-                field: 'birthday',
-                title: '出生日期',
+                field: 'duration',
+                title: '历练时长',
                 align: 'left',
                 sortable: true,
                 width: 100
             }, {
-                field: 'age',
-                title: '年龄',
-                align: 'left',
-                sortable: true,
-                width: 100
-            }, {
-                field: 'riqi',
-                title: '任现职时间',
-                align: 'left',
-                sortable: true,
-                width: 100
-            }, {
-                field: 'education',
-                title: '学历',
-                align: 'left',
-                sortable: true,
-                width: 100
-            }, {
-                field: 'post',
-                title: '职务',
-                align: 'left',
-                sortable: true,
-                width: 100
-            }, {
-                field: 'department1',
-                title: '部门/单位岗位（填写中层正职、党委书记、中层正职、中层副职）',
+                field: 'score',
+                title: '赋分',
                 align: 'left',
                 sortable: true,
                 width: 100
@@ -277,14 +248,8 @@ function setTable(data) {
                 sortable: true,
                 width: 100
             }, {
-                field: 'secondaryUnit',
-                title: '二级单位',
-                align: 'left',
-                sortable: true,
-                width: 100
-            }, {
-                field: 'department2',
-                title: '部门/单位',
+                field: 'fullMark',
+                title: '满分',
                 align: 'left',
                 sortable: true,
                 width: 100

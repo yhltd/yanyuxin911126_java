@@ -3,11 +3,11 @@ var operation = ""
 function getList() {
     $ajax({
         type: 'post',
-        url: '/performance/getList',
+        url: '/key_experience_score/getList',
     }, false, '', function (res) {
         if (res.code == 200) {
             setTable(res.data);
-            $("#performanceTable").bootstrapTable('hideColumn', 'eiId');
+            $("#keyExperienceScoreTable").bootstrapTable('hideColumn', 'eiId');
         }
         console.log(res)
     })
@@ -32,29 +32,34 @@ $(function () {
 
     //点击刷新按钮
     $("#refresh-btn").click(function () {
-        $("#fullName").val("");
         getList();
     })
 
-    //点击查询按钮
-    $("#query_button").click(function () {
-        var fullName = $("#fullName").val();
-        if (fullName == "") {
-            alert("请输入要查询的姓名")
-        } else {
-            $ajax({
-                type: 'post',
-                url: '/performance/getListByName',
-                data: {
-                    fullName: fullName
-                }
-            }, false, '', function (res) {
-                if (res.code == 200) {
-                    setTable(res.data)
-                    $("#performanceTable").bootstrapTable('hideColumn', 'eiId');
-                }
-            })
-        }
+    //点击刷新按钮
+    $("#calculation-btn").click(function () {
+        $ajax({
+            type: 'post',
+            url: '/key_experience_score/calculation',
+        }, false, '', function (res) {
+            alert(res.msg);
+            if (res.code == 200) {
+                setTable(res.data);
+                $("#keyExperienceScoreTable").bootstrapTable('hideColumn', 'eiId');
+            }
+            console.log(res)
+        })
+    })
+
+    //点击添加按钮
+    $("#add-btn").click(function () {
+        $('#add-modal').modal('show');
+    })
+
+    //添加窗体中的关闭按钮
+    $('#add-close-btn').click(function () {
+        $('#add-form')[0].reset();
+        $('#add-modal').modal('hide');
+        operation = "";
     })
 
     //添加窗体点击选择基本信息按钮
@@ -84,7 +89,7 @@ $(function () {
             } else {
                 let rows = getTableSelection("#show-table-essential");
                 $.each(rows, function (index, row) {
-                    $("#eiId").val(row.data.id);
+                    $("#add-eiId").val(row.data.id);
                     $("#add-fullName").val(row.data.fullName);
                     $("#add-secondaryUnit").val(row.data.secondaryUnit);
                 })
@@ -108,26 +113,22 @@ $(function () {
         }
     })
 
-    //点击添加按钮
-    $("#add-btn").click(function () {
-        $('#add-modal').modal('show');
-    })
-
-    //添加窗体中的关闭按钮
-    $('#add-close-btn').click(function () {
-        $('#add-form')[0].reset();
-        $('#add-modal').modal('hide');
-    })
-
     //点击添加窗体提交按钮
     $("#add-submit-btn").click(function () {
-        if (checkForm("#add-form")) {
+        if ($("#add-eiId").val() == '') {
+            $("#add-fullName").next().css('display', 'block');
+            $("#add-secondaryUnit").next().css('display', 'block')
+        } else if ($("#add-ksDate").val() == '') {
+            $("#add-ksDate").next().css('display', 'block');
+        } else if ($("#add-jsDate").val() == '') {
+            $("#add-jsDate").next().css('display', 'block');
+        } else {
             let addInfo = formToJson("#add-form")
             $ajax({
                 type: 'post',
-                url: '/performance/add',
+                url: '/key_experience_score/add',
                 data: JSON.stringify({
-                    performance: addInfo
+                    keyExperienceScore: addInfo
                 }),
                 dataType: 'json',
                 contentType: 'application/json;charset=utf-8'
@@ -144,7 +145,7 @@ $(function () {
 
     //点击修改按钮
     $('#update-btn').click(function () {
-        let rows = getTableSelection('#performanceTable')
+        let rows = getTableSelection('#keyExperienceScoreTable')
         if (rows.length > 1 || rows.length == 0) {
             alert('请选择一条数据修改');
             return;
@@ -154,22 +155,29 @@ $(function () {
     })
 
     //修改窗体中的关闭按钮
-    $('#close-essential-btn').click(function () {
+    $('#close-form-btn').click(function () {
         $('#update-form')[0].reset();
         $('#update-modal').modal('hide');
     })
 
     //点击修改按钮提交事件
-    $('#update-essential-btn').click(function () {
+    $('#update-form-btn').click(function () {
         var msg = confirm("确认要修改吗？")
         if (msg) {
-            if (checkForm('#update-form')) {
+            if ($("#update-eiId").val() == '') {
+                $("#update-fullName").next().css('display', 'block');
+                $("#update-secondaryUnit").next().css('display', 'block')
+            } else if ($("#update-ksDate").val() == '') {
+                $("#add-ksDate").next().css('display', 'block');
+            } else if ($("#update-jsDate").val() == '') {
+                $("#update-jsDate").next().css('display', 'block');
+            } else {
                 let params = formToJson('#update-form');
                 $ajax({
                     type: 'post',
-                    url: '/performance/update',
+                    url: '/key_experience_score/update',
                     data: {
-                        performanceJson: JSON.stringify(params)
+                        keyExperienceScoreJson: JSON.stringify(params)
                     },
                     dataType: 'json',
                     contentType: 'application/json;charset=utf-8'
@@ -177,8 +185,8 @@ $(function () {
                     alert(res.msg);
                     if (res.code == 200) {
                         $('#update-close-btn').click();
-                        let rows = getTableSelection('#performanceTable');
-                        $('#performanceTable').bootstrapTable('updateRow', {
+                        let rows = getTableSelection('#keyExperienceScoreTable');
+                        $('#keyExperienceScoreTable').bootstrapTable('updateRow', {
                             index: rows[0].index,
                             row: res.data
                         })
@@ -191,7 +199,7 @@ $(function () {
 
     //点击删除按钮事件
     $('#delete-btn').click(function () {
-        let rows = getTableSelection("#performanceTable");
+        let rows = getTableSelection("#keyExperienceScoreTable");
         if (rows.length == 0) {
             alert('请至少选择一条数据删除')
             return;
@@ -200,7 +208,7 @@ $(function () {
     })
 
     $('#delete-submit-btn').click(function () {
-        let rows = getTableSelection("#performanceTable");
+        let rows = getTableSelection("#keyExperienceScoreTable");
 
         let idList = [];
         $.each(rows, function (index, row) {
@@ -208,7 +216,7 @@ $(function () {
         })
         $ajax({
             type: 'post',
-            url: '/performance/delete',
+            url: '/key_experience_score/delete',
             data: JSON.stringify({
                 idList: idList
             }),
@@ -245,7 +253,7 @@ $(function () {
                     url = oFRevent.target.result;
                     $ajax({
                         type: 'post',
-                        url: '/performance/upload',
+                        url: '/key_experience_score/upload',
                         data: {
                             excel: url
                         },
@@ -264,15 +272,14 @@ $(function () {
         }
     })
 
-
 })
 
 function setTable(data) {
-    if ($('#performanceTable').html != '') {
-        $('#performanceTable').bootstrapTable('load', data);
+    if ($('#keyExperienceScoreTable').html != '') {
+        $('#keyExperienceScoreTable').bootstrapTable('load', data);
     }
 
-    $('#performanceTable').bootstrapTable({
+    $('#keyExperienceScoreTable').bootstrapTable({
         data: data,
         sortStable: true,
         classes: 'table table-hover',
@@ -299,26 +306,62 @@ function setTable(data) {
                 hidden: true,
                 width: 100
             }, {
-                field: 'nian',
-                title: '年份',
-                align: 'left',
-                sortable: true,
-                width: 100
-            }, {
                 field: 'fullName',
                 title: '姓名',
                 align: 'left',
                 sortable: true,
                 width: 100,
             }, {
+                field: 'ksDate',
+                title: '开始时间',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'jsDate',
+                title: '结束时间',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'age',
+                title: '任职年龄',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
                 field: 'secondaryUnit',
-                title: '机关',
+                title: '所在单位',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'job',
+                title: '从事工作和职务',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'duration',
+                title: '经历时长',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'experienceStage',
+                title: '经历阶段',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'experience',
+                title: '经历项',
                 align: 'left',
                 sortable: true,
                 width: 100
             }, {
                 field: 'score',
-                title: '总分',
+                title: '经历赋分',
                 align: 'left',
                 sortable: true,
                 width: 100

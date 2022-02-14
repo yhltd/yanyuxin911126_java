@@ -1,7 +1,22 @@
 package com.yhltd.pro.util;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.apache.logging.log4j.util.Base64Util;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.springframework.util.Base64Utils;
+import sun.misc.BASE64Decoder;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -450,4 +465,35 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
   public static <T> T cast(Object obj) {
     return (T) obj;
   }
+
+  public static File base64ToFile(String base64) {
+    //获取到前缀的定位
+    int index = base64.indexOf("base64,")+7;
+    base64 = base64.substring(index, base64.length());//去除前缀
+
+    if(base64==null||"".equals(base64)) {
+      return null;
+    }
+    byte[] buff= Base64.decode(base64);
+    File file=null;
+    FileOutputStream fout=null;
+    try {
+      file = File.createTempFile("tmp", null);
+      fout=new FileOutputStream(file);
+      fout.write(buff);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }finally {
+      if(fout!=null) {
+        try {
+          fout.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+    return file;
+  }
+
+
 }

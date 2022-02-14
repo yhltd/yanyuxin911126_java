@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>绩效数据</title>
+    <title>关键专业</title>
     <script type="text/javascript" src="../javascript/Jquery.js"></script>
     <!--bootstrap-->
     <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap.min.css">
@@ -15,7 +15,7 @@
     <script src="../bootstrap-4.5.0-dist/js/bootstrap-table-zh-CN.min.js"></script>
 
     <script type="text/javascript" src="../javascript/index.js"></script>
-    <script type="text/javascript" src="../javascript/performance.js"></script>
+    <script type="text/javascript" src="../javascript/keyMajor.js"></script>
     <link rel="stylesheet" href="../css/index.css">
 </head>
 <body class="pt-2">
@@ -33,7 +33,7 @@
 
     <div id="table-toolbar">
         <div class="btn-group" role="group">
-            <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：绩效数据</a>
+            <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：关键专业</a>
             <button id="refresh-btn" class="btn btn-primary">
                 <i class="bi bi-arrow-clockwise"></i>
                 刷新
@@ -63,7 +63,7 @@
     </div>
 
     <div class="table-div border-top">
-        <table id="performanceTable"></table>
+        <table id="keyMajorTable"></table>
     </div>
 
     <!--    删除窗体-->
@@ -95,7 +95,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-title">添加绩效数据</div>
+                    <div class="modal-title">添加</div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -109,37 +109,91 @@
                 <div class="modal-body">
                     <form id="add-form" class="needs-validation">
                         <div class="form-group">
-                            <input id="eiId" name="eiId" type="hidden">
-                        </div>
-                        <div class="form-group">
-                            <label for="add-nian">年份</label>
-                            <input id="add-nian" name="nian" type="number" class="form-control" autocomplete="off" required>
-                            <div class="invalid-feedback">
-                                请输入年份！
-                            </div>
+                            <input id="add-eiId" name="eiId" type="hidden" >
                         </div>
                         <div class="form-group">
                             <label for="add-fullName">姓名</label>
-                            <input id="add-fullName"  type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                            <input id="add-fullName" type="text" class="form-control" autocomplete="off" readonly="readonly" required>
                             <div class="invalid-feedback">
-                                请选择基本信息！
+                                请选择姓名！
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="add-secondaryUnit">机关</label>
-                            <input id="add-secondaryUnit"  type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                            <label for="add-department">单位</label>
+                            <select id="add-department" name="department" class="form-control" required>
+                                <option>&nbsp;</option>
+                            </select>
                             <div class="invalid-feedback">
-                                请选择基本信息！
+                                请选择单位！
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="add-score">总分</label>
-                            <input id="add-score" name="score" class="form-control" type="number" autocomplete="off" required>
+                            <label for="add-level">层级</label>
+                            <input id="add-level" type="text" class="form-control" autocomplete="off" readonly="readonly" required>
                             <div class="invalid-feedback">
-                                请输入总分！
+                                请选择层级！
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <label for="add-a">主管业务1</label>
+                            <select id="add-a" name="A" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-b">主管业务2</label>
+                            <select id="add-b" name="B" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-c">主管业务3</label>
+                            <select id="add-c" name="C" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-d">主管业务4</label>
+                            <select id="add-d" name="D" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-e">主管业务5</label>
+                            <select id="add-e" name="E" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-f">主管业务6</label>
+                            <select id="add-f" name="F" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-g">主管业务7</label>
+                            <select id="add-g" name="G" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-h">主管业务8</label>
+                            <select id="add-h" name="H" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-i">主管业务9</label>
+                            <select id="add-i" name="I" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-j">主管业务10</label>
+                            <select id="add-j" name="J" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
                     </form>
                 </div>
                 <div class="border-top" style="padding: 15px;">
@@ -161,7 +215,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-title">基本信息修改</div>
+                    <div class="modal-title">修改</div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -169,7 +223,7 @@
                 <div class="modal-body">
                     <button id="update-essential-show" class="btn btn-primary">
                         <i class="bi bi-plus-square icon"></i>
-                        选择基本信息按钮
+                        选择基本信息
                     </button>
                 </div>
                 <div class="modal-body">
@@ -181,41 +235,96 @@
                             <input id="update-eiId" name="eiId" type="hidden">
                         </div>
                         <div class="form-group">
-                            <label for="update-nian">年份</label>
-                            <input id="update-nian" name="nian" type="number" class="form-control" autocomplete="off" required>
-                            <div class="invalid-feedback">
-                                请输入年份！
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="update-fullName">姓名</label>
-                            <input id="update-fullName" name="fullName" type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                            <input id="update-fullName" name="fullName" type="text" class="form-control" autocomplete="off" readonly="readonly" required>
                             <div class="invalid-feedback">
-                                请选择基本信息！
+                                请选择姓名！
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="update-secondaryUnit">机关</label>
-                            <input id="update-secondaryUnit" name="secondaryUnit" type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                            <label for="update-department">单位</label>
+                            <select id="update-department" name="department" class="form-control" required>
+                                <option>&nbsp;</option>
+                            </select>
                             <div class="invalid-feedback">
-                                请选择基本信息！
+                                请选择单位！
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="update-score">总分</label>
-                            <input id="update-score" name="score" type="number" class="form-control" autocomplete="off" required>
+                            <label for="update-level">层级</label>
+                            <input id="update-level" name="level" type="text" class="form-control" autocomplete="off" readonly="readonly" required>
                             <div class="invalid-feedback">
-                                请输入总分！
+                                请选择层级！
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-a">主管业务1</label>
+                            <select id="update-a" name="A" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-b">主管业务2</label>
+                            <select id="update-b" name="B" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-c">主管业务3</label>
+                            <select id="update-c" name="C" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-d">主管业务4</label>
+                            <select id="update-d" name="D" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-e">主管业务5</label>
+                            <select id="update-e" name="E" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-f">主管业务6</label>
+                            <select id="update-f" name="F" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-g">主管业务7</label>
+                            <select id="update-g" name="G" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-h">主管业务8</label>
+                            <select id="update-h" name="H" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-i">主管业务9</label>
+                            <select id="update-i" name="I" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="update-j">主管业务10</label>
+                            <select id="update-j" name="J" class="form-control">
+                                <option>&nbsp;</option>
+                            </select>
                         </div>
                     </form>
                 </div>
                 <div class="border-top" style="padding: 15px;">
-                    <button id="update-essential-btn" type="button" class="btn btn-primary">
+                    <button id="update-form-btn" type="button" class="btn btn-primary">
                         <i class="bi bi-arrow-bar-up icon"></i>
                         提交
                     </button>
-                    <button id="close-essential-btn" type="button" class="btn btn-primary left-margin">
+                    <button id="close-form-btn" type="button" class="btn btn-primary left-margin">
                         <i class="bi bi-x-circle icon"></i>
                         关闭
                     </button>

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>绩效数据</title>
+    <title> 关键经历积分对应表</title>
     <script type="text/javascript" src="../javascript/Jquery.js"></script>
     <!--bootstrap-->
     <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap.min.css">
@@ -15,13 +14,14 @@
     <script src="../bootstrap-4.5.0-dist/js/bootstrap-table-zh-CN.min.js"></script>
 
     <script type="text/javascript" src="../javascript/index.js"></script>
-    <script type="text/javascript" src="../javascript/performance.js"></script>
+    <script type="text/javascript" src="../javascript/keyExperienceConfig.js"></script>
     <link rel="stylesheet" href="../css/index.css">
+
 </head>
 <body class="pt-2">
     <div class="top-toolbar row">
         <div class="col-md-3 mb-2">
-            <input id="fullName" type="text" class="form-control" placeholder="请输入姓名" autocomplete="off">
+            <input id="unit" type="text" class="form-control" placeholder="单位" autocomplete="off">
         </div>
         <div class="col-md-2 mb-2">
             <button id="query_button" class="btn btn-primary">
@@ -33,7 +33,7 @@
 
     <div id="table-toolbar">
         <div class="btn-group" role="group">
-            <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：绩效数据</a>
+            <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：关键经历积分对应表</a>
             <button id="refresh-btn" class="btn btn-primary">
                 <i class="bi bi-arrow-clockwise"></i>
                 刷新
@@ -63,7 +63,7 @@
     </div>
 
     <div class="table-div border-top">
-        <table id="performanceTable"></table>
+        <table id="keyExperienceConfigTable"></table>
     </div>
 
     <!--    删除窗体-->
@@ -95,51 +95,49 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-title">添加绩效数据</div>
+                    <div class="modal-title">添加</div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <button id="add-essential-show" class="btn btn-primary">
-                        <i class="bi bi-plus-square icon"></i>
-                        选择基本信息
-                    </button>
-                </div>
-                <div class="modal-body">
                     <form id="add-form" class="needs-validation">
                         <div class="form-group">
-                            <input id="eiId" name="eiId" type="hidden">
-                        </div>
-                        <div class="form-group">
-                            <label for="add-nian">年份</label>
-                            <input id="add-nian" name="nian" type="number" class="form-control" autocomplete="off" required>
+                            <label for="add-unit">单位</label>
+                            <input id="add-unit" name="unit" type="text" class="form-control" autocomplete="off" >
                             <div class="invalid-feedback">
-                                请输入年份！
+                                请填写单位！
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="add-fullName">姓名</label>
-                            <input id="add-fullName"  type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                            <label for="add-experience">经历项</label>
+                            <input id="add-experience" name="experience" type="text" class="form-control" autocomplete="off" >
                             <div class="invalid-feedback">
-                                请选择基本信息！
+                                请填写经历项！
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="add-secondaryUnit">机关</label>
-                            <input id="add-secondaryUnit"  type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                            <label for="add-duration">历练时长</label>
+                            <input id="add-duration" name="duration" type="text" class="form-control" autocomplete="off" >
                             <div class="invalid-feedback">
-                                请选择基本信息！
+                                请填写历练时长！
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="add-score">总分</label>
-                            <input id="add-score" name="score" class="form-control" type="number" autocomplete="off" required>
+                            <label for="add-score">赋分</label>
+                            <input id="add-score" name="score" type="text" class="form-control" autocomplete="off" >
                             <div class="invalid-feedback">
-                                请输入总分！
+                                请填写赋分！
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <label for="add-level">层级</label>
+                            <input id="add-level" name="level" type="text" class="form-control" autocomplete="off" >
+                        </div>
+                        <div class="form-group">
+                            <label for="add-fullMark">满分</label>
+                            <input id="add-fullMark" name="fullMark" type="text" class="form-control" autocomplete="off" >
+                        </div>
                     </form>
                 </div>
                 <div class="border-top" style="padding: 15px;">
@@ -161,87 +159,48 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-title">基本信息修改</div>
+                    <div class="modal-title">修改</div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <button id="update-essential-show" class="btn btn-primary">
-                        <i class="bi bi-plus-square icon"></i>
-                        选择基本信息按钮
-                    </button>
-                </div>
-                <div class="modal-body">
                     <form id="update-form" class="needs-validation">
                         <div class="form-group">
-                            <input id="update-id" name="id" type="hidden">
+                            <input id="id" name="id" type="hidden">
                         </div>
                         <div class="form-group">
-                            <input id="update-eiId" name="eiId" type="hidden">
+                            <label for="update-unit">单位</label>
+                            <input id="update-unit" name="unit" type="text" class="form-control" autocomplete="off" >
                         </div>
                         <div class="form-group">
-                            <label for="update-nian">年份</label>
-                            <input id="update-nian" name="nian" type="number" class="form-control" autocomplete="off" required>
-                            <div class="invalid-feedback">
-                                请输入年份！
-                            </div>
+                            <label for="update-experience">经历项</label>
+                            <input id="update-experience" name="experience" type="text" class="form-control" autocomplete="off" >
                         </div>
                         <div class="form-group">
-                            <label for="update-fullName">姓名</label>
-                            <input id="update-fullName" name="fullName" type="text" class="form-control" autocomplete="off" required readonly="readonly">
-                            <div class="invalid-feedback">
-                                请选择基本信息！
-                            </div>
+                            <label for="update-duration">历练时长</label>
+                            <input id="update-duration" name="duration" type="text" class="form-control" autocomplete="off" >
                         </div>
                         <div class="form-group">
-                            <label for="update-secondaryUnit">机关</label>
-                            <input id="update-secondaryUnit" name="secondaryUnit" type="text" class="form-control" autocomplete="off" required readonly="readonly">
-                            <div class="invalid-feedback">
-                                请选择基本信息！
-                            </div>
+                            <label for="update-score">赋分</label>
+                            <input id="update-score" name="score" type="number" class="form-control" autocomplete="off" >
                         </div>
                         <div class="form-group">
-                            <label for="update-score">总分</label>
-                            <input id="update-score" name="score" type="number" class="form-control" autocomplete="off" required>
-                            <div class="invalid-feedback">
-                                请输入总分！
-                            </div>
+                            <label for="update-level">层级</label>
+                            <input id="update-level" name="level" type="text" class="form-control" autocomplete="off" >
+                        </div>
+                        <div class="form-group">
+                            <label for="update-fullMark">满分</label>
+                            <input id="update-fullMark" name="fullMark" type="number" class="form-control" autocomplete="off" >
                         </div>
                     </form>
                 </div>
                 <div class="border-top" style="padding: 15px;">
-                    <button id="update-essential-btn" type="button" class="btn btn-primary">
+                    <button id="update-form-btn" type="button" class="btn btn-primary">
                         <i class="bi bi-arrow-bar-up icon"></i>
                         提交
                     </button>
-                    <button id="close-essential-btn" type="button" class="btn btn-primary left-margin">
-                        <i class="bi bi-x-circle icon"></i>
-                        关闭
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!--    查询基本信息窗体-->
-    <div id="show-essential-modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title">选择基本信息</div>
-                </div>
-                <div class="modal-body">
-                    <input id="showEssentialInfoId" type="hidden"/>
-                    <table id="show-table-essential"></table>
-                </div>
-                <div class="border-top" style="padding: 15px;">
-                    <button id="essential-submit-btn" type="button" class="btn btn-primary">
-                        <i class="bi bi-arrow-bar-up icon"></i>
-                        确定
-                    </button>
-                    <button id="essential-close-btn" type="button" class="btn btn-primary left-margin">
+                    <button id="close-form-btn" type="button" class="btn btn-primary left-margin">
                         <i class="bi bi-x-circle icon"></i>
                         关闭
                     </button>

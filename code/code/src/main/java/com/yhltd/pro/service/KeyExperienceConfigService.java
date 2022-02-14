@@ -1,54 +1,51 @@
 package com.yhltd.pro.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yhltd.pro.entity.Performance;
+import com.yhltd.pro.entity.KeyExperienceConfig;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * @author wanghui
- * @date 2022/01/28 12:02
+ * @date 2022/02/09 14:41
  */
 @Service
-public interface PerformanceService extends IService<Performance> {
+public interface KeyExperienceConfigService extends IService<KeyExperienceConfig> {
     /**
-     * 查询所有基本信息
+     * 查询
      *
      * @return 基本信息的集合
      */
-    List<Performance> getList();
+    List<KeyExperienceConfig> getList();
 
     /**
      * 查询所有基本信息
-     * @param
      * @return 基本信息的集合
      */
-    List<Performance> getListByName(String fullName);
-
+    List<KeyExperienceConfig> getListByUnit(String unit);
 
     /**
-     * 添加基本信息
+     * 查询
+     * @return list
+     */
+    List<KeyExperienceConfig> getListByDepartment1(String department1);
+
+    /**
+     * 添加
      *
-     * @param performance 添加的对象
+     * @param keyExperienceConfig 添加的对象
      * @return 是否添加成功
      */
-    boolean add(Performance performance);
+    boolean add(KeyExperienceConfig keyExperienceConfig);
 
     /**
      * 修改
      *
-     * @param performance 修改的对象
+     * @param keyExperienceConfig 修改的对象
      * @return 是否修改成功
      */
-    boolean update(Performance performance);
-
-    /**
-     * 修改
-     *
-     * @return 是否修改成功
-     */
-    void update(int id, String nian,int eiId,double score);
+    boolean update(KeyExperienceConfig keyExperienceConfig);
 
     /**
      * 删除

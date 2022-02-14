@@ -3,11 +3,11 @@ var operation = ""
 function getList() {
     $ajax({
         type: 'post',
-        url: '/performance/getList',
+        url: '/keyabilityscore/getList',
     }, false, '', function (res) {
         if (res.code == 200) {
             setTable(res.data);
-            $("#performanceTable").bootstrapTable('hideColumn', 'eiId');
+            $("#keyAbilityScoreTable").bootstrapTable('hideColumn', 'eiId');
         }
         console.log(res)
     })
@@ -44,14 +44,14 @@ $(function () {
         } else {
             $ajax({
                 type: 'post',
-                url: '/performance/getListByName',
+                url: '/keyabilityscore/getListByName',
                 data: {
                     fullName: fullName
                 }
             }, false, '', function (res) {
                 if (res.code == 200) {
                     setTable(res.data)
-                    $("#performanceTable").bootstrapTable('hideColumn', 'eiId');
+                    $("#keyAbilityScoreTable").bootstrapTable('hideColumn', 'eiId');
                 }
             })
         }
@@ -84,9 +84,10 @@ $(function () {
             } else {
                 let rows = getTableSelection("#show-table-essential");
                 $.each(rows, function (index, row) {
-                    $("#eiId").val(row.data.id);
+                    $("#add-eiId").val(row.data.id);
                     $("#add-fullName").val(row.data.fullName);
-                    $("#add-secondaryUnit").val(row.data.secondaryUnit);
+                    $("#add-department2").val(row.data.department2);
+                    $("#add-department1").val(row.data.department1);
                 })
                 $('#show-essential-modal').modal('hide');
             }
@@ -100,7 +101,8 @@ $(function () {
                 $.each(rows, function (index, row) {
                     $("#update-eiId").val(row.data.id);
                     $("#update-fullName").val(row.data.fullName);
-                    $("#update-secondaryUnit").val(row.data.secondaryUnit);
+                    $("#update-department2").val(row.data.department2);
+                    $("#update-department1").val(row.data.department1);
                 })
                 $('#show-essential-modal').modal('hide');
             }
@@ -121,13 +123,13 @@ $(function () {
 
     //点击添加窗体提交按钮
     $("#add-submit-btn").click(function () {
-        if (checkForm("#add-form")) {
+        if ($('#add-eiId').val() != '') {
             let addInfo = formToJson("#add-form")
             $ajax({
                 type: 'post',
-                url: '/performance/add',
+                url: '/keyabilityscore/add',
                 data: JSON.stringify({
-                    performance: addInfo
+                    keyAbilityScore: addInfo
                 }),
                 dataType: 'json',
                 contentType: 'application/json;charset=utf-8'
@@ -139,37 +141,56 @@ $(function () {
                     $('#add-form')[0].reset();
                 }
             })
+        } else {
+            $("#add-fullName").next().css('display', 'block');
+            $("#add-department2").next().css('display', 'block');
+            $("#add-department1").next().css('display', 'block');
         }
     })
 
     //点击修改按钮
     $('#update-btn').click(function () {
-        let rows = getTableSelection('#performanceTable')
+        let rows = getTableSelection('#keyAbilityScoreTable')
         if (rows.length > 1 || rows.length == 0) {
             alert('请选择一条数据修改');
             return;
         }
         $('#update-modal').modal('show');
         setForm(rows[0].data, '#update-form');
+        $('#update-d').val(rows[0].data.d);
+        $('#update-e').val(rows[0].data.e);
+        $('#update-f').val(rows[0].data.f);
+        $('#update-g').val(rows[0].data.g);
+        $('#update-h').val(rows[0].data.h);
+        $('#update-i').val(rows[0].data.i);
+        $('#update-j').val(rows[0].data.j);
+        $('#update-k').val(rows[0].data.k);
+        $('#update-l').val(rows[0].data.l);
+        $('#update-m').val(rows[0].data.m);
+        $('#update-n').val(rows[0].data.n);
+        $('#update-o').val(rows[0].data.o);
+        $('#update-p').val(rows[0].data.p);
+        $('#update-q').val(rows[0].data.q);
+        $('#update-r').val(rows[0].data.r);
     })
 
     //修改窗体中的关闭按钮
-    $('#close-essential-btn').click(function () {
+    $('#close-form-btn').click(function () {
         $('#update-form')[0].reset();
         $('#update-modal').modal('hide');
     })
 
     //点击修改按钮提交事件
-    $('#update-essential-btn').click(function () {
+    $('#update-form-btn').click(function () {
         var msg = confirm("确认要修改吗？")
         if (msg) {
-            if (checkForm('#update-form')) {
+            if ($('#update-eiId').val() != '') {
                 let params = formToJson('#update-form');
                 $ajax({
                     type: 'post',
-                    url: '/performance/update',
+                    url: '/keyabilityscore/update',
                     data: {
-                        performanceJson: JSON.stringify(params)
+                        keyAbilityScoreJson: JSON.stringify(params)
                     },
                     dataType: 'json',
                     contentType: 'application/json;charset=utf-8'
@@ -177,21 +198,25 @@ $(function () {
                     alert(res.msg);
                     if (res.code == 200) {
                         $('#update-close-btn').click();
-                        let rows = getTableSelection('#performanceTable');
-                        $('#performanceTable').bootstrapTable('updateRow', {
+                        let rows = getTableSelection('#keyAbilityScoreTable');
+                        $('#keyAbilityScoreTable').bootstrapTable('updateRow', {
                             index: rows[0].index,
                             row: res.data
                         })
                         $('#update-modal').modal('hide');
                     }
                 })
+            } else {
+                $("#update-fullName").next().css('display', 'block');
+                $("#update-department2").next().css('display', 'block');
+                $("#update-department1").next().css('display', 'block');
             }
         }
     })
 
     //点击删除按钮事件
     $('#delete-btn').click(function () {
-        let rows = getTableSelection("#performanceTable");
+        let rows = getTableSelection("#keyAbilityScoreTable");
         if (rows.length == 0) {
             alert('请至少选择一条数据删除')
             return;
@@ -200,7 +225,7 @@ $(function () {
     })
 
     $('#delete-submit-btn').click(function () {
-        let rows = getTableSelection("#performanceTable");
+        let rows = getTableSelection("#keyAbilityScoreTable");
 
         let idList = [];
         $.each(rows, function (index, row) {
@@ -208,7 +233,7 @@ $(function () {
         })
         $ajax({
             type: 'post',
-            url: '/performance/delete',
+            url: '/keyabilityscore/delete',
             data: JSON.stringify({
                 idList: idList
             }),
@@ -245,7 +270,7 @@ $(function () {
                     url = oFRevent.target.result;
                     $ajax({
                         type: 'post',
-                        url: '/performance/upload',
+                        url: '/keyabilityscore/upload',
                         data: {
                             excel: url
                         },
@@ -264,15 +289,14 @@ $(function () {
         }
     })
 
-
 })
 
 function setTable(data) {
-    if ($('#performanceTable').html != '') {
-        $('#performanceTable').bootstrapTable('load', data);
+    if ($('#keyAbilityScoreTable').html != '') {
+        $('#keyAbilityScoreTable').bootstrapTable('load', data);
     }
 
-    $('#performanceTable').bootstrapTable({
+    $('#keyAbilityScoreTable').bootstrapTable({
         data: data,
         sortStable: true,
         classes: 'table table-hover',
@@ -295,14 +319,6 @@ function setTable(data) {
                 field: 'eiId',
                 title: '基本信息id',
                 align: 'left',
-                sortable: true,
-                hidden: true,
-                width: 100
-            }, {
-                field: 'nian',
-                title: '年份',
-                align: 'left',
-                sortable: true,
                 width: 100
             }, {
                 field: 'fullName',
@@ -311,17 +327,187 @@ function setTable(data) {
                 sortable: true,
                 width: 100,
             }, {
-                field: 'secondaryUnit',
-                title: '机关',
+                field: 'department2',
+                title: '部门',
                 align: 'left',
                 sortable: true,
                 width: 100
             }, {
-                field: 'score',
-                title: '总分',
+                field: 'department1',
+                title: '层级',
                 align: 'left',
                 sortable: true,
                 width: 100
+            }, {
+                field: 'd',
+                title: '政治素养',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'e',
+                title: '团队管理',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'f',
+                title: '学习创新',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'g',
+                title: '攻坚克难',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'h',
+                title: '远见胆识',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'i',
+                title: '经营思维',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'j',
+                title: '统筹协调',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'k',
+                title: '推动落实',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'l',
+                title: '沟通合作',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'm',
+                title: '人际敏锐',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'n',
+                title: '政治敏锐',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'o',
+                title: '精益管理',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'p',
+                title: '严谨细致',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'q',
+                title: '风险防范',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'r',
+                title: '专业管理',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'average',
+                title: '均分',
+                align: 'left',
+                sortable: true,
+                width: 100,
+                formatter: function (value, row, index) {
+                    var sum = 0;
+                    var count = 0;
+                    if (isNaN(parseFloat(row.d)) == false) {
+                        sum = sum + parseFloat(row.d);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.e)) == false) {
+                        sum = sum + parseFloat(row.e);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.f)) == false) {
+                        sum = sum + parseFloat(row.f);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.g)) == false) {
+                        sum = sum + parseFloat(row.g);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.h)) == false) {
+                        sum = sum + parseFloat(row.h);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.i)) == false) {
+                        sum = sum + parseFloat(row.i);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.j)) == false) {
+                        sum = sum + parseFloat(row.j);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.k)) == false) {
+                        sum = sum + parseFloat(row.k);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.l)) == false) {
+                        sum = sum + parseFloat(row.l);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.m)) == false) {
+                        sum = sum + parseFloat(row.m);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.n)) == false) {
+                        sum = sum + parseFloat(row.n);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.o)) == false) {
+                        sum = sum + parseFloat(row.o);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.p)) == false) {
+                        sum = sum + parseFloat(row.p);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.q)) == false) {
+                        sum = sum + parseFloat(row.q);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.r)) == false) {
+                        sum = sum + parseFloat(row.r);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(row.s)) == false) {
+                        sum = sum + parseFloat(row.s);
+                        count = count + 1;
+                    }
+                    if (count != 0) {
+                        return (sum / count).toFixed(2);
+                    } else {
+                        return 0;
+                    }
+
+                }
             }
         ],
         onClickRow: function (row, el) {

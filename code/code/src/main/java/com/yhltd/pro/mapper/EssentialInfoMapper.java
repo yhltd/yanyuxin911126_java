@@ -32,4 +32,42 @@ public interface EssentialInfoMapper extends BaseMapper<EssentialInfo> {
             ",riqi,education,post,department1,level,secondary_unit,department2 from " +
             "essential_info where full_name like \"%\" #{fullName} \"%\" ")
     List<EssentialInfo> getListByName(String fullName);
+
+    /**
+     * 查询基本信息id
+     * @param fullName 姓名
+     * @return 基本信息list
+     */
+    @Select("select id from essential_info where full_name = #{fullName} and secondary_unit " +
+            "=#{secondaryUnit} limit 1")
+    List<EssentialInfo> getEiId(String fullName,String secondaryUnit);
+
+    /**
+     * 查询基本信息id
+     * @param fullName 姓名
+     * @return 基本信息list
+     */
+    @Select("select id from essential_info where full_name = #{fullName} and department1 " +
+            "=#{department1} and department2=#{department2} limit 1")
+    List<EssentialInfo> getEiId2(String fullName,String department2,String department1);
+
+    /**
+     * 查询基本信息id
+     * @param fullName 姓名
+     * @return 基本信息list
+     */
+    @Select("select id from essential_info where full_name = #{fullName} and level " +
+            "=#{level} limit 1")
+    List<EssentialInfo> getEiId3(String fullName,String level);
+
+    /**
+     * 查询基本信息id
+     * @param
+     * @return 基本信息list
+     */
+    @Select("select department2 from essential_info group by department2 ")
+    List<EssentialInfo> getDepartment2();
+
+
+
 }

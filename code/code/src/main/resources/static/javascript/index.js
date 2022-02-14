@@ -1,6 +1,6 @@
 function $ajax(options, isLoading, loadingEl, success) {
     $.ajax({
-        timeout: 5000,
+        timeout: 30000,
         ...options,
         beforeSend: function () {
             if (isLoading) {
@@ -45,29 +45,35 @@ function setForm(params, el) {
                 return false;
             }
         })
+        $(el + ' select').each(function (index, select) {
+            if ($(select).attr('name') == param) {
+                $(select).val(params[param]);
+                return false;
+            }
+        })
     }
 }
 
 function checkForm(el) {
     let result = true
-    $(el + ' input').each(function(index,input){
+    $(el + ' input').each(function (index, input) {
         let isRequired = $(input).data('required');
-        if(isRequired == "1"){
+        if (isRequired == "1") {
             return true;
         }
-        if($(input).val() == '' || $(input).val() <= 0){
-            $(input).next().css('display','block')
+        if ($(input).val() == '' || $(input).val() <= 0) {
+            $(input).next().css('display', 'block')
             result = false
-        }else{
-            $(input).next().css('display','none')
+        } else {
+            $(input).next().css('display', 'none')
         }
     })
-    $(el + ' select').each(function(index,select){
-        if($(select).val() == '' || $(select).val() == undefined){
-            $(select).next().css('display','block')
+    $(el + ' select').each(function (index, select) {
+        if ($(select).val() == '' || $(select).val() == undefined) {
+            $(select).next().css('display', 'block')
             result = false
-        }else{
-            $(select).next().css('display','none')
+        } else {
+            $(select).next().css('display', 'none')
         }
     })
     return result;
@@ -138,7 +144,7 @@ function setTableSelection(tableEl, rowIndex, isSelect) {
 
 
 $(function () {
-    $('#out-a').click(function(){
+    $('#out-a').click(function () {
         window.location.href = '/';
     })
 
@@ -149,7 +155,7 @@ $(function () {
 
     //点击提交按钮
     $("#update-submit-btn").click(function () {
-        if(checkForm('#updPwdForm')) {
+        if (checkForm('#updPwdForm')) {
             let params = formToJson('#updPwdForm')
             if (params.newPwd != params.newPwdAgain) {
                 alert('两次新密码不相同')

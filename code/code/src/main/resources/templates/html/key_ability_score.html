@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>关键能力得分</title>
+    <script type="text/javascript" src="../javascript/Jquery.js"></script>
+    <!--bootstrap-->
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/icons/bootstrap-icons.css">
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
+    <!--bootstrap-table-->
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap-table.css">
+    <script src="../bootstrap-4.5.0-dist/js/bootstrap-table.js"></script>
+    <script src="../bootstrap-4.5.0-dist/js/bootstrap-table-zh-CN.min.js"></script>
+
+    <script type="text/javascript" src="../javascript/index.js"></script>
+    <script type="text/javascript" src="../javascript/key_ability_score.js"></script>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body class="pt-2">
+<div class="top-toolbar row">
+    <div class="col-md-3 mb-2">
+        <input id="fullName" type="text" class="form-control" placeholder="请输入姓名" autocomplete="off">
+    </div>
+    <div class="col-md-2 mb-2">
+        <button id="query_button" class="btn btn-primary">
+            <i class="bi bi-search icon"></i>
+            查询
+        </button>
+    </div>
+</div>
+
+<div id="table-toolbar">
+    <div class="btn-group" role="group">
+        <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：关键能力得分</a>
+        <button id="refresh-btn" class="btn btn-primary">
+            <i class="bi bi-arrow-clockwise"></i>
+            刷新
+        </button>
+        <button id="add-btn" class="btn btn-primary">
+            <i class="bi bi-plus-square icon"></i>
+            新增
+        </button>
+        <button id="update-btn" class="btn btn-primary">
+            <i class="bi bi-pencil-square icon"></i>
+            修改
+        </button>
+        <button id="delete-btn" class="btn btn-primary">
+            <i class="bi bi-trash icon"></i>
+            删除
+        </button>
+        <a class="btn btn-primary" style="color: white;padding-top: 8px" href="../excel/performance.xlsx">
+            <i class="bi bi-arrow-down-square"></i>
+            下载excel模板
+        </a>
+        <button id="upload-btn" class="btn btn-primary">
+            <i class="bi bi-arrow-up-square"></i>
+            上传excel
+        </button>
+    </div>
+    <input type="file" id="file" hidden="hidden">
+</div>
+
+<div class="table-div border-top">
+    <table id="keyAbilityScoreTable"></table>
+</div>
+
+
+<!--    删除窗体-->
+<div id="delete-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">提示</div>
+            </div>
+            <div id="delete-modal-body" class="modal-body">
+                确定删除吗？
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="delete-submit-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    确定
+                </button>
+                <button id="delete-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    添加窗体-->
+<div id="add-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">添加绩效数据</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button id="add-essential-show" class="btn btn-primary">
+                    <i class="bi bi-plus-square icon"></i>
+                    选择基本信息按钮
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-form" class="needs-validation">
+                    <div class="form-group">
+                        <input id="add-eiId" name="eiId" type="hidden">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-fullName">姓名</label>
+                        <input id="add-fullName" type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                        <div class="invalid-feedback">
+                            请选择基本信息！
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-department2">部门</label>
+                        <input id="add-department2"  type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                        <div class="invalid-feedback">
+                            请选择基本信息！
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-department1">层级</label>
+                        <input id="add-department1" class="form-control" type="text" autocomplete="off" required readonly="readonly">
+                        <div class="invalid-feedback">
+                            请选择基本信息！
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-d">政治素养</label>
+                        <input id="add-d" name="D" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-e">团队管理</label>
+                        <input id="add-e" name="E" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-f">学习创新</label>
+                        <input id="add-f" name="F" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-g">攻坚克难</label>
+                        <input id="add-g" name="G" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-h">远见胆识</label>
+                        <input id="add-h" name="H" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-i">经营思维</label>
+                        <input id="add-i" name="I" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-j">统筹协调</label>
+                        <input id="add-j" name="J" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-k">推动落实</label>
+                        <input id="add-k" name="K" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-l">沟通合作</label>
+                        <input id="add-l" name="L" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-m">人际敏锐</label>
+                        <input id="add-m" name="M" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-n">政治敏锐</label>
+                        <input id="add-n" name="N" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-o">精益管理</label>
+                        <input id="add-o" name="O" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-p">严谨细致</label>
+                        <input id="add-p" name="P" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-q">风险防范</label>
+                        <input id="add-q" name="Q" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-r">专业管理</label>
+                        <input id="add-r" name="R" class="form-control" type="number" autocomplete="off">
+                    </div>
+                </form>
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="add-submit-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    提交
+                </button>
+                <button id="add-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    修改窗体-->
+<div id="update-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">基本信息修改</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button id="update-essential-show" class="btn btn-primary">
+                    <i class="bi bi-plus-square icon"></i>
+                    选择基本信息按钮
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="update-form" class="needs-validation">
+                    <div class="form-group">
+                        <input id="update-id" name="id" type="hidden">
+                    </div>
+                    <div class="form-group">
+                        <input id="update-eiId" name="eiId" type="hidden">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-fullName">姓名</label>
+                        <input id="update-fullName" name="fullName" type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                        <div class="invalid-feedback">
+                            请选择基本信息！
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-department2">部门</label>
+                        <input id="update-department2" name="department2"  type="text" class="form-control" autocomplete="off" required readonly="readonly">
+                        <div class="invalid-feedback">
+                            请选择基本信息！
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-department1">层级</label>
+                        <input id="update-department1" name="department1" class="form-control" type="text" autocomplete="off" required readonly="readonly">
+                        <div class="invalid-feedback">
+                            请选择基本信息！
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-d">政治素养</label>
+                        <input id="update-d" name="D" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-e">团队管理</label>
+                        <input id="update-e" name="E" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-f">学习创新</label>
+                        <input id="update-f" name="F" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-g">攻坚克难</label>
+                        <input id="update-g" name="G" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-h">远见胆识</label>
+                        <input id="update-h" name="H" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-i">经营思维</label>
+                        <input id="update-i" name="I" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-j">统筹协调</label>
+                        <input id="update-j" name="J" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-k">推动落实</label>
+                        <input id="update-k" name="K" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-l">沟通合作</label>
+                        <input id="update-l" name="L" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-m">人际敏锐</label>
+                        <input id="update-m" name="M" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-n">政治敏锐</label>
+                        <input id="update-n" name="N" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-o">精益管理</label>
+                        <input id="update-o" name="O" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-p">严谨细致</label>
+                        <input id="update-p" name="P" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-q">风险防范</label>
+                        <input id="update-q" name="Q" class="form-control" type="number" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-r">专业管理</label>
+                        <input id="update-r" name="R" class="form-control" type="number" autocomplete="off">
+                    </div>
+                </form>
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="update-form-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    提交
+                </button>
+                <button id="close-form-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--    查询基本信息窗体-->
+<div id="show-essential-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">选择基本信息</div>
+            </div>
+            <div class="modal-body">
+                <input id="showEssentialInfoId" type="hidden"/>
+                <table id="show-table-essential"></table>
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="essential-submit-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    确定
+                </button>
+                <button id="essential-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

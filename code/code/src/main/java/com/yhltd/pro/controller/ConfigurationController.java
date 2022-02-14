@@ -1,10 +1,8 @@
 package com.yhltd.pro.controller;
 
+import com.yhltd.pro.entity.Configuration;
 import com.yhltd.pro.entity.EssentialInfo;
-import com.yhltd.pro.entity.Performance;
-import com.yhltd.pro.mapper.EssentialInfoMapper;
-import com.yhltd.pro.service.EssentialInfoService;
-import com.yhltd.pro.service.PerformanceService;
+import com.yhltd.pro.service.ConfigurationService;
 import com.yhltd.pro.util.DecodeUtil;
 import com.yhltd.pro.util.GsonUtil;
 import com.yhltd.pro.util.ResultInfo;
@@ -24,27 +22,24 @@ import java.util.List;
 
 /**
  * @author wanghui
- * @date 2022/01/28 12:26
+ * @date 2022/02/07 12:39
  */
-
 @Slf4j
 @RestController
-@RequestMapping("/performance")
-public class PerformanceController {
+@RequestMapping("/configuration")
+public class ConfigurationController {
     @Autowired
-    private PerformanceService performanceService;
-    @Autowired
-    private EssentialInfoService essentialInfoService;
+    private ConfigurationService configurationService;
 
     /**
-     * 查询基本信息
+     * 查询所有数据
      *
      * @return ResultInfo
      */
     @PostMapping("/getList")
     public ResultInfo getList() {
         try {
-            List<Performance> list = performanceService.getList();
+            List<Configuration> list = configurationService.getList();
             if (StringUtils.isNotNull(list)) {
                 return ResultInfo.success("获取成功", list);
             } else {
@@ -58,15 +53,15 @@ public class PerformanceController {
     }
 
     /**
-     * 根据姓名查询基本信息
+     * 根据单位/部门查询所有数据
      *
-     * @param fullName 姓名
+     * @param department 单位/部门
      * @return ResultInfo
      */
     @PostMapping("/getListByName")
-    public ResultInfo getListByName(String fullName) {
+    public ResultInfo getListByName(String department) {
         try {
-            List<Performance> list = performanceService.getListByName(fullName);
+            List<Configuration> list = configurationService.getListByName(department);
             if (StringUtils.isNotNull(list)) {
                 return ResultInfo.success("获取成功", list);
             } else {
@@ -79,8 +74,9 @@ public class PerformanceController {
         }
     }
 
+
     /**
-     * 添加基本信息
+     * 添加
      *
      * @param map map
      * @return ResultInfo
@@ -89,9 +85,9 @@ public class PerformanceController {
     public ResultInfo add(@RequestBody HashMap map) {
         GsonUtil gsonUtil = new GsonUtil(GsonUtil.toJson(map));
         try {
-            Performance performance = gsonUtil.toEntity(gsonUtil.get("performance"), Performance.class);
-            if (performanceService.add(performance)) {
-                return ResultInfo.success("添加成功", performance);
+            Configuration configuration = gsonUtil.toEntity(gsonUtil.get("configuration"), Configuration.class);
+            if (configurationService.add(configuration)) {
+                return ResultInfo.success("添加成功", configuration);
             } else {
                 return ResultInfo.success("添加失败", null);
             }
@@ -104,31 +100,27 @@ public class PerformanceController {
     }
 
     /**
-     * 修改基本信息
+     * 修改
      *
-     * @param performanceJson 要修改的json
+     * @param configurationJson 要修改的json
      * @return ResultInfo
      */
     @PostMapping("/update")
-    public ResultInfo update(@RequestBody String performanceJson) {
+    public ResultInfo update(@RequestBody String configurationJson) {
         try {
-            Performance performance = DecodeUtil.decodeToJson(performanceJson, Performance.class);
-            int id = performance.getId();
-            String nian = performance.getNian();
-            int eiId = performance.getEiId();
-            double score = performance.getScore();
-            performanceService.update(id, nian, eiId, score);
-            return ResultInfo.success("修改成功", performance);
+            Configuration configuration = DecodeUtil.decodeToJson(configurationJson, Configuration.class);
+            configurationService.update(configuration);
+            return ResultInfo.success("修改成功", configuration);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("修改失败：{}", e.getMessage());
-            log.error("参数：{}", performanceJson);
+            log.error("参数：{}", configurationJson);
             return ResultInfo.error("修改失败");
         }
     }
 
     /**
-     * 删除基本信息
+     * 删除
      *
      * @param map map
      * @return ResultInfo
@@ -138,7 +130,7 @@ public class PerformanceController {
         GsonUtil gsonUtil = new GsonUtil(GsonUtil.toJson(map));
         try {
             List<Integer> idList = GsonUtil.toList(gsonUtil.get("idList"), Integer.class);
-            if (performanceService.delete(idList)) {
+            if (configurationService.delete(idList)) {
                 return ResultInfo.success("删除成功");
             } else {
                 return ResultInfo.success("删除失败");
@@ -165,37 +157,44 @@ public class PerformanceController {
             //创建2007版本Excel工作簿对象
             wb = new XSSFWorkbook(fis);
             //获取基本信息工作表
-            Sheet sheet = wb.getSheet("绩效数据");
+            Sheet sheet = wb.getSheet("配置表");
             //循环Excel文件的i=1行开始
             for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-                Performance performance = new Performance();
+                Configuration configuration = new Configuration();
                 //获取第i行
                 Row row = sheet.getRow(i);
-                //年份
-                Cell nian = row.getCell(0);
-                if (nian != null) {
-                    nian.setCellType(CellType.STRING);
-                    performance.setNian(nian.getStringCellValue());
+                //部门/单位
+                Cell department = row.getCell(0);
+                if (department != null) {
+                    department.setCellType(CellType.STRING);
+                    configuration.setDepartment(department.getStringCellValue());
                 }
-                //姓名
-                Cell fullName = row.getCell(1);
-                //机关
-                Cell secondaryUnit = row.getCell(2);
-                if (fullName != null && secondaryUnit != null) {
-                    fullName.setCellType(CellType.STRING);
-                    secondaryUnit.setCellType(CellType.STRING);
-                    //查询基本信息id
-                    List<EssentialInfo> eiIdList = essentialInfoService.getEiId(fullName.getStringCellValue(), secondaryUnit.getStringCellValue());
-                    performance.setEiId(eiIdList.get(0).getId());
+                //单位属性
+                Cell unitAttribute = row.getCell(1);
+                if (unitAttribute != null) {
+                    unitAttribute.setCellType(CellType.STRING);
+                    configuration.setUnitAttribute(unitAttribute.getStringCellValue());
                 }
-                //分数
-                Cell score = row.getCell(3);
-                if (score != null) {
-                    score.setCellType(CellType.NUMERIC);
-                    performance.setScore(score.getNumericCellValue());
+                //关键业务
+                Cell keyBusiness = row.getCell(2);
+                if (keyBusiness != null) {
+                    keyBusiness.setCellType(CellType.STRING);
+                    configuration.setKeyBusiness(keyBusiness.getStringCellValue());
+                }
+                //专长
+                Cell expertise = row.getCell(3);
+                if (expertise != null) {
+                    expertise.setCellType(CellType.STRING);
+                    configuration.setExpertise(expertise.getStringCellValue());
+                }
+                //学历
+                Cell isNecessary = row.getCell(4);
+                if (isNecessary != null) {
+                    isNecessary.setCellType(CellType.STRING);
+                    configuration.setIsNecessary(isNecessary.getStringCellValue());
                 }
                 //保存到数据库
-                performanceService.add(performance);
+                configurationService.add(configuration);
             }
             return ResultInfo.success("上传成功");
         } catch (Exception e) {
@@ -205,6 +204,5 @@ public class PerformanceController {
             return ResultInfo.error("上传失败，请查看数据是否正确");
         }
     }
-
 
 }

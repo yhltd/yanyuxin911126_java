@@ -47,4 +47,24 @@ public class EssentialInfoServiceImpl extends ServiceImpl<EssentialInfoMapper, E
     public boolean delete(List<Integer> idList) {
         return this.removeByIds(idList);
     }
+
+    @Override
+    public List<EssentialInfo> getEiId(String fullName, String secondaryUnit) {
+        return essentialInfoMapper.getEiId(fullName,secondaryUnit);
+    }
+
+    @Override
+    public List<EssentialInfo> getEiId2(String fullName, String department2, String department1) {
+        return essentialInfoMapper.getEiId2(fullName,department2,department1);
+    }
+
+    @Override
+    public List<EssentialInfo> getEiId3(String fullName, String level) {
+        return essentialInfoMapper.getEiId3(fullName,level);
+    }
+
+    @Override
+    public List<EssentialInfo> getDepartment2() {
+        return essentialInfoMapper.getDepartment2();
+    }
 }

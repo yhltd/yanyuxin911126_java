@@ -57,4 +57,34 @@ public interface EssentialInfoService extends IService<EssentialInfo> {
      * @return 是否删除成功
      */
     boolean delete(List<Integer> idList);
+
+    /**
+     * 查询基本信息id
+     *
+     * @return 基本信息id
+     */
+    List<EssentialInfo> getEiId(String fullName,String secondaryUnit);
+
+    /**
+     * 查询基本信息id
+     *
+     * @return 基本信息id
+     */
+    List<EssentialInfo> getEiId2(String fullName,String department2,String department1);
+
+    /**
+     * 查询基本信息id
+     *
+     * @return 基本信息id
+     */
+    List<EssentialInfo> getEiId3(String fullName,String level);
+
+    /**
+     * 查询部门2
+     *
+     * @return
+     */
+    List<EssentialInfo> getDepartment2();
+
+
 }

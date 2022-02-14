@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>团队报告</title>
+    <script type="text/javascript" src="../javascript/Jquery.js"></script>
+    <!--bootstrap-->
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/icons/bootstrap-icons.css">
+    <script type="text/javascript" src="../bootstrap-4.5.0-dist/js/bootstrap.min.js"></script>
+    <!--bootstrap-table-->
+    <link rel="stylesheet" href="../bootstrap-4.5.0-dist/css/bootstrap-table.css">
+    <script src="../bootstrap-4.5.0-dist/js/bootstrap-table.js"></script>
+    <script src="../bootstrap-4.5.0-dist/js/bootstrap-table-zh-CN.min.js"></script>
+
+    <script type="text/javascript" src="../javascript/index.js"></script>
+    <script type="text/javascript" src="../javascript/teamReport.js"></script>
+    <link rel="stylesheet" href="../css/index.css">
+
+    <style>
+        td{
+            vertical-align:middle !important;
+            text-align: center;
+        }
+        tr{
+            vertical-align:middle;
+        }
+    </style>
+</head>
+<body>
+<div id="table-toolbar">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-2">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>领导班子基本统计概况</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td colspan="2">单位/部门名称</td>
+                        <td colspan="2">
+                            <select id="department2" class="form-control">
+
+                            </select>
+                        </td>
+                        <td colspan="1">正职人数</td>
+                        <td id="zhengzhi" colspan="2"></td>
+                        <td colspan="1">副职人数</td>
+                        <td id="fuzhi" colspan="2"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>年龄结构</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td colspan="4">维度</td>
+                        <td colspan="3">理想状态</td>
+                        <td colspan="1">当前情况</td>
+                        <td colspan="2">可能风险</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">班子平均年龄</td>
+                        <td colspan="3">45±2</td>
+                        <td id="averageAge" colspan="1"></td>
+                        <td id="risk1" colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" rowspan="3">不同年龄段比例</td>
+                        <td colspan="1">【50,55】</td>
+                        <td colspan="2">不高于30%</td>
+                        <td id="average50_55" colspan="1"></td>
+                        <td id="risk2" colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="1">【40,49】</td>
+                        <td colspan="2">不少于25%</td>
+                        <td id="average40_49" colspan="1"></td>
+                        <td id="risk3" colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="1">【30,39】</td>
+                        <td colspan="2">不少于25%</td>
+                        <td id="average30_39" colspan="1"></td>
+                        <td id="risk4" colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">年龄极差</td>
+                        <td colspan="3">至少10岁</td>
+                        <td id="ageRange" colspan="1"></td>
+                        <td id="risk5" colspan="2"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>业务结构</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td colspan="3">本单位关键业务</td>
+                        <td id="keyBusiness" colspan="7"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">本单位正职必须主管业务</td>
+                        <td id="isNecessary" colspan="7"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">中层正职主管业务</td>
+                        <td id="zczz" colspan="7"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">党委书记（若有）主管业务</td>
+                        <td id="dwsj" colspan="7"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">中层副职主管业务</td>
+                        <td id="zcfz" colspan="7"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>班子领导力</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td colspan="4">素质项</td>
+                        <td colspan="2">当前班子均分</td>
+                        <td colspan="2">班子均分</td>
+                        <td colspan="1">优势</td>
+                        <td colspan="1">劣势</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" rowspan="4">通用能力要求</td>
+                        <td colspan="2">政治素养</td>
+                        <td id="d" colspan="2"></td>
+                        <td id="dd" colspan="2"></td>
+                        <td id="ddd" colspan="1"></td>
+                        <td id="dddd" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">团队管理</td>
+                        <td id="e" colspan="2"></td>
+                        <td id="ee" colspan="2"></td>
+                        <td id="eee" colspan="1"></td>
+                        <td id="eeee" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">学习创新</td>
+                        <td id="f" colspan="2"></td>
+                        <td id="ff" colspan="2"></td>
+                        <td id="fff" colspan="1"></td>
+                        <td id="ffff" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">攻坚克难</td>
+                        <td id="g" colspan="2"></td>
+                        <td id="gg" colspan="2"></td>
+                        <td id="ggg" colspan="1"></td>
+                        <td id="gggg" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" rowspan="3">中层正职能力</td>
+                        <td colspan="2">远见胆识</td>
+                        <td id="h" colspan="2"></td>
+                        <td id="hh" colspan="2"></td>
+                        <td id="hhh" colspan="1"></td>
+                        <td id="hhhh" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">经营思维</td>
+                        <td id="i" colspan="2"></td>
+                        <td id="ii" colspan="2"></td>
+                        <td id="iii" colspan="1"></td>
+                        <td id="iiii" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">统筹协调</td>
+                        <td id="j" colspan="2"></td>
+                        <td id="jj" colspan="2"></td>
+                        <td id="jjj" colspan="1"></td>
+                        <td id="jjjj" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" rowspan="2">中层副职能力</td>
+                        <td colspan="2">推动落实</td>
+                        <td id="k" colspan="2"></td>
+                        <td id="kk" colspan="2"></td>
+                        <td id="kkk" colspan="1"></td>
+                        <td id="kkkk" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">沟通合作</td>
+                        <td id="l" colspan="2"></td>
+                        <td id="ll" colspan="2"></td>
+                        <td id="lll" colspan="1"></td>
+                        <td id="llll" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" rowspan="6">岗位能力</td>
+                        <td colspan="2">人际敏锐</td>
+                        <td id="m" colspan="2"></td>
+                        <td id="mm" colspan="2"></td>
+                        <td id="mmm" colspan="1"></td>
+                        <td id="mmmm" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">政治敏锐</td>
+                        <td id="n" colspan="2"></td>
+                        <td id="nn" colspan="2"></td>
+                        <td id="nnn" colspan="1"></td>
+                        <td id="nnnn" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">精益管理</td>
+                        <td id="o" colspan="2"></td>
+                        <td id="oo" colspan="2"></td>
+                        <td id="ooo" colspan="1"></td>
+                        <td id="oooo" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">严谨细致</td>
+                        <td id="p" colspan="2"></td>
+                        <td id="pp" colspan="2"></td>
+                        <td id="ppp" colspan="1"></td>
+                        <td id="pppp" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">风险防范</td>
+                        <td id="q" colspan="2"></td>
+                        <td id="qq" colspan="2"></td>
+                        <td id="qqq" colspan="1"></td>
+                        <td id="qqqq" colspan="1"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">专业管理</td>
+                        <td id="r" colspan="2"></td>
+                        <td id="rr" colspan="2"></td>
+                        <td id="rrr" colspan="1"></td>
+                        <td id="rrrr" colspan="1"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>风险因素</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td colspan="5"></td>
+                        <td colspan="1">过度掩饰</td>
+                        <td colspan="1">强硬专制</td>
+                        <td colspan="1">微观管理</td>
+                        <td colspan="1">消极抵抗</td>
+                        <td colspan="1">自我中心</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">中层正职（院长）</td>
+                        <td colspan="1">√</td>
+                        <td colspan="1">√</td>
+                        <td colspan="1">√</td>
+                        <td colspan="1">√</td>
+                        <td colspan="1">√</td>
+                    </tr>
+                    <tr>
+                        <<td colspan="5">中层正职（党委书记）</td>
+                        <td colspan="1">√</td>
+                        <td colspan="1">√</td>
+                        <td colspan="1">√</td>
+                        <td colspan="1">√</td>
+                        <td colspan="1">√</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">中层副职</td>
+                        <td colspan="1">√</td>
+                        <td colspan="1">√</td>
+                        <td colspan="1">√</td>
+                        <td colspan="1">√</td>
+                        <td colspan="1">√</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" rowspan="3">可能风险</td>
+                        <td colspan="5"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
