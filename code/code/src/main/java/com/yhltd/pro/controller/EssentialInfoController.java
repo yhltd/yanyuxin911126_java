@@ -42,7 +42,6 @@ public class EssentialInfoController {
     @Autowired
     private KeyExperienceScoreService keyExperienceScoreService;
 
-
     /**
      * 查询基本信息
      *

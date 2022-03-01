@@ -1,3 +1,5 @@
+var pwd="";
+
 function getList() {
     $ajax({
         type: 'post',
@@ -42,7 +44,62 @@ $(function () {
 
     //点击添加按钮
     $("#add-btn").click(function () {
-        $('#add-modal').modal('show');
+        pwd='1';
+        $('#check-modal').modal('show');
+    })
+
+    //密码文本框点击提交按钮
+    $('#check-submit-btn').click(function () {
+        if($('#pwd').val()=="admin"){
+            if(pwd=='1'){
+                pwd='add';
+            }else if(pwd=='2'){
+                pwd='update';
+            }else if(pwd=='3'){
+                pwd='del';
+            }else if(pwd='4'){
+                pwd='upload';
+            }
+            $('#check-modal').modal('hide');
+            $('#pwd').val('');
+        }else{
+            $('#pwd').val('');
+            pwd="";
+            alert("密码错误！")
+        }
+        if(pwd=="add"){
+            $('#add-modal').modal('show');
+            pwd="";
+        }
+        if(pwd=="update"){
+            let rows = getTableSelection('#configurationTable')
+            if (rows.length > 1 || rows.length == 0) {
+                alert('请选择一条数据修改');
+                return;
+            }
+            $('#update-modal').modal('show');
+            setForm(rows[0].data, '#update-form');
+            pwd="";
+        }
+        if(pwd=='del'){
+            let rows = getTableSelection("#configurationTable");
+            if (rows.length == 0) {
+                alert('请至少选择一条数据删除')
+                return;
+            }
+            $('#delete-modal').modal('show');
+        }
+        if(pwd=='upload'){
+            $('#file').trigger('click');
+        }
+        pwd="";
+    })
+
+    //密码文本框点击关闭按钮
+    $('#check-close-btn').click(function () {
+        $('#pwd').val('')
+        pwd="";
+        $('#check-modal').modal('hide');
     })
 
     //添加窗体中的关闭按钮
@@ -74,13 +131,8 @@ $(function () {
 
     //点击修改按钮
     $('#update-btn').click(function () {
-        let rows = getTableSelection('#configurationTable')
-        if (rows.length > 1 || rows.length == 0) {
-            alert('请选择一条数据修改');
-            return;
-        }
-        $('#update-modal').modal('show');
-        setForm(rows[0].data, '#update-form');
+        pwd='2';
+        $('#check-modal').modal('show');
     })
 
     //修改窗体中的关闭按钮
@@ -120,12 +172,9 @@ $(function () {
 
     //点击删除按钮事件
     $('#delete-btn').click(function () {
-        let rows = getTableSelection("#configurationTable");
-        if (rows.length == 0) {
-            alert('请至少选择一条数据删除')
-            return;
-        }
-        $('#delete-modal').modal('show');
+        pwd='3';
+        $('#check-modal').modal('show');
+
     })
 
     $('#delete-submit-btn').click(function () {
@@ -158,7 +207,9 @@ $(function () {
 
     //上传excel
     $('#upload-btn').click(function () {
-        $('#file').trigger('click');
+        pwd='4';
+        $('#check-modal').modal('show');
+
 
     })
 

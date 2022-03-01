@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Mapper
 public interface KeyExperienceScoreMapper extends BaseMapper<KeyExperienceScore> {
-    @Select("select kes.id,ei_id,ks_date,js_date,age,round(DATEDIFF(js_date,ks_date)/365,2) as " +
+    @Select("select kes.id,ei_id,ks_date,js_date,round(DATEDIFF(ks_date,ei.birthday)/365,2) as age,round(DATEDIFF(js_date,ks_date)/365,2) as " +
             "duration,experience_stage,experience,job,full_name,secondary_unit from " +
             "key_experience_score kes left join essential_info ei on kes.ei_id=ei.id")
     List<KeyExperienceScore> getList();

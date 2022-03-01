@@ -213,97 +213,97 @@ $(function () {
                         count = count + 1
                     }
                     if(count!=0){
-                        if($('#d').val()>d/count){
+                        if(parseFloat($('#d').text())>(d/count)){
                             $('#ddd').text("◆政治素养")
-                        }else if($('#d').val()<d/count){
+                        }else if(parseFloat($('#d').text())<d/count){
                             $('#dddd').text("◆政治素养")
                         }
-                        if($('#e').val()>e/count){
+                        if(parseFloat($('#e').text())>e/count){
                             $('#eee').text("◆团队管理")
-                        }else if($('#e').val()<e/count){
+                        }else if(parseFloat($('#e').text())<e/count){
                             $('#eeee').text("◆团队管理")
                         }
-                        if($('#f').val()>f/count){
+                        if(parseFloat($('#f').text())>f/count){
                             $('#fff').text("◆学习创新")
-                        }else if($('#f').val()<f/count){
+                        }else if(parseFloat($('#f').text())<f/count){
                             $('#ffff').text("◆学习创新")
                         }
-                        if($('#g').val()>g/count){
+                        if(parseFloat($('#g').text())>g/count){
                             $('#ggg').text("◆攻坚克难")
-                        }else if($('#g').val()<g/count){
+                        }else if(parseFloat($('#g').text())<g/count){
                             $('#gggg').text("◆攻坚克难")
                         }
-                        if($('#h').val()>h/count){
+                        if(parseFloat($('#h').text())>h/count){
                             $('#hhh').text("◆远见胆识")
-                        }else if($('#h').val()<h/count){
+                        }else if(parseFloat($('#h').text())<h/count){
                             $('#hhhh').text("◆远见胆识")
                         }
-                        if($('#i').val()>ii/count){
+                        if(parseFloat($('#i').text())>ii/count){
                             $('#iii').text("◆经营思维")
-                        }else if($('#i').val()<ii/count){
+                        }else if(parseFloat($('#i').text())<ii/count){
                             $('#iiii').text("◆经营思维")
                         }
-                        if($('#j').val()>j/count){
+                        if(parseFloat($('#j').text())>j/count){
                             $('#jjj').text("◆统筹协调")
-                        }else if($('#j').val()<j/count){
+                        }else if(parseFloat($('#j').text())<j/count){
                             $('#jjjj').text("◆统筹协调")
                         }
-                        if($('#k').val()>k/count){
+                        if(parseFloat($('#k').text())>k/count){
                             $('#kkk').text("◆推动落实")
-                        }else if($('#k').val()<k/count){
+                        }else if(parseFloat($('#k').text())<k/count){
                             $('#kkkk').text("◆推动落实")
                         }
-                        if($('#l').val()>l/count){
+                        if(parseFloat($('#l').text())>l/count){
                             $('#lll').text("◆沟通合作")
-                        }else if($('#l').val()<l/count){
+                        }else if(parseFloat($('#l').text())<l/count){
                             $('#llll').text("◆沟通合作")
                         }
-                        if($('#m').val()>m/count){
+                        if(parseFloat($('#m').text())>m/count){
                             $('#mmm').text("◆人际敏锐")
-                        }else if($('#m').val()<m/count){
+                        }else if(parseFloat($('#m').text())<m/count){
                             $('#mmmm').text("◆人际敏锐")
                         }
-                        if($('#n').val()>n/count){
+                        if(parseFloat($('#n').text())>n/count){
                             $('#nnn').text("◆政治敏锐")
-                        }else if($('#n').val()<n/count){
+                        }else if(parseFloat($('#n').text())<n/count){
                             $('#nnnn').text("◆政治敏锐")
                         }
-                        if($('#o').val()>o/count){
+                        if(parseFloat($('#o').text())>o/count){
                             $('#ooo').text("◆精益管理")
-                        }else if($('#o').val()<o/count){
+                        }else if(parseFloat($('#o').text())<o/count){
                             $('#oooo').text("◆精益管理")
                         }
-                        if($('#p').val()>p/count){
+                        if(parseFloat($('#p').text())>p/count){
                             $('#ppp').text("◆严谨细致")
-                        }else if($('#p').val()<p/count){
+                        }else if(parseFloat($('#p').text())<p/count){
                             $('#pppp').text("◆严谨细致")
                         }
-                        if($('#q').val()>q/count){
+                        if(parseFloat($('#q').text())>q/count){
                             $('#qqq').text("◆风险防范")
-                        }else if($('#q').val()<q/count){
+                        }else if(parseFloat($('#q').text())<q/count){
                             $('#qqqq').text("◆风险防范")
                         }
-                        if($('#r').val()>r/count){
+                        if(parseFloat($('#r').text())>r/count){
                             $('#rrr').text("◆专业管理")
-                        }else if($('#r').val()<r/count){
+                        }else if(parseFloat($('#r').text())<r/count){
                             $('#rrrr').text("◆专业管理")
                         }
 
-                        $('#dd').text(d/count);
-                        $('#ee').text(e/count);
-                        $('#ff').text(f/count);
-                        $('#gg').text(g/count);
-                        $('#hh').text(h/count);
-                        $('#ii').text(ii/count);
-                        $('#jj').text(j/count);
-                        $('#kk').text(k/count);
-                        $('#ll').text(l/count);
-                        $('#mm').text(m/count);
-                        $('#nn').text(n/count);
-                        $('#oo').text(o/count);
-                        $('#pp').text(p/count);
-                        $('#qq').text(q/count);
-                        $('#rr').text(r/count);
+                        $('#dd').text((d/count).toFixed(2));
+                        $('#ee').text((e/count).toFixed(2));
+                        $('#ff').text((f/count).toFixed(2));
+                        $('#gg').text((g/count).toFixed(2));
+                        $('#hh').text((h/count).toFixed(2));
+                        $('#ii').text((ii/count).toFixed(2));
+                        $('#jj').text((j/count).toFixed(2));
+                        $('#kk').text((k/count).toFixed(2));
+                        $('#ll').text((l/count).toFixed(2));
+                        $('#mm').text((m/count).toFixed(2));
+                        $('#nn').text((n/count).toFixed(2));
+                        $('#oo').text((o/count).toFixed(2));
+                        $('#pp').text((p/count).toFixed(2));
+                        $('#qq').text((q/count).toFixed(2));
+                        $('#rr').text((r/count).toFixed(2));
                     }
                 }
             })
