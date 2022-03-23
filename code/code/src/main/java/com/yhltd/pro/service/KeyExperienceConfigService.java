@@ -23,7 +23,7 @@ public interface KeyExperienceConfigService extends IService<KeyExperienceConfig
      * 查询所有基本信息
      * @return 基本信息的集合
      */
-    List<KeyExperienceConfig> getListByUnit(String unit);
+    List<KeyExperienceConfig> getListByUnit(String unit,String experience);
 
     /**
      * 查询
@@ -62,4 +62,8 @@ public interface KeyExperienceConfigService extends IService<KeyExperienceConfig
      * @return 是否删除成功
      */
     boolean delete(List<Integer> idList);
+
+    List<KeyExperienceConfig>getSelect(String secondaryUnit);
+
+    List<KeyExperienceConfig>getSelect2();
 }

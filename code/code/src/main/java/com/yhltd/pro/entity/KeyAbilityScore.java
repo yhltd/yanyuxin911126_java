@@ -15,7 +15,7 @@ public class KeyAbilityScore {
     /**
      * 主键
      */
-    @TableId(value = "id" , type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private int id;
     /**
      * 基本信息id

@@ -12,6 +12,7 @@ import java.util.List;
  */
 @Service
 public interface PerformanceService extends IService<Performance> {
+
     /**
      * 查询所有基本信息
      *
@@ -21,10 +22,11 @@ public interface PerformanceService extends IService<Performance> {
 
     /**
      * 查询所有基本信息
+     *
      * @param
      * @return 基本信息的集合
      */
-    List<Performance> getListByName(String fullName);
+    List<Performance> getListByName(String fullName,String secondaryUnit);
 
 
     /**
@@ -48,7 +50,7 @@ public interface PerformanceService extends IService<Performance> {
      *
      * @return 是否修改成功
      */
-    void update(int id, String nian,int eiId,double score);
+    void update(int id, String nian, int eiId, double score);
 
     /**
      * 删除

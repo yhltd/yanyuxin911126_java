@@ -15,7 +15,7 @@ public class KeyExperienceScore {
     /**
      * 主键
      */
-    @TableId(value = "id" , type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private int id;
     /**
      * 基本信息id
@@ -61,4 +61,8 @@ public class KeyExperienceScore {
      * 经历赋分
      */
     private String score;
+    /**
+     * 单位名称
+     */
+    private String unitName;
 }

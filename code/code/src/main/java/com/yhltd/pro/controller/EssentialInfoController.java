@@ -41,6 +41,8 @@ public class EssentialInfoController {
     private KeyExperienceConfigService keyExperienceConfigService;
     @Autowired
     private KeyExperienceScoreService keyExperienceScoreService;
+    @Autowired
+    private RiskFactorService riskFactorService;
 
     /**
      * 查询基本信息
@@ -70,9 +72,9 @@ public class EssentialInfoController {
      * @return ResultInfo
      */
     @PostMapping("/getListByName")
-    public ResultInfo getListByName(String fullName) {
+    public ResultInfo getListByName(String fullName,String department) {
         try {
-            List<EssentialInfo> list = essentialInfoService.getListByName(fullName);
+            List<EssentialInfo> list = essentialInfoService.getListByName(fullName,department);
             if (StringUtils.isNotNull(list)) {
                 return ResultInfo.success("获取成功", list);
             } else {
@@ -293,6 +295,7 @@ public class EssentialInfoController {
 
     /**
      * 关键能力平均分
+     *
      * @return ResultInfo
      */
     @PostMapping("/getAverage")
@@ -313,6 +316,7 @@ public class EssentialInfoController {
 
     /**
      * 关键能力平均分
+     *
      * @return ResultInfo
      */
     @PostMapping("/keyMajor")
@@ -333,6 +337,7 @@ public class EssentialInfoController {
 
     /**
      * 关键能力平均分
+     *
      * @return ResultInfo
      */
     @PostMapping("/getFullMark")
@@ -367,23 +372,25 @@ public class EssentialInfoController {
             List<KeyExperienceConfig> configList = keyExperienceConfigService.getList();
             //赋分
             for (int i = 0; i < list.size(); i++) {
-                for (int j = 0; j < configList.size(); i++) {
-                    //判断单位和经历项
-                    if (list.get(i).getSecondaryUnit().equals(configList.get(j).getUnit()) && list.get(i).getExperience().equals(configList.get(j).getExperience())) {
-                        //判断经历时长中有没有逗号
-                        if (configList.get(j).getDuration().contains(",") || configList.get(j).getDuration().contains("，")) {
-                            //取出起始和结束
-                            ks = configList.get(j).getDuration().replace(",", "，").split("，")[0].trim();
-                            js = configList.get(j).getDuration().replace(",", "，").split("，")[1].trim();
-                            ks = ks.substring(1, ks.length());
-                            js = js.substring(0, js.length() - 1);
-                            if (js.equals("∞")) {
-                                js = "99999";
-                            }
-                            //判断经历时长是否在区间内
-                            if (Float.parseFloat(ks) <= Float.parseFloat(list.get(i).getDuration()) && Float.parseFloat(js) >= Float.parseFloat(list.get(i).getDuration())) {
-                                list.get(i).setScore(configList.get(j).getScore());
-                                break;
+                if (StringUtils.isNotNull(list.get(i).getExperience()) && StringUtils.isNotNull(list.get(i).getSecondaryUnit())) {
+                    for (int j = 0; j < configList.size(); j++) {
+                        //判断单位和经历项
+                        if (list.get(i).getSecondaryUnit().equals(configList.get(j).getUnit()) && list.get(i).getExperience().equals(configList.get(j).getExperience())) {
+                            //判断经历时长中有没有逗号
+                            if (configList.get(j).getDuration().contains(",") || configList.get(j).getDuration().contains("，")) {
+                                //取出起始和结束
+                                ks = configList.get(j).getDuration().replace(",", "，").split("，")[0].trim();
+                                js = configList.get(j).getDuration().replace(",", "，").split("，")[1].trim();
+                                ks = ks.substring(1, ks.length());
+                                js = js.substring(0, js.length() - 1);
+                                if (js.equals("∞")) {
+                                    js = "99999";
+                                }
+                                //判断经历时长是否在区间内
+                                if (Float.parseFloat(ks) <= Float.parseFloat(list.get(i).getDuration()) && Float.parseFloat(js) >= Float.parseFloat(list.get(i).getDuration())) {
+                                    list.get(i).setScore(configList.get(j).getScore());
+                                    break;
+                                }
                             }
                         }
                     }
@@ -393,7 +400,7 @@ public class EssentialInfoController {
             if (StringUtils.isNotNull(list)) {
                 return ResultInfo.success("计算成功", list);
             } else {
-                return ResultInfo.success("计算失败，请检查数据",list);
+                return ResultInfo.success("计算失败，请检查数据", list);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -404,6 +411,7 @@ public class EssentialInfoController {
 
     /**
      * 部门去重
+     *
      * @return ResultInfo
      */
     @PostMapping("/getDepartment2")
@@ -424,6 +432,7 @@ public class EssentialInfoController {
 
     /**
      * 根据部门算均值
+     *
      * @return ResultInfo
      */
     @PostMapping("/getAverageDepartment")
@@ -442,4 +451,22 @@ public class EssentialInfoController {
         }
     }
 
+    /**
+     * 团队报表风险因素
+     */
+    @PostMapping("/getListByDepartment")
+    public ResultInfo getListByDepartment(String department2) {
+        try {
+            List<RiskFactor> list = riskFactorService.getListByDepartment(department2);
+            if (StringUtils.isNotNull(list)) {
+                return ResultInfo.success("获取成功", list);
+            } else {
+                return ResultInfo.success("获取失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("获取失败：{}", e.getMessage());
+            return ResultInfo.error("错误!");
+        }
+    }
 }

@@ -15,7 +15,7 @@ public class Performance {
     /**
      * 主键
      */
-    @TableId(value = "id" , type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private int id;
     /**
      * 年

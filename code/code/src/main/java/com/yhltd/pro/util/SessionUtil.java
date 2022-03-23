@@ -2,6 +2,7 @@
 package com.yhltd.pro.util;
 
 import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpSession;
 
 /**
@@ -28,8 +29,9 @@ public class SessionUtil {
 
     /**
      * set
+     *
      * @param session session对象
-     * @param data 需要设置的值
+     * @param data    需要设置的值
      */
     public static void setToken(HttpSession session, String data) {
         //设置session过期时间
@@ -45,6 +47,7 @@ public class SessionUtil {
 
     /**
      * get
+     *
      * @param session session对象
      * @return 获取data
      */
@@ -58,6 +61,7 @@ public class SessionUtil {
 
     /**
      * 删除某个键
+     *
      * @param session
      * @param key
      */

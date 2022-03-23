@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileInputStream;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,6 +62,27 @@ public class KeyExperienceScoreController {
     }
 
     /**
+     * 查询
+     *
+     * @return ResultInfo
+     */
+    @PostMapping("/getListByName")
+    public ResultInfo getListByName(String fullName,String secondaryUnit) {
+        try {
+            List<KeyExperienceScore> list = keyExperienceScoreService.getListByName(fullName,secondaryUnit);
+            if (StringUtils.isNotNull(list)) {
+                return ResultInfo.success("获取成功", list);
+            } else {
+                return ResultInfo.success("获取失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("获取失败：{}", e.getMessage());
+            return ResultInfo.error("错误!");
+        }
+    }
+
+    /**
      * 计算
      *
      * @return ResultInfo
@@ -76,35 +96,62 @@ public class KeyExperienceScoreController {
         try {
             List<KeyExperienceScore> list = keyExperienceScoreService.getList();
             List<KeyExperienceConfig> configList = keyExperienceConfigService.getList();
+            Set<KeyExperienceScore> set = new TreeSet<KeyExperienceScore>(new Comparator<KeyExperienceScore>() {
+                @Override
+                public int compare(KeyExperienceScore o1, KeyExperienceScore o2) {
+                    int compareToResult = 1;// ==0表示重复
+                    if (o1.getExperience().equals(o2.getExperience()) && o1.getEiId() == o2.getEiId()) {
+                        compareToResult = 0;
+                    }
+                    // 字符串则按照asicc码升序排列
+                    return compareToResult;
+                }
+            });
+            set.addAll(list);
+            List<KeyExperienceScore> newList = new ArrayList<>(set);
+            for (int i = 0; i < newList.size(); i++) {
+                double duration = 0;
+                for (int j = 0; j < list.size(); j++) {
+                    if (StringUtils.isNotNull(newList.get(i).getExperience()) && StringUtils.isNotNull(list.get(j).getExperience())) {
+                        if (newList.get(i).getExperience().equals(list.get(j).getExperience()) && newList.get(i).getFullName().equals(list.get(j).getFullName())) {
+                            duration = duration + Double.parseDouble(list.get(j).getDuration());
+                            newList.get(i).setDuration(String.valueOf(duration));
+                        }
+                    }
+                }
+            }
+
             //赋分
-            for (int i = 0; i < list.size(); i++) {
-                for (int j = 0; j < configList.size(); i++) {
-                    //判断单位和经历项
-                    if (list.get(i).getSecondaryUnit().equals(configList.get(j).getUnit()) && list.get(i).getExperience().equals(configList.get(j).getExperience())) {
-                        //判断经历时长中有没有逗号
-                        if (configList.get(j).getDuration().contains(",") || configList.get(j).getDuration().contains("，")) {
-                            //取出起始和结束
-                            ks = configList.get(j).getDuration().replace(",", "，").split("，")[0].trim();
-                            js = configList.get(j).getDuration().replace(",", "，").split("，")[1].trim();
-                            ks = ks.substring(1, ks.length());
-                            js = js.substring(0, js.length() - 1);
-                            if (js.equals("∞")) {
-                                js = "99999";
-                            }
-                            //判断经历时长是否在区间内
-                            if (Float.parseFloat(ks) <= Float.parseFloat(list.get(i).getDuration()) && Float.parseFloat(js) >= Float.parseFloat(list.get(i).getDuration())) {
-                                list.get(i).setScore(configList.get(j).getScore());
-                                break;
+            for (int i = 0; i < newList.size(); i++) {
+                if (StringUtils.isNotNull(newList.get(i).getExperience()) && StringUtils.isNotNull(newList.get(i).getUnitName())) {
+                    for (int j = 0; j < configList.size(); j++) {
+                        //判断单位和经历项
+                        if (newList.get(i).getUnitName().equals(configList.get(j).getUnit()) && newList.get(i).getExperience().equals(configList.get(j).getExperience())) {
+                            //判断经历时长中有没有逗号
+                            if (configList.get(j).getDuration().contains(",") || configList.get(j).getDuration().contains("，")) {
+                                //取出起始和结束
+                                ks = configList.get(j).getDuration().replace(",", "，").split("，")[0].trim();
+                                js = configList.get(j).getDuration().replace(",", "，").split("，")[1].trim();
+                                ks = ks.substring(1, ks.length());
+                                js = js.substring(0, js.length() - 1);
+                                if (js.equals("∞")) {
+                                    js = "99999";
+                                }
+                                //判断经历时长是否在区间内
+                                if (Float.parseFloat(ks) <= Float.parseFloat(newList.get(i).getDuration()) && Float.parseFloat(js) >= Float.parseFloat(newList.get(i).getDuration())) {
+                                    newList.get(i).setScore(configList.get(j).getScore());
+                                    break;
+                                }
                             }
                         }
                     }
                 }
             }
 
-            if (StringUtils.isNotNull(list)) {
-                return ResultInfo.success("计算成功", list);
+            if (StringUtils.isNotNull(newList)) {
+                return ResultInfo.success("计算成功", newList);
             } else {
-                return ResultInfo.success("计算失败，请检查数据",list);
+                return ResultInfo.success("计算失败，请检查数据", newList);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,7 +202,8 @@ public class KeyExperienceScoreController {
             String experienceStage = keyExperienceScore.getExperienceStage();
             String job = keyExperienceScore.getJob();
             String experience = keyExperienceScore.getExperience();
-            keyExperienceScoreService.update(id, eiId, ksDate, jsDate, age, experienceStage, job, experience);
+            String unitName = keyExperienceScore.getUnitName();
+            keyExperienceScoreService.update(id, eiId, ksDate, jsDate, age, experienceStage, job, experience, unitName);
             return ResultInfo.success("修改成功", keyExperienceScore);
         } catch (Exception e) {
             e.printStackTrace();

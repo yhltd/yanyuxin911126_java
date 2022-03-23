@@ -31,8 +31,8 @@ public class KeyAbilityScoreServiceImpl extends ServiceImpl<KeyAbilityScoreMappe
     }
 
     @Override
-    public List<KeyAbilityScore> getListByName(String fullName) {
-        return keyAbilityScoreMapper.getListByName(fullName);
+    public List<KeyAbilityScore> getListByName(String fullName,String department) {
+        return keyAbilityScoreMapper.getListByName(fullName,department);
     }
 
     @Override
@@ -51,10 +51,9 @@ public class KeyAbilityScoreServiceImpl extends ServiceImpl<KeyAbilityScoreMappe
     }
 
 
-
     @Override
     public void update(int id, int eiId, String D, String E, String F, String G, String H, String I, String J, String K, String L, String M, String N, String O, String P, String Q, String R) {
-        keyAbilityScoreMapper.update(id,eiId,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R);
+        keyAbilityScoreMapper.update(id, eiId, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R);
     }
 
     @Override

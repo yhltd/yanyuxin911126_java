@@ -24,8 +24,8 @@ public class KeyMajorServiceImpl extends ServiceImpl<KeyMajorMapper, KeyMajor> i
     }
 
     @Override
-    public List<KeyMajor> getListByName(String fullName) {
-        return keyMajorMapper.getListByName(fullName);
+    public List<KeyMajor> getListByName(String fullName,String department) {
+        return keyMajorMapper.getListByName(fullName,department);
     }
 
     @Override
@@ -44,8 +44,8 @@ public class KeyMajorServiceImpl extends ServiceImpl<KeyMajorMapper, KeyMajor> i
     }
 
     @Override
-    public void update(int id,int eiId,String department,String A,String B,String C,String D,String E,String F,String G,String H,String I,String J) {
-        keyMajorMapper.update(id,eiId,department,A,B,C,D,E,F,G,H,I,J);
+    public void update(int id, int eiId, String department, String A, String B, String C, String D, String E, String F, String G, String H, String I, String J) {
+        keyMajorMapper.update(id, eiId, department, A, B, C, D, E, F, G, H, I, J);
     }
 
     @Override

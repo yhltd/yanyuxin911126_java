@@ -21,10 +21,11 @@ public interface RiskFactorService extends IService<RiskFactor> {
 
     /**
      * 根据姓名查询
+     *
      * @param
      * @return 基本信息的集合
      */
-    List<RiskFactor> getListByName(String fullName);
+    List<RiskFactor> getListByName(String fullName,String department);
 
     /**
      * 添加
@@ -39,7 +40,7 @@ public interface RiskFactorService extends IService<RiskFactor> {
      *
      * @return 是否修改成功
      */
-    void update(int id, int eiId,double A,double B,double C,double D,double E);
+    void update(int id, int eiId, double A, double B, double C, double D, double E);
 
     /**
      * 删除
@@ -56,4 +57,6 @@ public interface RiskFactorService extends IService<RiskFactor> {
      * @return 是否删除成功
      */
     boolean delete(List<Integer> idList);
+
+    List<RiskFactor> getListByDepartment(String department2);
 }

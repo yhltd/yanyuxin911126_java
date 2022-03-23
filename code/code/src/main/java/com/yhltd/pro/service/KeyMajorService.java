@@ -21,13 +21,15 @@ public interface KeyMajorService extends IService<KeyMajor> {
 
     /**
      * 查询所有基本信息
+     *
      * @param
      * @return 基本信息的集合
      */
-    List<KeyMajor> getListByName(String fullName);
+    List<KeyMajor> getListByName(String fullName,String department);
 
     /**
      * 根据id查询
+     *
      * @param eiId eiId
      * @return 基本信息的集合
      */
@@ -35,10 +37,11 @@ public interface KeyMajorService extends IService<KeyMajor> {
 
     /**
      * 根据部门计算均值
+     *
      * @param
      * @return 基本信息的集合
      */
-    List<KeyMajor>getAverageByDepartment();
+    List<KeyMajor> getAverageByDepartment();
 
     /**
      * 添加
@@ -53,7 +56,7 @@ public interface KeyMajorService extends IService<KeyMajor> {
      *
      * @param
      */
-    void update(int id,int eiId,String department,String A,String B,String C,String D,String E,String F,String G,String H,String I,String J);
+    void update(int id, int eiId, String department, String A, String B, String C, String D, String E, String F, String G, String H, String I, String J);
 
     /**
      * 删除

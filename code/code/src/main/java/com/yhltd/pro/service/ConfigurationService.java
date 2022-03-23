@@ -21,6 +21,7 @@ public interface ConfigurationService extends IService<Configuration> {
 
     /**
      * 查询所有基本信息
+     *
      * @param
      * @return 基本信息的集合
      */

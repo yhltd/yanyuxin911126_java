@@ -63,9 +63,9 @@ public class RiskFactorController {
      * @return ResultInfo
      */
     @PostMapping("/getListByName")
-    public ResultInfo getListByName(String fullName) {
+    public ResultInfo getListByName(String fullName,String department) {
         try {
-            List<RiskFactor> list = riskFactorService.getListByName(fullName);
+            List<RiskFactor> list = riskFactorService.getListByName(fullName,department);
             if (StringUtils.isNotNull(list)) {
                 return ResultInfo.success("获取成功", list);
             } else {

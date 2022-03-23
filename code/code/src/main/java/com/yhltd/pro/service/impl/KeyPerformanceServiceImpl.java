@@ -10,6 +10,7 @@ import com.yhltd.pro.service.KeyAbilityScoreService;
 import com.yhltd.pro.service.KeyPerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
@@ -28,13 +29,18 @@ public class KeyPerformanceServiceImpl extends ServiceImpl<KeyPerformanceMapper,
     }
 
     @Override
-    public List<KeyPerformance> getListByName(String fullName) {
-        return keyPerformanceMapper.getListByName(fullName);
+    public List<KeyPerformance> getListByName(String fullName,String secondaryUnit) {
+        return keyPerformanceMapper.getListByName(fullName,secondaryUnit);
     }
 
     @Override
     public List<KeyPerformance> getListById(int eiId) {
         return keyPerformanceMapper.getListById(eiId);
+    }
+
+    @Override
+    public List<KeyPerformance> getScore() {
+        return keyPerformanceMapper.getScore();
     }
 
 

@@ -10,6 +10,7 @@ public class OrderUtil {
 
     /**
      * 生成订单号
+     *
      * @param prefixStr 要拼接的前缀
      * @return
      */

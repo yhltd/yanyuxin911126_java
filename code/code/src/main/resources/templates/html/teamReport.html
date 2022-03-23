@@ -18,12 +18,26 @@
     <link rel="stylesheet" href="../css/index.css">
 
     <style>
-        td{
-            vertical-align:middle !important;
+        td {
+            vertical-align: middle !important;
             text-align: center;
+            border-color: #9fcdff !important;
+            font-size: 16px;
         }
-        tr{
-            vertical-align:middle;
+
+        tr {
+            vertical-align: middle;
+            border-color: #9fcdff !important;
+        }
+
+        th {
+            font-size: 20px;
+        }
+
+        table {
+            width: 90% !important;
+            margin: auto;
+            border-color: #9fcdff !important;
         }
     </style>
 </head>
@@ -32,7 +46,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="col-xs-2">
-                <table class="table table-bordered">
+                <table class="table table-bordered" style="margin-top: 2%">
                     <thead>
                     <tr>
                         <th>领导班子基本统计概况</th>
@@ -61,41 +75,41 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td colspan="4">维度</td>
+                        <td colspan="2">维度</td>
                         <td colspan="3">理想状态</td>
                         <td colspan="1">当前情况</td>
-                        <td colspan="2">可能风险</td>
+                        <td colspan="4">可能风险</td>
                     </tr>
                     <tr>
-                        <td colspan="4">班子平均年龄</td>
+                        <td colspan="2">班子平均年龄</td>
                         <td colspan="3">45±2</td>
                         <td id="averageAge" colspan="1"></td>
-                        <td id="risk1" colspan="2"></td>
+                        <td id="risk1" colspan="4"></td>
                     </tr>
                     <tr>
-                        <td colspan="4" rowspan="3">不同年龄段比例</td>
+                        <td colspan="2" rowspan="3">不同年龄段比例</td>
                         <td colspan="1">【50,55】</td>
                         <td colspan="2">不高于30%</td>
                         <td id="average50_55" colspan="1"></td>
-                        <td id="risk2" colspan="2"></td>
+                        <td id="risk2" colspan="4"></td>
                     </tr>
                     <tr>
                         <td colspan="1">【40,49】</td>
                         <td colspan="2">不少于25%</td>
                         <td id="average40_49" colspan="1"></td>
-                        <td id="risk3" colspan="2"></td>
+                        <td id="risk3" colspan="4"></td>
                     </tr>
                     <tr>
                         <td colspan="1">【30,39】</td>
                         <td colspan="2">不少于25%</td>
                         <td id="average30_39" colspan="1"></td>
-                        <td id="risk4" colspan="2"></td>
+                        <td id="risk4" colspan="4"></td>
                     </tr>
                     <tr>
-                        <td colspan="4">年龄极差</td>
+                        <td colspan="2">年龄极差</td>
                         <td colspan="3">至少10岁</td>
                         <td id="ageRange" colspan="1"></td>
-                        <td id="risk5" colspan="2"></td>
+                        <td id="risk5" colspan="4"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -107,24 +121,24 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td colspan="3">本单位关键业务</td>
-                        <td id="keyBusiness" colspan="7"></td>
+                        <td colspan="2">本单位关键业务</td>
+                        <td id="keyBusiness" colspan="8"></td>
                     </tr>
                     <tr>
-                        <td colspan="3">本单位正职必须主管业务</td>
-                        <td id="isNecessary" colspan="7"></td>
+                        <td colspan="2">本单位正职必须主管业务</td>
+                        <td id="isNecessary" colspan="8"></td>
                     </tr>
                     <tr>
-                        <td colspan="3">中层正职主管业务</td>
-                        <td id="zczz" colspan="7"></td>
+                        <td colspan="2">中层正职主管业务</td>
+                        <td id="zczz" colspan="8"></td>
                     </tr>
                     <tr>
-                        <td colspan="3">党委书记（若有）主管业务</td>
-                        <td id="dwsj" colspan="7"></td>
+                        <td colspan="2">党委书记（若有）主管业务</td>
+                        <td id="dwsj" colspan="8"></td>
                     </tr>
                     <tr>
-                        <td colspan="3">中层副职主管业务</td>
-                        <td id="zcfz" colspan="7"></td>
+                        <td colspan="2">中层副职主管业务</td>
+                        <td id="zcfz" colspan="8"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -138,7 +152,7 @@
                     <tr>
                         <td colspan="4">素质项</td>
                         <td colspan="2">当前班子均分</td>
-                        <td colspan="2">班子均分</td>
+                        <td colspan="2">全体中层均分</td>
                         <td colspan="1">优势</td>
                         <td colspan="1">劣势</td>
                     </tr>
@@ -270,37 +284,38 @@
                     </tr>
                     <tr>
                         <td colspan="5">中层正职（院长）</td>
-                        <td colspan="1">√</td>
-                        <td colspan="1">√</td>
-                        <td colspan="1">√</td>
-                        <td colspan="1">√</td>
-                        <td colspan="1">√</td>
+                        <td colspan="1" id="zczz_A"></td>
+                        <td colspan="1" id="zczz_B"></td>
+                        <td colspan="1" id="zczz_C" style="background-color: yellow"></td>
+                        <td colspan="1" id="zczz_D" style="background-color: yellow"></td>
+                        <td colspan="1" id="zczz_E"></td>
                     </tr>
                     <tr>
-                        <<td colspan="5">中层正职（党委书记）</td>
-                        <td colspan="1">√</td>
-                        <td colspan="1">√</td>
-                        <td colspan="1">√</td>
-                        <td colspan="1">√</td>
-                        <td colspan="1">√</td>
+                        <
+                        <td colspan="5">中层正职（党委书记）</td>
+                        <td colspan="1" id="dwsj_A"></td>
+                        <td colspan="1" id="dwsj_B" style="background-color: yellow"></td>
+                        <td colspan="1" id="dwsj_C"></td>
+                        <td colspan="1" id="dwsj_D"></td>
+                        <td colspan="1" id="dwsj_E" style="background-color: yellow"></td>
                     </tr>
                     <tr>
                         <td colspan="5">中层副职</td>
-                        <td colspan="1">√</td>
-                        <td colspan="1">√</td>
-                        <td colspan="1">√</td>
-                        <td colspan="1">√</td>
-                        <td colspan="1">√</td>
+                        <td colspan="1" id="zcfz_A" style="background-color: yellow"></td>
+                        <td colspan="1" id="zcfz_B"></td>
+                        <td colspan="1" id="zcfz_C"></td>
+                        <td colspan="1" id="zcfz_D" style="background-color: yellow"></td>
+                        <td colspan="1" id="zcfz_E"></td>
                     </tr>
                     <tr>
                         <td colspan="5" rowspan="3">可能风险</td>
-                        <td colspan="5"></td>
+                        <td colspan="5" id="zczz_fx"></td>
                     </tr>
                     <tr>
-                        <td colspan="5"></td>
+                        <td colspan="5" id="dwsj_fx"></td>
                     </tr>
                     <tr>
-                        <td colspan="5"></td>
+                        <td colspan="5" id="zcfz_fx"></td>
                     </tr>
                     </tbody>
                 </table>

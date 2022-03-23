@@ -32,29 +32,28 @@ $(function () {
 
     //点击刷新按钮
     $("#refresh-btn").click(function () {
+        $("#fullName").val("");
         $("#department").val("");
         getList();
     })
 
     //点击查询按钮
     $("#query_button").click(function () {
-        var department = $("#department").val();
-        if (department == "") {
-            alert("请输入要查询的姓名")
-        } else {
-            $ajax({
-                type: 'post',
-                url: '/risk_factor/getListByName',
-                data: {
-                    department: department
-                }
-            }, false, '', function (res) {
-                if (res.code == 200) {
-                    setTable(res.data)
-                    $("#riskFactorTable").bootstrapTable('hideColumn', 'eiId');
-                }
-            })
-        }
+        var fullName = $("#fullName").val();
+        var department=$("#department").val();
+        $ajax({
+            type: 'post',
+            url: '/risk_factor/getListByName',
+            data: {
+                fullName: fullName,
+                department:department,
+            }
+        }, false, '', function (res) {
+            if (res.code == 200) {
+                setTable(res.data)
+                $("#riskFactorTable").bootstrapTable('hideColumn', 'eiId');
+            }
+        })
     })
 
     //添加窗体点击选择基本信息按钮

@@ -27,73 +27,85 @@
             })
         })
     </script>
+
+    <style>
+        .img-responsive {
+            display: inline-block;
+            height: auto;
+            max-width: 100%;
+        }
+    </style>
 </head>
 <body style="padding-top: 60px;margin: 0" class="row bg">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="min-height: 60px;width: 100%;position: absolute;top: 0;left: 0;z-index: 1000000;">
-        <a class="navbar-brand mb-0 h1" href="index.html">
-    <!--        <img src="../img/logo.png" width="30" height="30" class="d-inline-block align-top rounded" alt=""/>-->
-            管理系统
-        </a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"
+     style="min-height: 60px;width: 100%;position: absolute;top: 0;left: 0;z-index: 1000000;">
+<!--    background-color: white !important;-->
+    <a class="navbar-brand mb-0 h1" href="index.html">
+                <img src="img/logo2.png" class="d-inline-block align-top rounded" alt="" style="height: 40px"/>
+<!--        管理系统-->
+    </a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" data-src="html/essentialInfo.html">基本信息</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-src="html/performance.html">绩效数据</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-src="html/keyperformance.html">关键绩效</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-src="html/key_ability_score.html">关键能力得分</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="specialtyNavbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        关键专业
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="specialtyNavbarDropdown">
-                        <a class="dropdown-item" data-src="html/keyMajor.html">关键专业</a>
-                        <a class="dropdown-item" data-src="html/configuration.html">配置表</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-src="html/keyExperienceConfig.html">关键经历积分对应表</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-src="html/keyExperienceScore.html">关键经历得分表</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-src="html/riskFactor.html">风险因素</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-src="html/personalReport.html">个人报告</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-src="html/teamReport.html">团队报告</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav float-md-right">
-                <li class="nav-item">
-                    <a class="nav-link" data-src="">帮助</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-src="">关于</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-src="">v0.1</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="embed-responsive embed-responsive-1by1 h-100">
-        <iframe id="iframe" class="embed-responsive-item" src="html/index-item.html"></iframe>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" data-src="html/essentialInfo.html" style="color: white !important;">基本信息</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-src="html/performance.html" style="color: white !important;">绩效数据</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-src="html/keyperformance.html" style="color: white !important;">关键绩效</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-src="html/key_ability_score.html" style="color: white !important;">关键能力得分</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="specialtyNavbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white !important;">
+                    关键专业
+                </a>
+                <div class="dropdown-menu" aria-labelledby="specialtyNavbarDropdown">
+                    <a class="dropdown-item" data-src="html/keyMajor.html" style="color: black !important;">关键专业</a>
+                    <a class="dropdown-item" data-src="html/configuration.html" style="color: black !important;">配置表</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-src="html/keyExperienceConfig.html" style="color: white !important;">关键经历积分对应表</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-src="html/keyExperienceScore.html" style="color: white !important;">关键经历得分表</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-src="html/riskFactor.html" style="color: white !important;">风险因素</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-src="html/personalReport.html" style="color: white !important;">个人报告</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-src="html/teamReport.html" style="color: white !important;">团队报告</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav float-md-right">
+            <li class="nav-item">
+                <a class="nav-link" data-src="" style="color: white !important;">帮助</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-src="" style="color: white !important;">关于</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-src="" style="color: white !important;">v0.9</a>
+            </li>
+        </ul>
     </div>
+</nav>
+
+<div class="embed-responsive embed-responsive-1by1 h-100">
+    <iframe id="iframe" class="embed-responsive-item" src="html/index-item.html"></iframe>
+</div>
 </body>
 </html>

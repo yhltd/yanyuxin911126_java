@@ -22,15 +22,25 @@ public interface KeyPerformanceService extends IService<KeyPerformance> {
 
     /**
      * 查询所有基本信息
+     *
      * @param
      * @return 基本信息的集合
      */
-    List<KeyPerformance> getListByName(String fullName);
+    List<KeyPerformance> getListByName(String fullName,String secondary_unit);
 
     /**
      * 查询所有基本信息
-     * @param   eiId eiId
+     *
+     * @param eiId eiId
      * @return 基本信息的集合
      */
     List<KeyPerformance> getListById(int eiId);
+
+    /**
+     * 查询所有基本信息
+     *
+     * @param eiId eiId
+     * @return 基本信息的集合
+     */
+    List<KeyPerformance> getScore();
 }

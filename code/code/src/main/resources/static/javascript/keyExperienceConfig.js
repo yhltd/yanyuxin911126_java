@@ -17,27 +17,26 @@ $(function () {
     //点击刷新按钮
     $("#refresh-btn").click(function () {
         $("#unit").val("");
+        $("#experience").val("");
         getList();
     })
 
     //点击查询按钮
     $("#query_button").click(function () {
         var unit = $("#unit").val();
-        if (unit == "") {
-            alert("请输入要查询的单位/部门")
-        } else {
-            $ajax({
-                type: 'post',
-                url: '/key_experience_config/getListByUnit',
-                data: {
-                    unit: unit
-                }
-            }, false, '', function (res) {
-                if (res.code == 200) {
-                    setTable(res.data)
-                }
-            })
-        }
+        var experience = $("#experience").val();
+        $ajax({
+            type: 'post',
+            url: '/key_experience_config/getListByUnit',
+            data: {
+                unit: unit,
+                experience:experience,
+            }
+        }, false, '', function (res) {
+            if (res.code == 200) {
+                setTable(res.data)
+            }
+        })
     })
 
     //点击添加按钮

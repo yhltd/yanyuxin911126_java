@@ -18,248 +18,258 @@
     <link rel="stylesheet" href="../css/index.css">
 
     <style>
-        td{
-            vertical-align:middle !important;
+        td {
+            vertical-align: middle !important;
             text-align: center;
+            border-color: #9fcdff !important;
+            font-size: 16px;
         }
-        tr{
-            vertical-align:middle;
+
+        tr {
+            vertical-align: middle;
+            border-color: #9fcdff !important;
+        }
+
+        table {
+            width: 90% !important;
+            margin: auto;
+            border-color: #9fcdff !important;
         }
     </style>
 </head>
 <body class="pt-2">
-    <div id="table-toolbar">
-        <div class="btn-group" role="group">
-            <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：个人报告</a>
-            <button id="refresh-btn" class="btn btn-primary">
-                <i class="bi bi-plus-square icon"></i>
-                选择基本信息
-            </button>
-        </div>
+<div id="table-toolbar">
+    <div class="btn-group" role="group" style="margin: auto;float: left">
+        <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：个人报告</a>
+        <button id="refresh-btn" class="btn btn-primary">
+            <i class="bi bi-plus-square icon"></i>
+            选择基本信息
+        </button>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="col-xs-2">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>第一部分：基础信息</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>姓名</td>
-                        <td id="fullName"></td>
-                        <td>部门</td>
-                        <td id="secondaryUnit" colspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td>岗位</td>
-                        <td id="post"></td>
-                        <td>职位等级</td>
-                        <td id="department1" colspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td>任现职时间（年）</td>
-                        <td id="riqi"></td>
-                        <td>学历</td>
-                        <td id="education" colspan="2"></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>第二部分：关键绩效</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td rowspan="2" colspan="2" style="vertical-align: center;">近三年绩效考核结果（赋分后）</td>
-                        <td rowspan="2">绩效赋分均值</td>
-                        <td colspan="2">绩效排名</td>
-                    </tr>
-                    <tr>
-                        <td>整体排名</td>
-                        <td>中层正职排名</td>
-                    </tr>
-                    <tr>
-                        <td id="nian1"></td>
-                        <td id="score1"></td>
-                        <td id="average" rowspan="3"></td>
-                        <td rowspan="3">11/83</td>
-                        <td id="ranking2" rowspan="3"></td>
-                    </tr>
-                    <tr>
-                        <td id="nian2"></td>
-                        <td id="score2"></td>
-                    </tr>
-                    <tr>
-                        <td id="nian3"></td>
-                        <td id="score3"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-xs-10">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>第三部分：关键能力</th>
-                    </tr>
-                    </thead>
-                    <tr>
-                        <td>类型</td>
-                        <td colspan="2">素质项</td>
-                        <td>个人得分结果</td>
-                        <td>同等级参测者平均分</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="4">通用能力要求</td>
-                        <td colspan="2">政治素养</td>
-                        <td id="d"></td>
-                        <td id="dd"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">团队管理</td>
-                        <td id="e"></td>
-                        <td id="ee"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">学习创新</td>
-                        <td id="f"></td>
-                        <td id="ff"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">攻坚克难</td>
-                        <td id="g"></td>
-                        <td id="gg"></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="3">中层正职能力</td>
-                        <td colspan="2">远见胆识</td>
-                        <td id="h"></td>
-                        <td id="hh"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">经营思维</td>
-                        <td id="i"></td>
-                        <td id="ii"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">统筹协调</td>
-                        <td id="j"></td>
-                        <td id="jj"></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2">中层副职能力</td>
-                        <td colspan="2">推动落实</td>
-                        <td id="k"></td>
-                        <td id="kk"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">沟通合作</td>
-                        <td id="l"></td>
-                        <td id="ll"></td>
-                    </tr>
-                    <tr>
-                        <td rowspan="6">岗位能力</td>
-                        <td colspan="2">人际敏锐</td>
-                        <td id="m"></td>
-                        <td id="mm"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">政治敏锐</td>
-                        <td id="n"></td>
-                        <td id="nn"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">精益管理</td>
-                        <td id="o"></td>
-                        <td id="oo"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">严谨细致</td>
-                        <td id="p"></td>
-                        <td id="pp"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">风险防范</td>
-                        <td id="q"></td>
-                        <td id="qq"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">专业管理</td>
-                        <td id="r"></td>
-                        <td id="rr"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">均分</td>
-                        <td id="average2" colspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">排名（中层正职）</td>
-                        <td colspan="2"></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-xs-10">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>第四部分：关键业务</th>
-                    </tr>
-                    </thead>
-                    <tr>
-                        <td colspan="2">当前班子中主管业务</td>
-                        <td id="keyMajor" colspan="3"></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-xs-10">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>第五部分：关键经历</th>
-                    </tr>
-                    </thead>
-                    <tr>
-                        <td colspan="2">当前职位关键经历满分</td>
-                        <td id="fullMark" colspan="3"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">关键经历积分</td>
-                        <td id="keyExperienceScore" colspan="3"></td>
-                    </tr>
-                </table>
-            </div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="col-xs-2">
+            <table class="table table-bordered" style="margin-top: 2%;">
+                <thead>
+                <tr>
+                    <th style="font-size: 20px;">第一部分：基础信息</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>姓名</td>
+                    <td id="fullName"></td>
+                    <td>部门</td>
+                    <td id="secondaryUnit" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>岗位</td>
+                    <td id="post"></td>
+                    <td>职位等级</td>
+                    <td id="department1" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>任现职时间（年）</td>
+                    <td id="riqi"></td>
+                    <td>学历</td>
+                    <td id="education" colspan="2"></td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th style="font-size: 20px;">第二部分：关键绩效</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td rowspan="2" colspan="2" style="vertical-align: center;">近三年绩效考核结果（赋分后）</td>
+                    <td rowspan="2">绩效赋分均值</td>
+                    <td colspan="2">绩效排名</td>
+                </tr>
+                <tr>
+                    <td>整体排名</td>
+                    <td id="cengjipaiming">排名</td>
+                </tr>
+                <tr>
+                    <td id="nian1"></td>
+                    <td id="score1"></td>
+                    <td id="average" rowspan="3"></td>
+                    <td rowspan="3" id="ranking"></td>
+                    <td id="ranking2" rowspan="3"></td>
+                </tr>
+                <tr>
+                    <td id="nian2"></td>
+                    <td id="score2"></td>
+                </tr>
+                <tr>
+                    <td id="nian3"></td>
+                    <td id="score3"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-10">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th style="font-size: 20px;">第三部分：关键能力</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td>类型</td>
+                    <td colspan="2">素质项</td>
+                    <td>个人得分结果</td>
+                    <td>同等级参测者平均分</td>
+                </tr>
+                <tr>
+                    <td rowspan="4">通用能力要求</td>
+                    <td colspan="2">政治素养</td>
+                    <td id="d"></td>
+                    <td id="dd"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">团队管理</td>
+                    <td id="e"></td>
+                    <td id="ee"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">学习创新</td>
+                    <td id="f"></td>
+                    <td id="ff"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">攻坚克难</td>
+                    <td id="g"></td>
+                    <td id="gg"></td>
+                </tr>
+                <tr>
+                    <td rowspan="3">中层正职能力</td>
+                    <td colspan="2">远见胆识</td>
+                    <td id="h"></td>
+                    <td id="hh"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">经营思维</td>
+                    <td id="i"></td>
+                    <td id="ii"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">统筹协调</td>
+                    <td id="j"></td>
+                    <td id="jj"></td>
+                </tr>
+                <tr>
+                    <td rowspan="2">中层副职能力</td>
+                    <td colspan="2">推动落实</td>
+                    <td id="k"></td>
+                    <td id="kk"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">沟通合作</td>
+                    <td id="l"></td>
+                    <td id="ll"></td>
+                </tr>
+                <tr>
+                    <td rowspan="6">岗位能力</td>
+                    <td colspan="2">人际敏锐</td>
+                    <td id="m"></td>
+                    <td id="mm"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">政治敏锐</td>
+                    <td id="n"></td>
+                    <td id="nn"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">精益管理</td>
+                    <td id="o"></td>
+                    <td id="oo"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">严谨细致</td>
+                    <td id="p"></td>
+                    <td id="pp"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">风险防范</td>
+                    <td id="q"></td>
+                    <td id="qq"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">专业管理</td>
+                    <td id="r"></td>
+                    <td id="rr"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">均分</td>
+                    <td id="average2" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">排名</td>
+                    <td colspan="2" id="paiming"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-xs-10">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th style="font-size: 20px;">第四部分：关键业务</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td colspan="2">当前班子中主管业务</td>
+                    <td id="keyMajor" colspan="3"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-xs-10">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th style="font-size: 20px;">第五部分：关键经历</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td colspan="2">当前职位关键经历满分</td>
+                    <td id="fullMark" colspan="3"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">关键经历积分</td>
+                    <td id="keyExperienceScore" colspan="3"></td>
+                </tr>
+            </table>
         </div>
     </div>
+</div>
 
-    <!--    查询基本信息窗体-->
-    <div id="show-essential-modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title">选择基本信息</div>
-                </div>
-                <div class="modal-body">
-                    <input id="showEssentialInfoId" type="hidden"/>
-                    <table id="show-table-essential"></table>
-                </div>
-                <div class="border-top" style="padding: 15px;">
-                    <button id="essential-submit-btn" type="button" class="btn btn-primary">
-                        <i class="bi bi-arrow-bar-up icon"></i>
-                        确定
-                    </button>
-                    <button id="essential-close-btn" type="button" class="btn btn-primary left-margin">
-                        <i class="bi bi-x-circle icon"></i>
-                        关闭
-                    </button>
-                </div>
+<!--    查询基本信息窗体-->
+<div id="show-essential-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">选择基本信息</div>
+            </div>
+            <div class="modal-body">
+                <input id="showEssentialInfoId" type="hidden"/>
+                <table id="show-table-essential"></table>
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="essential-submit-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    确定
+                </button>
+                <button id="essential-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    关闭
+                </button>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

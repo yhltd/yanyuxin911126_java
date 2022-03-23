@@ -19,214 +19,221 @@
     <link rel="stylesheet" href="../css/index.css">
 </head>
 <body class="pt-2">
-    <div class="top-toolbar row">
-        <div class="col-md-3 mb-2">
-            <input id="department" type="text" class="form-control" placeholder="单位/部门" autocomplete="off">
-        </div>
-        <div class="col-md-2 mb-2">
-            <button id="query_button" class="btn btn-primary">
-                <i class="bi bi-search icon"></i>
-                查询
-            </button>
-        </div>
+<div class="top-toolbar row">
+    <div class="col-md-3 mb-2">
+        <input id="department" type="text" class="form-control" placeholder="单位/部门" autocomplete="off">
     </div>
-
-    <div id="table-toolbar">
-        <div class="btn-group" role="group">
-            <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：配置表</a>
-            <button id="refresh-btn" class="btn btn-primary">
-                <i class="bi bi-arrow-clockwise"></i>
-                刷新
-            </button>
-            <button id="add-btn" class="btn btn-primary">
-                <i class="bi bi-plus-square icon"></i>
-                新增
-            </button>
-            <button id="update-btn" class="btn btn-primary">
-                <i class="bi bi-pencil-square icon"></i>
-                修改
-            </button>
-            <button id="delete-btn" class="btn btn-primary">
-                <i class="bi bi-trash icon"></i>
-                删除
-            </button>
-            <a class="btn btn-primary" style="color: white;padding-top: 8px" href="../excel/template.xlsx">
-                <i class="bi bi-arrow-down-square"></i>
-                下载excel模板
-            </a>
-            <button id="upload-btn" class="btn btn-primary">
-                <i class="bi bi-arrow-up-square"></i>
-                上传excel
-            </button>
-        </div>
-        <input type="file" id="file" hidden="hidden">
+    <div class="col-md-2 mb-2">
+        <button id="query_button" class="btn btn-primary">
+            <i class="bi bi-search icon"></i>
+            查询
+        </button>
     </div>
+</div>
 
-    <div class="table-div border-top">
-        <table id="configurationTable"></table>
+<div id="table-toolbar">
+    <div class="btn-group" role="group">
+        <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：配置表</a>
+        <button id="refresh-btn" class="btn btn-primary">
+            <i class="bi bi-arrow-clockwise"></i>
+            刷新
+        </button>
+        <button id="add-btn" class="btn btn-primary">
+            <i class="bi bi-plus-square icon"></i>
+            新增
+        </button>
+        <button id="update-btn" class="btn btn-primary">
+            <i class="bi bi-pencil-square icon"></i>
+            修改
+        </button>
+        <button id="delete-btn" class="btn btn-primary">
+            <i class="bi bi-trash icon"></i>
+            删除
+        </button>
+        <a class="btn btn-primary" style="color: white;padding-top: 8px" href="../excel/template.xlsx">
+            <i class="bi bi-arrow-down-square"></i>
+            下载excel模板
+        </a>
+        <button id="upload-btn" class="btn btn-primary">
+            <i class="bi bi-arrow-up-square"></i>
+            上传excel
+        </button>
     </div>
+    <input type="file" id="file" hidden="hidden">
+</div>
 
-    <!--    删除窗体-->
-    <div id="delete-modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title">提示</div>
-                </div>
-                <div id="delete-modal-body" class="modal-body">
-                    确定删除吗？
-                </div>
-                <div class="border-top" style="padding: 15px;">
-                    <button id="delete-submit-btn" type="button" class="btn btn-primary">
-                        <i class="bi bi-arrow-bar-up icon"></i>
-                        确定
-                    </button>
-                    <button id="delete-close-btn" type="button" class="btn btn-primary left-margin">
-                        <i class="bi bi-x-circle icon"></i>
-                        取消
-                    </button>
-                </div>
+<div class="table-div border-top">
+    <table id="configurationTable"></table>
+</div>
+
+<!--    删除窗体-->
+<div id="delete-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">提示</div>
+            </div>
+            <div id="delete-modal-body" class="modal-body">
+                确定删除吗？
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="delete-submit-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    确定
+                </button>
+                <button id="delete-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    取消
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    <!--    添加窗体-->
-    <div id="add-modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title">添加</div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="add-form" class="needs-validation">
-                        <div class="form-group">
-                            <label for="add-department">部门/单位</label>
-                            <input id="add-department" name="department" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="add-unitAttribute">单位属性</label>
-                            <input id="add-unitAttribute" name="unitAttribute" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="add-keyBusiness">关键业务</label>
-                            <input id="add-keyBusiness" name="keyBusiness" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="add-expertise">关键专业/业务专长</label>
-                            <input id="add-expertise" name="expertise" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="add-isNecessary">是否为正职必须具备专业</label>
-                            <select id="add-isNecessary" name="isNecessary" class="form-control">
-                                <option>&nbsp;</option>
-                                <option>是</option>
-                                <option>否</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="border-top" style="padding: 15px;">
-                    <button id="add-submit-btn" type="button" class="btn btn-primary">
-                        <i class="bi bi-arrow-bar-up icon"></i>
-                        提交
-                    </button>
-                    <button id="add-close-btn" type="button" class="btn btn-primary left-margin">
-                        <i class="bi bi-x-circle icon"></i>
-                        关闭
-                    </button>
-                </div>
+<!--    添加窗体-->
+<div id="add-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">添加</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-form" class="needs-validation">
+                    <div class="form-group">
+                        <label for="add-department">部门/单位</label>
+                        <input id="add-department" name="department" type="text" class="form-control"
+                               autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-unitAttribute">单位属性</label>
+                        <input id="add-unitAttribute" name="unitAttribute" type="text" class="form-control"
+                               autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-keyBusiness">关键业务</label>
+                        <input id="add-keyBusiness" name="keyBusiness" type="text" class="form-control"
+                               autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-expertise">关键专业/业务专长</label>
+                        <input id="add-expertise" name="expertise" type="text" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-isNecessary">是否为正职必须具备专业</label>
+                        <select id="add-isNecessary" name="isNecessary" class="form-control">
+                            <option></option>
+                            <option>是</option>
+                            <option>否</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="add-submit-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    提交
+                </button>
+                <button id="add-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    关闭
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    <!--    修改窗体-->
-    <div id="update-modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title">修改</div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="update-form" class="needs-validation">
-                        <div class="form-group">
-                            <input id="id" name="id" type="hidden">
-                        </div>
-                        <div class="form-group">
-                            <label for="update-department">部门/单位</label>
-                            <input id="update-department" name="department" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="update-unitAttribute">单位属性</label>
-                            <input id="update-unitAttribute" name="unitAttribute" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="update-keyBusiness">关键业务</label>
-                            <input id="update-keyBusiness" name="keyBusiness" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="update-expertise">关键专业/业务专长</label>
-                            <input id="update-expertise" name="expertise" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="update-isNecessary">是否为正职必须具备专业</label>
-                            <select id="update-isNecessary" name="isNecessary" class="form-control">
-                                <option>&nbsp;</option>
-                                <option>是</option>
-                                <option>否</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="border-top" style="padding: 15px;">
-                    <button id="update-form-btn" type="button" class="btn btn-primary">
-                        <i class="bi bi-arrow-bar-up icon"></i>
-                        提交
-                    </button>
-                    <button id="close-form-btn" type="button" class="btn btn-primary left-margin">
-                        <i class="bi bi-x-circle icon"></i>
-                        关闭
-                    </button>
-                </div>
+<!--    修改窗体-->
+<div id="update-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">修改</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="update-form" class="needs-validation">
+                    <div class="form-group">
+                        <input id="id" name="id" type="hidden">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-department">部门/单位</label>
+                        <input id="update-department" name="department" type="text" class="form-control"
+                               autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-unitAttribute">单位属性</label>
+                        <input id="update-unitAttribute" name="unitAttribute" type="text" class="form-control"
+                               autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-keyBusiness">关键业务</label>
+                        <input id="update-keyBusiness" name="keyBusiness" type="text" class="form-control"
+                               autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-expertise">关键专业/业务专长</label>
+                        <input id="update-expertise" name="expertise" type="text" class="form-control"
+                               autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-isNecessary">是否为正职必须具备专业</label>
+                        <select id="update-isNecessary" name="isNecessary" class="form-control">
+                            <option></option>
+                            <option>是</option>
+                            <option>否</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="update-form-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    提交
+                </button>
+                <button id="close-form-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    关闭
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    <!--    验证窗体-->
-    <div id="check-modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title">验证</div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="check-form" class="needs-validation">
-                        <div class="form-group">
-                            <label for="pwd">请输入密码</label>
-                            <input id="pwd" name="pwd" type="password" class="form-control" autocomplete="off" >
-                        </div>
-                    </form>
-                </div>
-                <div class="border-top" style="padding: 15px;">
-                    <button id="check-submit-btn" type="button" class="btn btn-primary">
-                        <i class="bi bi-arrow-bar-up icon"></i>
-                        提交
-                    </button>
-                    <button id="check-close-btn" type="button" class="btn btn-primary left-margin">
-                        <i class="bi bi-x-circle icon"></i>
-                        关闭
-                    </button>
-                </div>
+<!--    验证窗体-->
+<div id="check-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">验证</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="check-form" class="needs-validation">
+                    <div class="form-group">
+                        <label for="pwd">请输入密码</label>
+                        <input id="pwd" name="pwd" type="password" class="form-control" autocomplete="off">
+                    </div>
+                </form>
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="check-submit-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    提交
+                </button>
+                <button id="check-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    关闭
+                </button>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

@@ -16,12 +16,24 @@ public interface KeyExperienceConfigMapper extends BaseMapper<KeyExperienceConfi
     /**
      *  查询
      */
-    @Select("select * from key_experience_config where unit like \"%\" #{unit} \"%\" ")
-    List<KeyExperienceConfig> getListByUnit(String unit);
+    @Select("select * from key_experience_config where unit like '%'+#{unit}+'%' and experience like '%'+#{experience}+'%' ")
+    List<KeyExperienceConfig> getListByUnit(String unit,String experience);
 
     /**
      *  查询
      */
     @Select("select * from key_experience_config where level !='' and level is not null")
     List<KeyExperienceConfig> getListByDepartment1(String department1);
+
+    /**
+     *  下拉
+     */
+    @Select("select experience from key_experience_config where unit = #{secondaryUnit} group by experience")
+    List<KeyExperienceConfig> getSelect(String secondaryUnit);
+
+    /**
+     *  下拉
+     */
+    @Select("select unit from key_experience_config group by unit")
+    List<KeyExperienceConfig> getSelect2();
 }

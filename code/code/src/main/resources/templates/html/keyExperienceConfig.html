@@ -19,195 +19,201 @@
 
 </head>
 <body class="pt-2">
-    <div class="top-toolbar row">
-        <div class="col-md-3 mb-2">
-            <input id="unit" type="text" class="form-control" placeholder="单位" autocomplete="off">
-        </div>
-        <div class="col-md-2 mb-2">
-            <button id="query_button" class="btn btn-primary">
-                <i class="bi bi-search icon"></i>
-                查询
-            </button>
-        </div>
+<div class="top-toolbar row">
+    <div class="col-md-3 mb-2">
+        <input id="unit" type="text" class="form-control" placeholder="请输入单位" autocomplete="off">
     </div>
-
-    <div id="table-toolbar">
-        <div class="btn-group" role="group">
-            <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：关键经历积分对应表</a>
-            <button id="refresh-btn" class="btn btn-primary">
-                <i class="bi bi-arrow-clockwise"></i>
-                刷新
-            </button>
-            <button id="add-btn" class="btn btn-primary">
-                <i class="bi bi-plus-square icon"></i>
-                新增
-            </button>
-            <button id="update-btn" class="btn btn-primary">
-                <i class="bi bi-pencil-square icon"></i>
-                修改
-            </button>
-            <button id="delete-btn" class="btn btn-primary">
-                <i class="bi bi-trash icon"></i>
-                删除
-            </button>
-            <a class="btn btn-primary" style="color: white;padding-top: 8px" href="../excel/template.xlsx">
-                <i class="bi bi-arrow-down-square"></i>
-                下载excel模板
-            </a>
-            <button id="upload-btn" class="btn btn-primary">
-                <i class="bi bi-arrow-up-square"></i>
-                上传excel
-            </button>
-        </div>
-        <input type="file" id="file" hidden="hidden">
+    <div class="col-md-3 mb-2">
+        <input id="experience" type="text" class="form-control" placeholder="请输入经历项" autocomplete="off">
     </div>
-
-    <div class="table-div border-top">
-        <table id="keyExperienceConfigTable"></table>
+    <div class="col-md-2 mb-2">
+        <button id="query_button" class="btn btn-primary">
+            <i class="bi bi-search icon"></i>
+            查询
+        </button>
     </div>
+</div>
 
-    <!--    删除窗体-->
-    <div id="delete-modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title">提示</div>
-                </div>
-                <div id="delete-modal-body" class="modal-body">
-                    确定删除吗？
-                </div>
-                <div class="border-top" style="padding: 15px;">
-                    <button id="delete-submit-btn" type="button" class="btn btn-primary">
-                        <i class="bi bi-arrow-bar-up icon"></i>
-                        确定
-                    </button>
-                    <button id="delete-close-btn" type="button" class="btn btn-primary left-margin">
-                        <i class="bi bi-x-circle icon"></i>
-                        取消
-                    </button>
-                </div>
+<div id="table-toolbar">
+    <div class="btn-group" role="group">
+        <a class="btn btn-primary" style="color: white;padding-top: 8px">当前页：关键经历积分对应表</a>
+        <button id="refresh-btn" class="btn btn-primary">
+            <i class="bi bi-arrow-clockwise"></i>
+            刷新
+        </button>
+        <button id="add-btn" class="btn btn-primary">
+            <i class="bi bi-plus-square icon"></i>
+            新增
+        </button>
+        <button id="update-btn" class="btn btn-primary">
+            <i class="bi bi-pencil-square icon"></i>
+            修改
+        </button>
+        <button id="delete-btn" class="btn btn-primary">
+            <i class="bi bi-trash icon"></i>
+            删除
+        </button>
+        <a class="btn btn-primary" style="color: white;padding-top: 8px" href="../excel/template.xlsx">
+            <i class="bi bi-arrow-down-square"></i>
+            下载excel模板
+        </a>
+        <button id="upload-btn" class="btn btn-primary">
+            <i class="bi bi-arrow-up-square"></i>
+            上传excel
+        </button>
+    </div>
+    <input type="file" id="file" hidden="hidden">
+</div>
+
+<div class="table-div border-top">
+    <table id="keyExperienceConfigTable"></table>
+</div>
+
+<!--    删除窗体-->
+<div id="delete-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">提示</div>
+            </div>
+            <div id="delete-modal-body" class="modal-body">
+                确定删除吗？
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="delete-submit-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    确定
+                </button>
+                <button id="delete-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    取消
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    <!--    添加窗体-->
-    <div id="add-modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title">添加</div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="add-form" class="needs-validation">
-                        <div class="form-group">
-                            <label for="add-unit">单位</label>
-                            <input id="add-unit" name="unit" type="text" class="form-control" autocomplete="off" >
-                            <div class="invalid-feedback">
-                                请填写单位！
-                            </div>
+<!--    添加窗体-->
+<div id="add-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">添加</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-form" class="needs-validation">
+                    <div class="form-group">
+                        <label for="add-unit">单位</label>
+                        <input id="add-unit" name="unit" type="text" class="form-control" autocomplete="off">
+                        <div class="invalid-feedback">
+                            请填写单位！
                         </div>
-                        <div class="form-group">
-                            <label for="add-experience">经历项</label>
-                            <input id="add-experience" name="experience" type="text" class="form-control" autocomplete="off" >
-                            <div class="invalid-feedback">
-                                请填写经历项！
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-experience">经历项</label>
+                        <input id="add-experience" name="experience" type="text" class="form-control"
+                               autocomplete="off">
+                        <div class="invalid-feedback">
+                            请填写经历项！
                         </div>
-                        <div class="form-group">
-                            <label for="add-duration">历练时长</label>
-                            <input id="add-duration" name="duration" type="text" class="form-control" autocomplete="off" >
-                            <div class="invalid-feedback">
-                                请填写历练时长！
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-duration">历练时长</label>
+                        <input id="add-duration" name="duration" type="text" class="form-control" autocomplete="off">
+                        <div class="invalid-feedback">
+                            请填写历练时长！
                         </div>
-                        <div class="form-group">
-                            <label for="add-score">赋分</label>
-                            <input id="add-score" name="score" type="text" class="form-control" autocomplete="off" >
-                            <div class="invalid-feedback">
-                                请填写赋分！
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-score">赋分</label>
+                        <input id="add-score" name="score" type="text" class="form-control" autocomplete="off">
+                        <div class="invalid-feedback">
+                            请填写赋分！
                         </div>
-                        <div class="form-group">
-                            <label for="add-level">层级</label>
-                            <input id="add-level" name="level" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="add-fullMark">满分</label>
-                            <input id="add-fullMark" name="fullMark" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                    </form>
-                </div>
-                <div class="border-top" style="padding: 15px;">
-                    <button id="add-submit-btn" type="button" class="btn btn-primary">
-                        <i class="bi bi-arrow-bar-up icon"></i>
-                        提交
-                    </button>
-                    <button id="add-close-btn" type="button" class="btn btn-primary left-margin">
-                        <i class="bi bi-x-circle icon"></i>
-                        关闭
-                    </button>
-                </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-level">层级</label>
+                        <input id="add-level" name="level" type="text" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="add-fullMark">满分</label>
+                        <input id="add-fullMark" name="fullMark" type="text" class="form-control" autocomplete="off">
+                    </div>
+                </form>
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="add-submit-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    提交
+                </button>
+                <button id="add-close-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    关闭
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    <!--    修改窗体-->
-    <div id="update-modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title">修改</div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="update-form" class="needs-validation">
-                        <div class="form-group">
-                            <input id="id" name="id" type="hidden">
-                        </div>
-                        <div class="form-group">
-                            <label for="update-unit">单位</label>
-                            <input id="update-unit" name="unit" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="update-experience">经历项</label>
-                            <input id="update-experience" name="experience" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="update-duration">历练时长</label>
-                            <input id="update-duration" name="duration" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="update-score">赋分</label>
-                            <input id="update-score" name="score" type="number" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="update-level">层级</label>
-                            <input id="update-level" name="level" type="text" class="form-control" autocomplete="off" >
-                        </div>
-                        <div class="form-group">
-                            <label for="update-fullMark">满分</label>
-                            <input id="update-fullMark" name="fullMark" type="number" class="form-control" autocomplete="off" >
-                        </div>
-                    </form>
-                </div>
-                <div class="border-top" style="padding: 15px;">
-                    <button id="update-form-btn" type="button" class="btn btn-primary">
-                        <i class="bi bi-arrow-bar-up icon"></i>
-                        提交
-                    </button>
-                    <button id="close-form-btn" type="button" class="btn btn-primary left-margin">
-                        <i class="bi bi-x-circle icon"></i>
-                        关闭
-                    </button>
-                </div>
+<!--    修改窗体-->
+<div id="update-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">修改</div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="update-form" class="needs-validation">
+                    <div class="form-group">
+                        <input id="id" name="id" type="hidden">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-unit">单位</label>
+                        <input id="update-unit" name="unit" type="text" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-experience">经历项</label>
+                        <input id="update-experience" name="experience" type="text" class="form-control"
+                               autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-duration">历练时长</label>
+                        <input id="update-duration" name="duration" type="text" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-score">赋分</label>
+                        <input id="update-score" name="score" type="number" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-level">层级</label>
+                        <input id="update-level" name="level" type="text" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="update-fullMark">满分</label>
+                        <input id="update-fullMark" name="fullMark" type="number" class="form-control"
+                               autocomplete="off">
+                    </div>
+                </form>
+            </div>
+            <div class="border-top" style="padding: 15px;">
+                <button id="update-form-btn" type="button" class="btn btn-primary">
+                    <i class="bi bi-arrow-bar-up icon"></i>
+                    提交
+                </button>
+                <button id="close-form-btn" type="button" class="btn btn-primary left-margin">
+                    <i class="bi bi-x-circle icon"></i>
+                    关闭
+                </button>
             </div>
         </div>
     </div>
+</div>
 
 </body>
 </html>

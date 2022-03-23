@@ -16,7 +16,7 @@ public class EssentialInfo {
     /**
      * 主键
      */
-    @TableId(value = "id" , type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private int id;
     /**
      * 姓名

@@ -24,8 +24,8 @@ public class KeyExperienceConfigServiceImpl extends ServiceImpl<KeyExperienceCon
     }
 
     @Override
-    public List<KeyExperienceConfig> getListByUnit(String unit) {
-        return keyExperienceConfigMapper.getListByUnit(unit);
+    public List<KeyExperienceConfig> getListByUnit(String unit,String experience) {
+        return keyExperienceConfigMapper.getListByUnit(unit,experience);
     }
 
     @Override
@@ -51,5 +51,15 @@ public class KeyExperienceConfigServiceImpl extends ServiceImpl<KeyExperienceCon
     @Override
     public boolean delete(List<Integer> idList) {
         return this.removeByIds(idList);
+    }
+
+    @Override
+    public List<KeyExperienceConfig> getSelect(String secondaryUnit) {
+        return keyExperienceConfigMapper.getSelect(secondaryUnit);
+    }
+
+    @Override
+    public List<KeyExperienceConfig> getSelect2() {
+        return keyExperienceConfigMapper.getSelect2();
     }
 }

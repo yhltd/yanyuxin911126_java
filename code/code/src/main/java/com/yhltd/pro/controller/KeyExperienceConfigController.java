@@ -58,9 +58,41 @@ public class KeyExperienceConfigController {
      * @return ResultInfo
      */
     @PostMapping("/getListByUnit")
-    public ResultInfo getListByUnit(String unit) {
+    public ResultInfo getListByUnit(String unit,String experience) {
         try {
-            List<KeyExperienceConfig> list = keyExperienceConfigService.getListByUnit(unit);
+            List<KeyExperienceConfig> list = keyExperienceConfigService.getListByUnit(unit,experience);
+            if (StringUtils.isNotNull(list)) {
+                return ResultInfo.success("获取成功", list);
+            } else {
+                return ResultInfo.success("获取失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("获取失败：{}", e.getMessage());
+            return ResultInfo.error("错误!");
+        }
+    }
+
+    @PostMapping("/getSelect")
+    public ResultInfo getSelect(String unit) {
+        try {
+            List<KeyExperienceConfig> list = keyExperienceConfigService.getSelect(unit);
+            if (StringUtils.isNotNull(list)) {
+                return ResultInfo.success("获取成功", list);
+            } else {
+                return ResultInfo.success("获取失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("获取失败：{}", e.getMessage());
+            return ResultInfo.error("错误!");
+        }
+    }
+
+    @PostMapping("/getSelect2")
+    public ResultInfo getSelect2() {
+        try {
+            List<KeyExperienceConfig> list = keyExperienceConfigService.getSelect2();
             if (StringUtils.isNotNull(list)) {
                 return ResultInfo.success("获取成功", list);
             } else {

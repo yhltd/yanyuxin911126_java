@@ -24,8 +24,8 @@ public class EssentialInfoServiceImpl extends ServiceImpl<EssentialInfoMapper, E
     }
 
     @Override
-    public List<EssentialInfo> getListByName(String fullName) {
-        return essentialInfoMapper.getListByName(fullName);
+    public List<EssentialInfo> getListByName(String fullName,String department) {
+        return essentialInfoMapper.getListByName(fullName,department);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class EssentialInfoServiceImpl extends ServiceImpl<EssentialInfoMapper, E
 
     @Override
     public List<EssentialInfo> getEiId(String fullName, String secondaryUnit) {
-        return essentialInfoMapper.getEiId(fullName,secondaryUnit);
+        return essentialInfoMapper.getEiId(fullName, secondaryUnit);
     }
 
     @Override
     public List<EssentialInfo> getEiId2(String fullName, String department2, String department1) {
-        return essentialInfoMapper.getEiId2(fullName,department2,department1);
+        return essentialInfoMapper.getEiId2(fullName, department2, department1);
     }
 
     @Override
     public List<EssentialInfo> getEiId3(String fullName, String level) {
-        return essentialInfoMapper.getEiId3(fullName,level);
+        return essentialInfoMapper.getEiId3(fullName, level);
     }
 
     @Override

@@ -67,9 +67,9 @@ public class KeyMajorController {
      * @return ResultInfo
      */
     @PostMapping("/getListByName")
-    public ResultInfo getListByName(String fullName) {
+    public ResultInfo getListByName(String fullName,String department) {
         try {
-            List<KeyMajor> list = keyMajorService.getListByName(fullName);
+            List<KeyMajor> list = keyMajorService.getListByName(fullName,department);
             if (StringUtils.isNotNull(list)) {
                 return ResultInfo.success("获取成功", list);
             } else {
@@ -93,6 +93,17 @@ public class KeyMajorController {
         GsonUtil gsonUtil = new GsonUtil(GsonUtil.toJson(map));
         try {
             KeyMajor keyMajor = gsonUtil.toEntity(gsonUtil.get("keyMajor"), KeyMajor.class);
+//            keyMajor.setDepartment(keyMajor.getDepartment().trim());
+//            keyMajor.setA(keyMajor.getA().trim());
+//            keyMajor.setB(keyMajor.getB().trim());
+//            keyMajor.setC(keyMajor.getC().trim());
+//            keyMajor.setD(keyMajor.getD().trim());
+//            keyMajor.setE(keyMajor.getE().trim());
+//            keyMajor.setF(keyMajor.getF().trim());
+//            keyMajor.setG(keyMajor.getG().trim());
+//            keyMajor.setH(keyMajor.getH().trim());
+//            keyMajor.setI(keyMajor.getI().trim());
+//            keyMajor.setJ(keyMajor.getJ().trim());
             if (keyMajorService.add(keyMajor)) {
                 return ResultInfo.success("添加成功", keyMajor);
             } else {

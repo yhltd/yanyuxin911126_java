@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2022/02/07 12:26
  */
 @Service
-public class ConfigurationServiceImpl extends ServiceImpl<ConfigurationMapper,Configuration> implements ConfigurationService {
+public class ConfigurationServiceImpl extends ServiceImpl<ConfigurationMapper, Configuration> implements ConfigurationService {
     @Autowired
     private ConfigurationMapper configurationMapper;
 

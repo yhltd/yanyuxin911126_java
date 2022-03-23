@@ -24,13 +24,15 @@ public interface KeyAbilityScoreService extends IService<KeyAbilityScore> {
 
     /**
      * 查询所有基本信息
+     *
      * @param
      * @return 基本信息的集合
      */
-    List<KeyAbilityScore> getListByName(String fullName);
+    List<KeyAbilityScore> getListByName(String fullName,String department);
 
     /**
      * 查询所有基本信息
+     *
      * @param
      * @return 基本信息的集合
      */
@@ -38,6 +40,7 @@ public interface KeyAbilityScoreService extends IService<KeyAbilityScore> {
 
     /**
      * 查询平均值
+     *
      * @return 基本信息的集合
      */
     List<KeyAbilityScore> getAverage();
@@ -55,7 +58,7 @@ public interface KeyAbilityScoreService extends IService<KeyAbilityScore> {
      *
      * @return 是否修改成功
      */
-    void update(int id, int eiId, String D,String E,String F,String G,String H,String I,String J,String K,String L,String M,String N,String O,String P,String Q,String R);
+    void update(int id, int eiId, String D, String E, String F, String G, String H, String I, String J, String K, String L, String M, String N, String O, String P, String Q, String R);
 
     /**
      * 删除
@@ -73,5 +76,5 @@ public interface KeyAbilityScoreService extends IService<KeyAbilityScore> {
      */
     boolean delete(List<Integer> idList);
 
-    List<KeyAbilityScore>getAverageByDepartment();
+    List<KeyAbilityScore> getAverageByDepartment();
 }

@@ -64,9 +64,9 @@ public class PerformanceController {
      * @return ResultInfo
      */
     @PostMapping("/getListByName")
-    public ResultInfo getListByName(String fullName) {
+    public ResultInfo getListByName(String fullName,String secondaryUnit) {
         try {
-            List<Performance> list = performanceService.getListByName(fullName);
+            List<Performance> list = performanceService.getListByName(fullName,secondaryUnit);
             if (StringUtils.isNotNull(list)) {
                 return ResultInfo.success("获取成功", list);
             } else {

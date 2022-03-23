@@ -33,28 +33,27 @@ $(function () {
     //点击刷新按钮
     $("#refresh-btn").click(function () {
         $("#fullName").val("");
+        $("#department").val("");
         getList();
     })
 
     //点击查询按钮
     $("#query_button").click(function () {
         var fullName = $("#fullName").val();
-        if (fullName == "") {
-            alert("请输入要查询的姓名")
-        } else {
-            $ajax({
-                type: 'post',
-                url: '/keyabilityscore/getListByName',
-                data: {
-                    fullName: fullName
-                }
-            }, false, '', function (res) {
-                if (res.code == 200) {
-                    setTable(res.data)
-                    $("#keyAbilityScoreTable").bootstrapTable('hideColumn', 'eiId');
-                }
-            })
-        }
+        var department = $("#department").val();
+        $ajax({
+            type: 'post',
+            url: '/keyabilityscore/getListByName',
+            data: {
+                fullName: fullName,
+                department:department,
+            }
+        }, false, '', function (res) {
+            if (res.code == 200) {
+                setTable(res.data)
+                $("#keyAbilityScoreTable").bootstrapTable('hideColumn', 'eiId');
+            }
+        })
     })
 
     //添加窗体点击选择基本信息按钮

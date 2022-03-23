@@ -24,8 +24,8 @@ public class RiskFactorServiceImpl extends ServiceImpl<RiskFactorMapper, RiskFac
     }
 
     @Override
-    public List<RiskFactor> getListByName(String fullName) {
-        return riskFactorMapper.getListByName(fullName);
+    public List<RiskFactor> getListByName(String fullName,String department) {
+        return riskFactorMapper.getListByName(fullName,department);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class RiskFactorServiceImpl extends ServiceImpl<RiskFactorMapper, RiskFac
 
     @Override
     public void update(int id, int eiId, double A, double B, double C, double D, double E) {
-        riskFactorMapper.update(id,eiId,A,B,C,D,E);
+        riskFactorMapper.update(id, eiId, A, B, C, D, E);
     }
 
     @Override
@@ -46,5 +46,10 @@ public class RiskFactorServiceImpl extends ServiceImpl<RiskFactorMapper, RiskFac
     @Override
     public boolean delete(List<Integer> idList) {
         return this.removeByIds(idList);
+    }
+
+    @Override
+    public List<RiskFactor> getListByDepartment(String department2) {
+        return riskFactorMapper.getListByDepartment(department2);
     }
 }

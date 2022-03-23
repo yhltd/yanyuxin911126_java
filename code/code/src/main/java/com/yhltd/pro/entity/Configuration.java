@@ -15,7 +15,7 @@ public class Configuration {
     /**
      * 主键
      */
-    @TableId(value = "id" , type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private int id;
     /**
      * 部门/单位

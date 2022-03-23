@@ -143,7 +143,7 @@ function getList() {
             }
 
             setTable(res.data);
-            $("#keyperformanceTable").bootstrapTable('hideColumn', 'eiId');
+            //$("#keyperformanceTable").bootstrapTable('hideColumn', 'eiId');
         }
         console.log(res)
     })
@@ -169,165 +169,164 @@ $(function () {
     //点击刷新按钮
     $("#refresh-btn").click(function () {
         $("#fullName").val("");
+        $("#secondaryUnit").val("");
         getList();
     })
 
     //点击查询按钮
     $("#query_button").click(function () {
         var fullName = $("#fullName").val();
-        if (fullName == "") {
-            alert("请输入要查询的姓名")
-        } else {
-            $ajax({
-                type: 'post',
-                url: '/keyperformance/getListByName',
-                data: {
-                    fullName: fullName
-                }
-            }, false, '', function (res) {
-                if (res.code == 200) {
-                    for (var i = 0; i < res.data.length; i++) {
-                        //排名位置计算
-                        var this_paiming = res.data[i].ranking / res.data[i].renshuSum
-                        this_paiming = (Math.round(this_paiming * 10000) / 100).toFixed(0) + '%'
-                        res.data[i].paiming = this_paiming
+        var secondaryUnit = $("#secondaryUnit").val();
+        $ajax({
+            type: 'post',
+            url: '/keyperformance/getListByName',
+            data: {
+                fullName: fullName,
+                secondaryUnit:secondaryUnit,
+            }
+        }, false, '', function (res) {
+            if (res.code == 200) {
+                for (var i = 0; i < res.data.length; i++) {
+                    //排名位置计算
+                    var this_paiming = res.data[i].ranking / res.data[i].renshuSum
+                    this_paiming = (Math.round(this_paiming * 10000) / 100).toFixed(0) + '%'
+                    res.data[i].paiming = this_paiming
 
-                        //档位计算
-                        var this_renshu_sum = res.data[i].renshuSum
-                        if (this_renshu_sum >= 10) {
-                            if (Number(this_paiming.replace("%", "")) <= 10) {
-                                res.data[i].dangwei = 1
-                            } else if (Number(this_paiming.replace("%", "")) <= 20) {
-                                res.data[i].dangwei = 2
-                            } else if (Number(this_paiming.replace("%", "")) <= 80) {
-                                res.data[i].dangwei = 3
-                            } else if (Number(this_paiming.replace("%", "")) <= 90) {
-                                res.data[i].dangwei = 4
-                            } else {
-                                res.data[i].dangwei = 5
-                            }
-                        } else if (this_renshu_sum == 8) {
-                            if (Number(this_paiming.replace("%", "")) == 100) {
-                                res.data[i].dangwei = 1
-                            } else if (Number(this_paiming.replace("%", "")) == 200) {
-                                res.data[i].dangwei = 2
-                            } else if (Number(this_paiming.replace("%", "")) == 300 || Number(this_paiming.replace("%", "")) == 400) {
-                                res.data[i].dangwei = 3
-                            } else if (Number(this_paiming.replace("%", "")) == 500 || Number(this_paiming.replace("%", "")) == 600) {
-                                res.data[i].dangwei = 4
-                            } else {
-                                res.data[i].dangwei = 5
-                            }
-                        } else if (this_renshu_sum == 7) {
-                            if (Number(this_paiming.replace("%", "")) == 100) {
-                                res.data[i].dangwei = 1
-                            } else if (Number(this_paiming.replace("%", "")) == 200) {
-                                res.data[i].dangwei = 2
-                            } else if (Number(this_paiming.replace("%", "")) == 300) {
-                                res.data[i].dangwei = 3
-                            } else if (Number(this_paiming.replace("%", "")) == 400 || Number(this_paiming.replace("%", "")) == 500) {
-                                res.data[i].dangwei = 4
-                            } else {
-                                res.data[i].dangwei = 5
-                            }
-                        } else if (this_renshu_sum == 6) {
-                            if (Number(this_paiming.replace("%", "")) == 100) {
-                                res.data[i].dangwei = 1
-                            } else if (Number(this_paiming.replace("%", "")) == 200) {
-                                res.data[i].dangwei = 2
-                            } else if (Number(this_paiming.replace("%", "")) == 300) {
-                                res.data[i].dangwei = 3
-                            } else if (Number(this_paiming.replace("%", "")) == 400) {
-                                res.data[i].dangwei = 4
-                            } else {
-                                res.data[i].dangwei = 5
-                            }
-                        } else if (this_renshu_sum == 5) {
-                            if (Number(this_paiming.replace("%", "")) == 100) {
-                                res.data[i].dangwei = 1
-                            } else if (Number(this_paiming.replace("%", "")) == 200) {
-                                res.data[i].dangwei = 2
-                            } else if (Number(this_paiming.replace("%", "")) == 300) {
-                                res.data[i].dangwei = 3
-                            } else if (Number(this_paiming.replace("%", "")) == 400) {
-                                res.data[i].dangwei = 4
-                            } else {
-                                res.data[i].dangwei = 5
-                            }
-                        } else if (this_renshu_sum == 4) {
-                            if (Number(this_paiming.replace("%", "")) == 100) {
-                                res.data[i].dangwei = 1
-                            } else if (Number(this_paiming.replace("%", "")) == 200) {
-                                res.data[i].dangwei = 2
-                            } else if (Number(this_paiming.replace("%", "")) == 300) {
-                                res.data[i].dangwei = 3
-                            } else {
-                                res.data[i].dangwei = 4
-                            }
-                        } else if (this_renshu_sum == 3) {
-                            if (Number(this_paiming.replace("%", "")) == 100) {
-                                res.data[i].dangwei = 1
-                            } else if (Number(this_paiming.replace("%", "")) == 200) {
-                                res.data[i].dangwei = 2
-                            } else {
-                                res.data[i].dangwei = 3
-                            }
-                        } else if (this_renshu_sum == 2) {
-                            if (Number(this_paiming.replace("%", "")) == 100) {
-                                res.data[i].dangwei = 1
-                            } else {
-                                res.data[i].dangwei = 2
-                            }
-                        } else if (this_renshu_sum == 1) {
-                            if (Number(this_paiming.replace("%", "")) == 100) {
-                                res.data[i].dangwei = 1
-                            }
+                    //档位计算
+                    var this_renshu_sum = res.data[i].renshuSum
+                    if (this_renshu_sum >= 10) {
+                        if (Number(this_paiming.replace("%", "")) <= 10) {
+                            res.data[i].dangwei = 1
+                        } else if (Number(this_paiming.replace("%", "")) <= 20) {
+                            res.data[i].dangwei = 2
+                        } else if (Number(this_paiming.replace("%", "")) <= 80) {
+                            res.data[i].dangwei = 3
+                        } else if (Number(this_paiming.replace("%", "")) <= 90) {
+                            res.data[i].dangwei = 4
                         } else {
-                            res.data[i].dangwei = ''
+                            res.data[i].dangwei = 5
                         }
-
-                        //绩效赋分计算
-                        var this_dangwei = res.data[i].dangwei
-                        if (this_dangwei == 1) {
-                            res.data[i].jixiao = 100
-                        } else if (this_dangwei == 2) {
-                            res.data[i].jixiao = 90
-                        } else if (this_dangwei == 3) {
-                            res.data[i].jixiao = 80
-                        } else if (this_dangwei == 4) {
-                            res.data[i].jixiao = 70
-                        } else if (this_dangwei == 5) {
-                            res.data[i].jixiao = 60
+                    } else if (this_renshu_sum == 8) {
+                        if (Number(this_paiming.replace("%", "")) == 100) {
+                            res.data[i].dangwei = 1
+                        } else if (Number(this_paiming.replace("%", "")) == 200) {
+                            res.data[i].dangwei = 2
+                        } else if (Number(this_paiming.replace("%", "")) == 300 || Number(this_paiming.replace("%", "")) == 400) {
+                            res.data[i].dangwei = 3
+                        } else if (Number(this_paiming.replace("%", "")) == 500 || Number(this_paiming.replace("%", "")) == 600) {
+                            res.data[i].dangwei = 4
                         } else {
-                            res.data[i].jixiao = ''
+                            res.data[i].dangwei = 5
                         }
-
-                    }
-                    for (var i = 0; i < res.data.length; i++) {
-                        var this_renyuan_name = res.data[i].fullName
-                        var this_guanjianjixiao = 0
-                        var this_num = 0
-                        for (var j = 0; j < res.data.length; j++) {
-                            if (res.data[j].fullName == this_renyuan_name) {
-                                this_guanjianjixiao = this_guanjianjixiao + res.data[j].jixiao
-                                this_num = this_num + 1
-                            }
-                        }
-                        if (this_num == 0) {
-                            this_guanjianjixiao = ''
-                            res.data[i].guanjianjixiao = this_guanjianjixiao
+                    } else if (this_renshu_sum == 7) {
+                        if (Number(this_paiming.replace("%", "")) == 100) {
+                            res.data[i].dangwei = 1
+                        } else if (Number(this_paiming.replace("%", "")) == 200) {
+                            res.data[i].dangwei = 2
+                        } else if (Number(this_paiming.replace("%", "")) == 300) {
+                            res.data[i].dangwei = 3
+                        } else if (Number(this_paiming.replace("%", "")) == 400 || Number(this_paiming.replace("%", "")) == 500) {
+                            res.data[i].dangwei = 4
                         } else {
-                            res.data[i].guanjianjixiao = this_guanjianjixiao / this_num
+                            res.data[i].dangwei = 5
                         }
-
+                    } else if (this_renshu_sum == 6) {
+                        if (Number(this_paiming.replace("%", "")) == 100) {
+                            res.data[i].dangwei = 1
+                        } else if (Number(this_paiming.replace("%", "")) == 200) {
+                            res.data[i].dangwei = 2
+                        } else if (Number(this_paiming.replace("%", "")) == 300) {
+                            res.data[i].dangwei = 3
+                        } else if (Number(this_paiming.replace("%", "")) == 400) {
+                            res.data[i].dangwei = 4
+                        } else {
+                            res.data[i].dangwei = 5
+                        }
+                    } else if (this_renshu_sum == 5) {
+                        if (Number(this_paiming.replace("%", "")) == 100) {
+                            res.data[i].dangwei = 1
+                        } else if (Number(this_paiming.replace("%", "")) == 200) {
+                            res.data[i].dangwei = 2
+                        } else if (Number(this_paiming.replace("%", "")) == 300) {
+                            res.data[i].dangwei = 3
+                        } else if (Number(this_paiming.replace("%", "")) == 400) {
+                            res.data[i].dangwei = 4
+                        } else {
+                            res.data[i].dangwei = 5
+                        }
+                    } else if (this_renshu_sum == 4) {
+                        if (Number(this_paiming.replace("%", "")) == 100) {
+                            res.data[i].dangwei = 1
+                        } else if (Number(this_paiming.replace("%", "")) == 200) {
+                            res.data[i].dangwei = 2
+                        } else if (Number(this_paiming.replace("%", "")) == 300) {
+                            res.data[i].dangwei = 3
+                        } else {
+                            res.data[i].dangwei = 4
+                        }
+                    } else if (this_renshu_sum == 3) {
+                        if (Number(this_paiming.replace("%", "")) == 100) {
+                            res.data[i].dangwei = 1
+                        } else if (Number(this_paiming.replace("%", "")) == 200) {
+                            res.data[i].dangwei = 2
+                        } else {
+                            res.data[i].dangwei = 3
+                        }
+                    } else if (this_renshu_sum == 2) {
+                        if (Number(this_paiming.replace("%", "")) == 100) {
+                            res.data[i].dangwei = 1
+                        } else {
+                            res.data[i].dangwei = 2
+                        }
+                    } else if (this_renshu_sum == 1) {
+                        if (Number(this_paiming.replace("%", "")) == 100) {
+                            res.data[i].dangwei = 1
+                        }
+                    } else {
+                        res.data[i].dangwei = ''
                     }
 
+                    //绩效赋分计算
+                    var this_dangwei = res.data[i].dangwei
+                    if (this_dangwei == 1) {
+                        res.data[i].jixiao = 100
+                    } else if (this_dangwei == 2) {
+                        res.data[i].jixiao = 90
+                    } else if (this_dangwei == 3) {
+                        res.data[i].jixiao = 80
+                    } else if (this_dangwei == 4) {
+                        res.data[i].jixiao = 70
+                    } else if (this_dangwei == 5) {
+                        res.data[i].jixiao = 60
+                    } else {
+                        res.data[i].jixiao = ''
+                    }
 
-                    setTable(res.data)
-                    $("#keyperformanceTable").bootstrapTable('hideColumn', 'eiId');
                 }
-            })
-        }
+                for (var i = 0; i < res.data.length; i++) {
+                    var this_renyuan_name = res.data[i].fullName
+                    var this_guanjianjixiao = 0
+                    var this_num = 0
+                    for (var j = 0; j < res.data.length; j++) {
+                        if (res.data[j].fullName == this_renyuan_name) {
+                            this_guanjianjixiao = this_guanjianjixiao + res.data[j].jixiao
+                            this_num = this_num + 1
+                        }
+                    }
+                    if (this_num == 0) {
+                        this_guanjianjixiao = ''
+                        res.data[i].guanjianjixiao = this_guanjianjixiao
+                    } else {
+                        res.data[i].guanjianjixiao = this_guanjianjixiao / this_num
+                    }
+
+                }
+
+
+                setTable(res.data)
+                //$("#keyperformanceTable").bootstrapTable('hideColumn', 'eiId');
+            }
+        })
     })
 
     //添加窗体点击选择基本信息按钮

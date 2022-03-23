@@ -25,15 +25,16 @@ public interface PerformanceMapper extends BaseMapper<Performance> {
 
     /**
      * 查询所有基本信息
+     *
      * @param fullName 姓名
      * @return 基本信息list
      */
     @Select("select p.id,ei_id,nian,ei.full_name as full_name,ei.secondary_unit as secondary_unit," +
             "score from performance as p left join essential_info as ei on ei.id=p.ei_id " +
-            "where ei.full_name like \"%\" #{fullName} \"%\" ")
-    List<Performance> getListByName(String fullName);
+            "where ei.full_name like '%'+#{fullName}+'%' and ei.secondary_unit like '%'+#{secondaryUnit}+'%' ")
+    List<Performance> getListByName(String fullName,String secondaryUnit);
 
     @Select("update performance set nian=#{nian},ei_id=#{eiId}" +
             ",score=#{score} where id=#{id}")
-    void update(Integer id,String nian,Integer eiId,Double score);
+    void update(Integer id, String nian, Integer eiId, Double score);
 }

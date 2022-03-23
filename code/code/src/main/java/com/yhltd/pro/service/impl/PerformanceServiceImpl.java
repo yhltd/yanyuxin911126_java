@@ -25,8 +25,8 @@ public class PerformanceServiceImpl extends ServiceImpl<PerformanceMapper, Perfo
     }
 
     @Override
-    public List<Performance> getListByName(String fullName) {
-        return performanceMapper.getListByName(fullName);
+    public List<Performance> getListByName(String fullName,String secondaryUnit) {
+        return performanceMapper.getListByName(fullName,secondaryUnit);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class PerformanceServiceImpl extends ServiceImpl<PerformanceMapper, Perfo
 
     @Override
     public void update(int id, String nian, int eiId, double score) {
-        performanceMapper.update(id,nian,eiId,score);
+        performanceMapper.update(id, nian, eiId, score);
     }
 
 

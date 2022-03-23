@@ -59,9 +59,9 @@ public class KeyPerformanceController {
      * @return ResultInfo
      */
     @PostMapping("/getListByName")
-    public ResultInfo getListByName(String fullName) {
+    public ResultInfo getListByName(String fullName,String secondaryUnit) {
         try {
-            List<KeyPerformance> list = keyPerformanceService.getListByName(fullName);
+            List<KeyPerformance> list = keyPerformanceService.getListByName(fullName,secondaryUnit);
             if (StringUtils.isNotNull(list)) {
                 return ResultInfo.success("获取成功", list);
             } else {
@@ -74,4 +74,20 @@ public class KeyPerformanceController {
         }
     }
 
+
+    @PostMapping("/getScore")
+    public ResultInfo getScore() {
+        try {
+            List<KeyPerformance> list = keyPerformanceService.getScore();
+            if (StringUtils.isNotNull(list)) {
+                return ResultInfo.success("获取成功", list);
+            } else {
+                return ResultInfo.success("获取失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("获取失败：{}", e.getMessage());
+            return ResultInfo.error("错误!");
+        }
+    }
 }

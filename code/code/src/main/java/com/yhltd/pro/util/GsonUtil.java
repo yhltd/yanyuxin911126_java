@@ -136,14 +136,14 @@ public class GsonUtil {
      * @param <T>    泛型
      * @return
      */
-    public static <T> List<T> toList(String json, Class<T> tClass){
+    public static <T> List<T> toList(String json, Class<T> tClass) {
         List<T> list = new ArrayList<>();
-        try{
+        try {
             JsonArray array = new JsonParser().parse(json).getAsJsonArray();
             for (final JsonElement elem : array) {
                 list.add(StringUtils.cast(toEntity(elem.toString(), tClass)));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
         return list;

@@ -32,53 +32,52 @@ $(function () {
     //点击刷新按钮
     $("#refresh-btn").click(function () {
         $("#fullName").val("");
+        $("#department").val("");
         getList();
     })
 
     //点击查询按钮
     $("#query_button").click(function () {
         var fullName = $("#fullName").val();
-        if (fullName == "") {
-            alert("请输入要查询的单位/部门")
-        } else {
-            $ajax({
-                type: 'post',
-                url: '/key_major/getListByName',
-                data: {
-                    fullName: fullName
-                }
-            }, false, '', function (res) {
-                if (res.code == 200) {
-                    setTable(res.data)
-                }
-            })
-        }
+        var department = $("#department").val();
+        $ajax({
+            type: 'post',
+            url: '/key_major/getListByName',
+            data: {
+                fullName: fullName,
+                department:department,
+            }
+        }, false, '', function (res) {
+            if (res.code == 200) {
+                setTable(res.data)
+            }
+        })
     })
 
     //点击添加按钮
     $("#add-btn").click(function () {
         $("#add-department").empty();
-        $("#add-department").append("<option>&nbsp;</option>");
+        $("#add-department").append("<option></option>");
         $("#add-a").empty();
-        $("#add-a").append("<option>&nbsp;</option>");
+        $("#add-a").append("<option></option>");
         $("#add-b").empty();
-        $("#add-b").append("<option>&nbsp;</option>");
+        $("#add-b").append("<option></option>");
         $("#add-c").empty();
-        $("#add-c").append("<option>&nbsp;</option>");
+        $("#add-c").append("<option></option>");
         $("#add-d").empty();
-        $("#add-d").append("<option>&nbsp;</option>");
+        $("#add-d").append("<option></option>");
         $("#add-e").empty();
-        $("#add-e").append("<option>&nbsp;</option>");
+        $("#add-e").append("<option></option>");
         $("#add-f").empty();
-        $("#add-f").append("<option>&nbsp;</option>");
+        $("#add-f").append("<option></option>");
         $("#add-g").empty();
-        $("#add-g").append("<option>&nbsp;</option>");
+        $("#add-g").append("<option></option>");
         $("#add-h").empty();
-        $("#add-h").append("<option>&nbsp;</option>");
+        $("#add-h").append("<option></option>");
         $("#add-i").empty();
-        $("#add-i").append("<option>&nbsp;</option>");
+        $("#add-i").append("<option></option>");
         $("#add-j").empty();
-        $("#add-j").append("<option>&nbsp;</option>");
+        $("#add-j").append("<option></option>");
         $ajax({
             type: 'post',
             url: '/key_major/getDepartment',
@@ -96,25 +95,25 @@ $(function () {
     //添加窗体部门change事件
     $("#add-department").change(function () {
         $("#add-a").empty();
-        $("#add-a").append("<option>&nbsp;</option>");
+        $("#add-a").append("<option></option>");
         $("#add-b").empty();
-        $("#add-b").append("<option>&nbsp;</option>");
+        $("#add-b").append("<option></option>");
         $("#add-c").empty();
-        $("#add-c").append("<option>&nbsp;</option>");
+        $("#add-c").append("<option></option>");
         $("#add-d").empty();
-        $("#add-d").append("<option>&nbsp;</option>");
+        $("#add-d").append("<option></option>");
         $("#add-e").empty();
-        $("#add-e").append("<option>&nbsp;</option>");
+        $("#add-e").append("<option></option>");
         $("#add-f").empty();
-        $("#add-f").append("<option>&nbsp;</option>");
+        $("#add-f").append("<option></option>");
         $("#add-g").empty();
-        $("#add-g").append("<option>&nbsp;</option>");
+        $("#add-g").append("<option></option>");
         $("#add-h").empty();
-        $("#add-h").append("<option>&nbsp;</option>");
+        $("#add-h").append("<option></option>");
         $("#add-i").empty();
-        $("#add-i").append("<option>&nbsp;</option>");
+        $("#add-i").append("<option></option>");
         $("#add-j").empty();
-        $("#add-j").append("<option>&nbsp;</option>");
+        $("#add-j").append("<option></option>");
         var department = $("#add-department").find("option:selected").text();
         $ajax({
             type: 'post',
@@ -177,7 +176,7 @@ $(function () {
                 $.each(rows, function (index, row) {
                     $("#add-eiId").val(row.data.id);
                     $("#add-fullName").val(row.data.fullName);
-                    $("#add-level").val(row.data.level);
+                    $("#add-level").val(row.data.department1);
                 })
                 $('#show-essential-modal').modal('hide');
             }
@@ -191,7 +190,7 @@ $(function () {
                 $.each(rows, function (index, row) {
                     $("#update-eiId").val(row.data.id);
                     $("#update-fullName").val(row.data.fullName);
-                    $("#update-level").val(row.data.level);
+                    $("#update-level").val(row.data.department1);
                 })
                 $('#show-essential-modal').modal('hide');
             }
@@ -233,7 +232,7 @@ $(function () {
             return;
         }
         $("#update-department").empty();
-        $("#update-department").append("<option>&nbsp;</option>");
+        $("#update-department").append("<option></option>");
         $ajax({
             type: 'post',
             url: '/key_major/getDepartment',
@@ -249,25 +248,25 @@ $(function () {
 
 
                 $("#update-a").empty();
-                $("#update-a").append("<option>&nbsp;</option>");
+                $("#update-a").append("<option></option>");
                 $("#update-b").empty();
-                $("#update-b").append("<option>&nbsp;</option>");
+                $("#update-b").append("<option></option>");
                 $("#update-c").empty();
-                $("#update-c").append("<option>&nbsp;</option>");
+                $("#update-c").append("<option></option>");
                 $("#update-d").empty();
-                $("#update-d").append("<option>&nbsp;</option>");
+                $("#update-d").append("<option></option>");
                 $("#update-e").empty();
-                $("#update-e").append("<option>&nbsp;</option>");
+                $("#update-e").append("<option></option>");
                 $("#update-f").empty();
-                $("#update-f").append("<option>&nbsp;</option>");
+                $("#update-f").append("<option></option>");
                 $("#update-g").empty();
-                $("#update-g").append("<option>&nbsp;</option>");
+                $("#update-g").append("<option></option>");
                 $("#update-h").empty();
-                $("#update-h").append("<option>&nbsp;</option>");
+                $("#update-h").append("<option></option>");
                 $("#update-i").empty();
-                $("#update-i").append("<option>&nbsp;</option>");
+                $("#update-i").append("<option></option>");
                 $("#update-j").empty();
-                $("#update-j").append("<option>&nbsp;</option>");
+                $("#update-j").append("<option></option>");
                 var department = $("#update-department").find("option:selected").text();
                 $ajax({
                     type: 'post',
@@ -311,25 +310,25 @@ $(function () {
     //修改窗体部门change事件
     $("#update-department").change(function () {
         $("#update-a").empty();
-        $("#update-a").append("<option>&nbsp;</option>");
+        $("#update-a").append("<option></option>");
         $("#update-b").empty();
-        $("#update-b").append("<option>&nbsp;</option>");
+        $("#update-b").append("<option></option>");
         $("#update-c").empty();
-        $("#update-c").append("<option>&nbsp;</option>");
+        $("#update-c").append("<option></option>");
         $("#update-d").empty();
-        $("#update-d").append("<option>&nbsp;</option>");
+        $("#update-d").append("<option></option>");
         $("#update-e").empty();
-        $("#update-e").append("<option>&nbsp;</option>");
+        $("#update-e").append("<option></option>");
         $("#update-f").empty();
-        $("#update-f").append("<option>&nbsp;</option>");
+        $("#update-f").append("<option></option>");
         $("#update-g").empty();
-        $("#update-g").append("<option>&nbsp;</option>");
+        $("#update-g").append("<option></option>");
         $("#update-h").empty();
-        $("#update-h").append("<option>&nbsp;</option>");
+        $("#update-h").append("<option></option>");
         $("#update-i").empty();
-        $("#update-i").append("<option>&nbsp;</option>");
+        $("#update-i").append("<option></option>");
         $("#update-j").empty();
-        $("#update-j").append("<option>&nbsp;</option>");
+        $("#update-j").append("<option></option>");
         var department = $("#update-department").find("option:selected").text();
         $ajax({
             type: 'post',
@@ -361,27 +360,27 @@ $(function () {
         $('#update-form')[0].reset();
         $('#update-modal').modal('hide');
         $("#update-department").empty();
-        $("#update-department").append("<option>&nbsp;</option>");
+        $("#update-department").append("<option></option>");
         $("#update-a").empty();
-        $("#update-a").append("<option>&nbsp;</option>");
+        $("#update-a").append("<option></option>");
         $("#update-b").empty();
-        $("#update-b").append("<option>&nbsp;</option>");
+        $("#update-b").append("<option></option>");
         $("#update-c").empty();
-        $("#update-c").append("<option>&nbsp;</option>");
+        $("#update-c").append("<option></option>");
         $("#update-d").empty();
-        $("#update-d").append("<option>&nbsp;</option>");
+        $("#update-d").append("<option></option>");
         $("#update-e").empty();
-        $("#update-e").append("<option>&nbsp;</option>");
+        $("#update-e").append("<option></option>");
         $("#update-f").empty();
-        $("#update-f").append("<option>&nbsp;</option>");
+        $("#update-f").append("<option></option>");
         $("#update-g").empty();
-        $("#update-g").append("<option>&nbsp;</option>");
+        $("#update-g").append("<option></option>");
         $("#update-h").empty();
-        $("#update-h").append("<option>&nbsp;</option>");
+        $("#update-h").append("<option></option>");
         $("#update-i").empty();
-        $("#update-i").append("<option>&nbsp;</option>");
+        $("#update-i").append("<option></option>");
         $("#update-j").empty();
-        $("#update-j").append("<option>&nbsp;</option>");
+        $("#update-j").append("<option></option>");
     })
 
     //点击修改按钮提交事件

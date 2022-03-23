@@ -19,7 +19,7 @@ public interface KeyMajorMapper extends BaseMapper<KeyMajor> {
      *
      * @return list
      */
-    @Select("select km.id,ei_id,ei.full_name as full_name,km.department,ei.level as level," +
+    @Select("select km.id,ei_id,ei.full_name as full_name,km.department,ei.department1 as level," +
             "A,B,C,D,E,F,G,H,I,J from key_major as km left join essential_info as " +
             "ei on ei.id=km.ei_id")
     List<KeyMajor> getList();
@@ -29,17 +29,18 @@ public interface KeyMajorMapper extends BaseMapper<KeyMajor> {
      *
      * @return list
      */
-    @Select("select km.id,ei_id,ei.full_name as full_name,km.department,ei.level as level," +
+    @Select("select km.id,ei_id,ei.full_name as full_name,km.department,ei.department1 as level," +
             "A,B,C,D,E,F,G,H,I,J from key_major as km left join essential_info as " +
-            "ei on ei.id=km.ei_id where ei.full_name like \"%\" #{fullName} \"%\" ")
-    List<KeyMajor> getListByName(String fullName);
+            "ei on ei.id=km.ei_id where ei.full_name like '%'+#{fullName}+'%' and department like " +
+            "'%'+#{department}+'%' ")
+    List<KeyMajor> getListByName(String fullName,String department);
 
     /**
      * 根据姓名查询
      *
      * @return list
      */
-    @Select("select * from key_major where ei_id=#{eiId} limit 1")
+    @Select("select top 1 * from key_major where ei_id=#{eiId}")
     List<KeyMajor> getListById(int eiId);
 
     /**

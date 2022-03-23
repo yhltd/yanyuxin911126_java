@@ -24,13 +24,18 @@ public class KeyExperienceScoreServiceImpl extends ServiceImpl<KeyExperienceScor
     }
 
     @Override
+    public List<KeyExperienceScore> getListByName(String fullName, String secondaryUnit) {
+        return keyExperienceScoreMapper.getListByName(fullName,secondaryUnit);
+    }
+
+    @Override
     public boolean add(KeyExperienceScore keyExperienceScore) {
         return this.save(keyExperienceScore);
     }
 
     @Override
-    public void update(int id,int eiId,String ksDate,String jsDate,String age,String experienceStage,String job,String experience) {
-        keyExperienceScoreMapper.update(id,eiId,ksDate,jsDate,age,experienceStage,job,experience);
+    public void update(int id, int eiId, String ksDate, String jsDate, String age, String experienceStage, String job, String experience,String unitName) {
+        keyExperienceScoreMapper.update(id, eiId, ksDate, jsDate, age, experienceStage, job, experience,unitName);
     }
 
     @Override

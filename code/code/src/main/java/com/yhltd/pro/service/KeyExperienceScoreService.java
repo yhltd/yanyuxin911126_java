@@ -20,6 +20,8 @@ public interface KeyExperienceScoreService extends IService<KeyExperienceScore> 
      */
     List<KeyExperienceScore> getList();
 
+    List<KeyExperienceScore> getListByName(String fullName,String secondaryUnit);
+
     /**
      * 添加
      *
@@ -33,7 +35,7 @@ public interface KeyExperienceScoreService extends IService<KeyExperienceScore> 
      *
      * @return 是否修改成功
      */
-    void update(int id,int eiId,String ksDate,String jsDate,String age,String experienceStage,String job,String experience);
+    void update(int id, int eiId, String ksDate, String jsDate, String age, String experienceStage, String job, String experience,String unitName);
 
     /**
      * 删除

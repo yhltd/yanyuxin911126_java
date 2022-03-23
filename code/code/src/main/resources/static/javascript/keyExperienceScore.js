@@ -27,21 +27,86 @@ function getEssentialList() {
 }
 
 $(function () {
+    //添加窗体下拉
+    $('#add-unitName').change(function () {
+        $("#add-experience").empty();
+        $("#add-experience").append("<option></option>");
+        var unit = $('#add-unitName').find("option:selected").text();
+        $ajax({
+            type: 'post',
+            url: '/key_experience_config/getSelect',
+            data: {
+                unit: unit
+            },
+        }, false, '', function (res) {
+            if (res.code == 200) {
+                for (var i = 0; i < res.data.length; i++) {
+                    $("#add-experience").append("<option value='" + res.data[i].experience + "'>" + res.data[i].experience + "</option>");
+                }
+            }
+        })
+
+    })
+
+
+    //修改窗体下拉
+    $('#update-unitName').change(function () {
+        $("#update-experience").empty();
+        $("#update-experience").append("<option></option>");
+        var unit = $('#update-unitName').find("option:selected").text();
+        $ajax({
+            type: 'post',
+            url: '/key_experience_config/getSelect',
+            data: {
+                unit: unit
+            },
+        }, false, '', function (res) {
+            if (res.code == 200) {
+                for (var i = 0; i < res.data.length; i++) {
+                    $("#update-experience").append("<option value='" + res.data[i].experience + "'>" + res.data[i].experience + "</option>");
+                }
+            }
+        })
+    })
+
     //显示所有信息
     getList();
 
     //点击刷新按钮
     $("#refresh-btn").click(function () {
+        $('#fullName').val("");
+        $('#secondaryUnit').val("");
         getList();
     })
 
+    // //点击刷新按钮
+    // $("#calculation-btn").click(function () {
+    //
+    //     $ajax({
+    //         type: 'post',
+    //         url: '/key_experience_score/calculation',
+    //     }, false, '', function (res) {
+    //         alert(res.msg);
+    //         if (res.code == 200) {
+    //             setTable(res.data);
+    //             $("#keyExperienceScoreTable").bootstrapTable('hideColumn', 'eiId');
+    //         }
+    //         console.log(res)
+    //     })
+    // })
+
     //点击刷新按钮
-    $("#calculation-btn").click(function () {
+    $("#query_button").click(function () {
+        var fullName = $('#fullName').val();
+        var secondaryUnit = $('#secondaryUnit').val();
         $ajax({
             type: 'post',
-            url: '/key_experience_score/calculation',
+            url: '/key_experience_score/getListByName',
+            data:{
+                fullName:fullName,
+                secondaryUnit:secondaryUnit,
+            }
         }, false, '', function (res) {
-            alert(res.msg);
             if (res.code == 200) {
                 setTable(res.data);
                 $("#keyExperienceScoreTable").bootstrapTable('hideColumn', 'eiId');
@@ -50,9 +115,41 @@ $(function () {
         })
     })
 
+
     //点击添加按钮
     $("#add-btn").click(function () {
-        $('#add-modal').modal('show');
+        $("#add-unitName").empty();
+        $("#add-unitName").append("<option></option>");
+        $("#add-experience").empty();
+        $("#add-experience").append("<option></option>");
+        $ajax({
+            type: 'post',
+            url: '/key_experience_config/getSelect2',
+        }, false, '', function (res) {
+            if (res.code == 200) {
+                for (var i = 0; i < res.data.length; i++) {
+                    $("#add-unitName").append("<option value='" + res.data[i].unit + "'>" + res.data[i].unit + "</option>");
+                }
+            }
+
+            var unit = $('add-unitName').find("option:selected").text();
+            $ajax({
+                type: 'post',
+                url: '/key_experience_config/getSelect',
+                data: {
+                    unit: unit
+                },
+            }, false, '', function (res) {
+                if (res.code == 200) {
+                    for (var i = 0; i < res.data.length; i++) {
+                        $("#add-experience").append("<option value='" + res.data[i].experience + "'>" + res.data[i].experience + "</option>");
+                    }
+                }
+            })
+            $('#add-modal').modal('show');
+        })
+
+
     })
 
     //添加窗体中的关闭按钮
@@ -94,6 +191,8 @@ $(function () {
                     $("#add-secondaryUnit").val(row.data.secondaryUnit);
                 })
                 $('#show-essential-modal').modal('hide');
+
+
             }
             operation = "";
         } else if (operation == "修改") {
@@ -108,6 +207,8 @@ $(function () {
                     $("#update-secondaryUnit").val(row.data.secondaryUnit);
                 })
                 $('#show-essential-modal').modal('hide');
+
+
             }
             operation = "";
         }
@@ -152,6 +253,42 @@ $(function () {
         }
         $('#update-modal').modal('show');
         setForm(rows[0].data, '#update-form');
+
+        $("#update-unitName").empty();
+        $("#update-unitName").append("<option></option>");
+        $("#update-experience").empty();
+        $("#update-experience").append("<option></option>");
+
+        $ajax({
+            type: 'post',
+            url: '/key_experience_config/getSelect2',
+        }, false, '', function (res) {
+            if (res.code == 200) {
+                for (var i = 0; i < res.data.length; i++) {
+                    $("#update-unitName").append("<option value='" + res.data[i].unit + "'>" + res.data[i].unit + "</option>");
+                }
+            }
+            $("#update-unitName").find("option[value = '" + rows[0].data.unitName + "']").attr("selected", "selected");
+
+
+            var unit = $('#update-unitName').find("option:selected").text();
+            $ajax({
+                type: 'post',
+                url: '/key_experience_config/getSelect',
+                data: {
+                    unit: unit
+                },
+            }, false, '', function (res) {
+                if (res.code == 200) {
+                    for (var i = 0; i < res.data.length; i++) {
+                        $("#update-experience").append("<option value='" + res.data[i].experience + "'>" + res.data[i].experience + "</option>");
+                    }
+                }
+                $("#update-experience").find("option[value = '" + rows[0].data.experience + "']").attr("selected", "selected");
+            })
+        })
+
+
     })
 
     //修改窗体中的关闭按钮
@@ -336,6 +473,12 @@ function setTable(data) {
                 sortable: true,
                 width: 100
             }, {
+                field: 'unitName',
+                title: '单位名称',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
                 field: 'job',
                 title: '从事工作和职务',
                 align: 'left',
@@ -356,12 +499,6 @@ function setTable(data) {
             }, {
                 field: 'experience',
                 title: '经历项',
-                align: 'left',
-                sortable: true,
-                width: 100
-            }, {
-                field: 'score',
-                title: '经历赋分',
                 align: 'left',
                 sortable: true,
                 width: 100
