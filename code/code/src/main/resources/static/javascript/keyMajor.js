@@ -387,29 +387,27 @@ $(function () {
     $('#update-form-btn').click(function () {
         var msg = confirm("确认要修改吗？")
         if (msg) {
-            if (checkForm('#update-form')) {
-                let params = formToJson('#update-form');
-                $ajax({
-                    type: 'post',
-                    url: '/key_major/update',
-                    data: {
-                        keyMajorJson: JSON.stringify(params)
-                    },
-                    dataType: 'json',
-                    contentType: 'application/json;charset=utf-8'
-                }, false, '', function (res) {
-                    alert(res.msg);
-                    if (res.code == 200) {
-                        $('#update-close-btn').click();
-                        let rows = getTableSelection('#keyMajorTable');
-                        $('#keyMajorTable').bootstrapTable('updateRow', {
-                            index: rows[0].index,
-                            row: res.data
-                        })
-                        $('#update-modal').modal('hide');
-                    }
-                })
-            }
+            let params = formToJson('#update-form');
+            $ajax({
+                type: 'post',
+                url: '/key_major/update',
+                data: {
+                    keyMajorJson: JSON.stringify(params)
+                },
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8'
+            }, false, '', function (res) {
+                alert(res.msg);
+                if (res.code == 200) {
+                    $('#update-close-btn').click();
+                    let rows = getTableSelection('#keyMajorTable');
+                    $('#keyMajorTable').bootstrapTable('updateRow', {
+                        index: rows[0].index,
+                        row: res.data
+                    })
+                    $('#update-modal').modal('hide');
+                }
+            })
         }
     })
 
