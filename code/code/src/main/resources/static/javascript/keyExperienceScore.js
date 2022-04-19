@@ -468,13 +468,13 @@ function setTable(data) {
                 width: 100
             }, {
                 field: 'secondaryUnit',
-                title: '所在单位',
+                title: '单位名称',
                 align: 'left',
                 sortable: true,
-                width: 100
+                width: 150
             }, {
                 field: 'unitName',
-                title: '单位名称',
+                title: '当时所在单位',
                 align: 'left',
                 sortable: true,
                 width: 100

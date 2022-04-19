@@ -259,7 +259,7 @@ public class KeyExperienceScoreController {
                 Row row = sheet.getRow(i);
                 //姓名
                 Cell fullName = row.getCell(0);
-                //所在单位
+                //单位名称
                 Cell secondaryUnit = row.getCell(4);
                 if (fullName != null && secondaryUnit != null) {
                     fullName.setCellType(CellType.STRING);
@@ -286,20 +286,28 @@ public class KeyExperienceScoreController {
                     age.setCellType(CellType.STRING);
                     keyExperienceScore.setAge(age.getStringCellValue());
                 }
+
+                //当时所在单位
+                Cell unitName = row.getCell(5);
+                if (unitName != null) {
+                    unitName.setCellType(CellType.STRING);
+                    keyExperienceScore.setUnitName(unitName.getStringCellValue());
+                }
+
                 //从事工作和职务
-                Cell job = row.getCell(5);
+                Cell job = row.getCell(6);
                 if (job != null) {
                     job.setCellType(CellType.STRING);
                     keyExperienceScore.setJob(job.getStringCellValue());
                 }
                 //经历阶段
-                Cell experienceStage = row.getCell(6);
+                Cell experienceStage = row.getCell(7);
                 if (experienceStage != null) {
                     experienceStage.setCellType(CellType.STRING);
                     keyExperienceScore.setExperienceStage(experienceStage.getStringCellValue());
                 }
                 //经历项
-                Cell experience = row.getCell(7);
+                Cell experience = row.getCell(8);
                 if (experience != null) {
                     experience.setCellType(CellType.STRING);
                     keyExperienceScore.setExperience(experience.getStringCellValue());

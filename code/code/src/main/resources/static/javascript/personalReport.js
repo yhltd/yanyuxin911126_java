@@ -21,6 +21,19 @@ function uniq(array) {
     return temp;
 }
 
+function uniq_2(array) {
+    let temp = []; //一个新的临时数组
+    for (var i = 0; i < array.length-1; i++) {
+        for (var j = i + 1; j < array.length; j++) {
+            if (array[i].id == array[j].id){
+                array.splice(j,1);
+                j--;
+            }
+        }
+    }
+    return array;
+}
+
 $(function () {
     //点击选择基本信息按钮
     $('#refresh-btn').click(function () {
@@ -285,7 +298,10 @@ $(function () {
                         }
                         renshu = renshu + 1
                     }
-                    $('#ranking').text(count + 1 + "/" + renshu);
+
+                    var renshu_list = uniq_2(res.data)
+                    console.log(renshu_list)
+                    $('#ranking').text(count + 1 + "/" + uniq_2(res.data).length);
                     $('#show-essential-modal').modal('hide');
                 }
                 console.log(res)

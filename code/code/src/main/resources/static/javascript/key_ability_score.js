@@ -7,7 +7,85 @@ function getList() {
     }, false, '', function (res) {
         if (res.code == 200) {
             setTable(res.data);
+            console.log(res.data)
+
+            for(var i=0;i<res.data.length;i++){
+                var sum = 0
+                var count = 0
+                if (isNaN(parseFloat(res.data[i].d)) == false) {
+                    sum = sum + parseFloat(res.data[i].d);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].e)) == false) {
+                    sum = sum + parseFloat(res.data[i].e);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].f)) == false) {
+                    sum = sum + parseFloat(res.data[i].f);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].g)) == false) {
+                    sum = sum + parseFloat(res.data[i].g);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].h)) == false) {
+                    sum = sum + parseFloat(res.data[i].h);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].i)) == false) {
+                    sum = sum + parseFloat(res.data[i].i);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].j)) == false) {
+                    sum = sum + parseFloat(res.data[i].j);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].k)) == false) {
+                    sum = sum + parseFloat(res.data[i].k);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].l)) == false) {
+                    sum = sum + parseFloat(res.data[i].l);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].m)) == false) {
+                    sum = sum + parseFloat(res.data[i].m);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].n)) == false) {
+                    sum = sum + parseFloat(res.data[i].n);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].o)) == false) {
+                    sum = sum + parseFloat(res.data[i].o);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].p)) == false) {
+                    sum = sum + parseFloat(res.data[i].p);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].q)) == false) {
+                    sum = sum + parseFloat(res.data[i].q);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].r)) == false) {
+                    sum = sum + parseFloat(res.data[i].r);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].s)) == false) {
+                    sum = sum + parseFloat(res.data[i].s);
+                    count = count + 1;
+                }
+                if(count > 0){
+                    res.data[i].average = sum / count
+                }else{
+                    res.data[i].average = 0
+                }
+
+
+            }
             $("#keyAbilityScoreTable").bootstrapTable('hideColumn', 'eiId');
+            console.log(res.data)
         }
         console.log(res)
     })
@@ -19,6 +97,83 @@ function getEssentialList() {
         url: '/essential_info/getList',
     }, false, '', function (res) {
         if (res.code == 200) {
+
+            for(var i=0;i<res.data.length;i++){
+                var sum = 0
+                var count = 0
+                if (isNaN(parseFloat(res.data[i].d)) == false) {
+                    sum = sum + parseFloat(res.data[i].d);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].e)) == false) {
+                    sum = sum + parseFloat(res.data[i].e);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].f)) == false) {
+                    sum = sum + parseFloat(res.data[i].f);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].g)) == false) {
+                    sum = sum + parseFloat(res.data[i].g);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].h)) == false) {
+                    sum = sum + parseFloat(res.data[i].h);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].i)) == false) {
+                    sum = sum + parseFloat(res.data[i].i);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].j)) == false) {
+                    sum = sum + parseFloat(res.data[i].j);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].k)) == false) {
+                    sum = sum + parseFloat(res.data[i].k);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].l)) == false) {
+                    sum = sum + parseFloat(res.data[i].l);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].m)) == false) {
+                    sum = sum + parseFloat(res.data[i].m);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].n)) == false) {
+                    sum = sum + parseFloat(res.data[i].n);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].o)) == false) {
+                    sum = sum + parseFloat(res.data[i].o);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].p)) == false) {
+                    sum = sum + parseFloat(res.data[i].p);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].q)) == false) {
+                    sum = sum + parseFloat(res.data[i].q);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].r)) == false) {
+                    sum = sum + parseFloat(res.data[i].r);
+                    count = count + 1;
+                }
+                if (isNaN(parseFloat(res.data[i].s)) == false) {
+                    sum = sum + parseFloat(res.data[i].s);
+                    count = count + 1;
+                }
+                if(count > 0){
+                    res.data[i].average = sum / count
+                }else{
+                    res.data[i].average = 0
+                }
+
+
+            }
+
             setShowEssentialTable(res.data);
             $('#show-essential-modal').modal('show');
         }
@@ -50,6 +205,83 @@ $(function () {
             }
         }, false, '', function (res) {
             if (res.code == 200) {
+
+                for(var i=0;i<res.data.length;i++){
+                    var sum = 0
+                    var count = 0
+                    if (isNaN(parseFloat(res.data[i].d)) == false) {
+                        sum = sum + parseFloat(res.data[i].d);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].e)) == false) {
+                        sum = sum + parseFloat(res.data[i].e);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].f)) == false) {
+                        sum = sum + parseFloat(res.data[i].f);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].g)) == false) {
+                        sum = sum + parseFloat(res.data[i].g);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].h)) == false) {
+                        sum = sum + parseFloat(res.data[i].h);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].i)) == false) {
+                        sum = sum + parseFloat(res.data[i].i);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].j)) == false) {
+                        sum = sum + parseFloat(res.data[i].j);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].k)) == false) {
+                        sum = sum + parseFloat(res.data[i].k);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].l)) == false) {
+                        sum = sum + parseFloat(res.data[i].l);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].m)) == false) {
+                        sum = sum + parseFloat(res.data[i].m);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].n)) == false) {
+                        sum = sum + parseFloat(res.data[i].n);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].o)) == false) {
+                        sum = sum + parseFloat(res.data[i].o);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].p)) == false) {
+                        sum = sum + parseFloat(res.data[i].p);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].q)) == false) {
+                        sum = sum + parseFloat(res.data[i].q);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].r)) == false) {
+                        sum = sum + parseFloat(res.data[i].r);
+                        count = count + 1;
+                    }
+                    if (isNaN(parseFloat(res.data[i].s)) == false) {
+                        sum = sum + parseFloat(res.data[i].s);
+                        count = count + 1;
+                    }
+                    if(count > 0){
+                        res.data[i].average = sum / count
+                    }else{
+                        res.data[i].average = 0
+                    }
+
+
+                }
+
                 setTable(res.data)
                 $("#keyAbilityScoreTable").bootstrapTable('hideColumn', 'eiId');
             }
