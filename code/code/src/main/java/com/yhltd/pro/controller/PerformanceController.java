@@ -117,7 +117,8 @@ public class PerformanceController {
             String nian = performance.getNian();
             int eiId = performance.getEiId();
             double score = performance.getScore();
-            performanceService.update(id, nian, eiId, score);
+            String grade = performance.getGrade();
+            performanceService.update(id, nian, eiId, score, grade);
             return ResultInfo.success("修改成功", performance);
         } catch (Exception e) {
             e.printStackTrace();
@@ -193,6 +194,11 @@ public class PerformanceController {
                 if (score != null) {
                     score.setCellType(CellType.NUMERIC);
                     performance.setScore(score.getNumericCellValue());
+                }
+                Cell grade = row.getCell(4);
+                if (grade != null) {
+                    grade.setCellType(CellType.STRING);
+                    performance.setGrade(grade.getStringCellValue());
                 }
                 //保存到数据库
                 performanceService.add(performance);

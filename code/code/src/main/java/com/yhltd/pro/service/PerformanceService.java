@@ -50,7 +50,7 @@ public interface PerformanceService extends IService<Performance> {
      *
      * @return 是否修改成功
      */
-    void update(int id, String nian, int eiId, double score);
+    void update(int id, String nian, int eiId, double score , String grade);
 
     /**
      * 删除

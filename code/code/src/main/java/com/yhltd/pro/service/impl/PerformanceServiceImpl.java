@@ -40,8 +40,8 @@ public class PerformanceServiceImpl extends ServiceImpl<PerformanceMapper, Perfo
     }
 
     @Override
-    public void update(int id, String nian, int eiId, double score) {
-        performanceMapper.update(id, nian, eiId, score);
+    public void update(int id, String nian, int eiId, double score, String grade) {
+        performanceMapper.update(id, nian, eiId, score, grade);
     }
 
 

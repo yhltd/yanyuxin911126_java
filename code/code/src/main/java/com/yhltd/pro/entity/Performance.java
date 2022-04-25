@@ -41,4 +41,9 @@ public class Performance {
      */
     private String secondaryUnit;
 
+    /**
+     * 绩效评级
+     */
+    private String grade;
+
 }

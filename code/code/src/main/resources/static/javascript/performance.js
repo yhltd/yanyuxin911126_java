@@ -158,11 +158,36 @@ $(function () {
         $('#update-modal').modal('hide');
     })
 
+    function checkForm_chongxie(el) {
+        let result = true
+        $(el + ' input').each(function (index, input) {
+            let isRequired = $(input).data('required');
+            if (isRequired == "1" || index == 6) {
+                return true;
+            }
+            if ($(input).val() == '' || $(input).val() <= 0) {
+                $(input).next().css('display', 'block')
+                result = false
+            } else {
+                $(input).next().css('display', 'none')
+            }
+        })
+        $(el + ' select').each(function (index, select) {
+            if ($(select).val() == '' || $(select).val() == undefined) {
+                $(select).next().css('display', 'block')
+                result = false
+            } else {
+                $(select).next().css('display', 'none')
+            }
+        })
+        return result;
+    }
+
     //点击修改按钮提交事件
     $('#update-essential-btn').click(function () {
         var msg = confirm("确认要修改吗？")
         if (msg) {
-            if (checkForm('#update-form')) {
+            if (checkForm_chongxie('#update-form')) {
                 let params = formToJson('#update-form');
                 $ajax({
                     type: 'post',
@@ -318,6 +343,12 @@ function setTable(data) {
             }, {
                 field: 'score',
                 title: '总分',
+                align: 'left',
+                sortable: true,
+                width: 100
+            }, {
+                field: 'grade',
+                title: '绩效评级',
                 align: 'left',
                 sortable: true,
                 width: 100
